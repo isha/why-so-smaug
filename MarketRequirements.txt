@@ -1,0 +1,20 @@
+Product: Video Game implementation of Multiplayer Side scroller racing game
+
+1. Target Market:
+The target market for this product is: young adults (80-90s kids) who enjoy playing games in a social setting and of a competitive nature
+List of constraints or needs imposed by this target market:
+	1. Easy to get started (would like to have smaller, high paced games, minimal setup for multiplayer)
+	2. Should have similar controls for both players (i.e. if using joysticks, should be able to talk to two devices, level playing field, fast enough to not be annoying)
+	3. Gameplay > story (Catchy music/graphics, arcade style play but option to skip story)
+	4. Leaderboard (to have the competitive aspect)
+
+
+2. Requirements:
+List of project requirements:
+	1. Standard menu options such as controls, leaderboard, credits, play, settings (difficulty, story)
+	2. Random maps/levels with varying difficulty (powerups, obstacles)
+	3. All in one screen 
+	4. Nunchuck controlled
+	5. Catchphrases, bitchin music (for fun reasons)
+	6. Permanent external storage of scores
+	7. Bitchin graphics: classic arcade style graphics
