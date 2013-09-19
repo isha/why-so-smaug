@@ -1,0 +1,201 @@
+Info: Starting: Create block symbol file (.bsf)
+Info: ip-generate --project-directory=C:/Users/n1v7/Desktop/Code/ --output-directory=C:/Users/n1v7/Desktop/Code/nios_system/ --report-file=bsf:C:/Users/n1v7/Desktop/Code/nios_system.bsf --system-info=DEVICE_FAMILY="Cyclone II" --system-info=DEVICE=EP2C35F672C6 --system-info=DEVICE_SPEEDGRADE=6 --component-file=C:/Users/n1v7/Desktop/Code/nios_system.qsys
+Progress: Loading Code/nios_system.qsys
+Progress: Reading input file
+Progress: Adding clk_0 [clock_source 12.0]
+Warning: clk_0: Used clock_source 13.0 (instead of 12.0)
+Progress: Parameterizing module clk_0
+Progress: Adding nios2_processor [altera_nios2_qsys 12.0]
+Warning: nios2_processor: Used altera_nios2_qsys 13.0 (instead of 12.0)
+Progress: Parameterizing module nios2_processor
+Progress: Adding onchip_memory [altera_avalon_onchip_memory2 12.0]
+Warning: onchip_memory: Used altera_avalon_onchip_memory2 13.0.1.99.2 (instead of 12.0)
+Progress: Parameterizing module onchip_memory
+Progress: Adding switches [altera_avalon_pio 12.0]
+Warning: switches: Used altera_avalon_pio 13.0.1.99.2 (instead of 12.0)
+Progress: Parameterizing module switches
+Progress: Adding leds [altera_avalon_pio 12.0]
+Warning: leds: Used altera_avalon_pio 13.0.1.99.2 (instead of 12.0)
+Progress: Parameterizing module leds
+Progress: Adding jtag_uart [altera_avalon_jtag_uart 12.0]
+Warning: jtag_uart: Used altera_avalon_jtag_uart 13.0.1.99.2 (instead of 12.0)
+Progress: Parameterizing module jtag_uart
+Progress: Adding sdram [altera_avalon_new_sdram_controller 12.0]
+Warning: sdram: Used altera_avalon_new_sdram_controller 13.0.1.99.2 (instead of 12.0)
+Progress: Parameterizing module sdram
+Progress: Adding clocks [altera_up_clocks 12.0]
+Warning: clocks: Component type altera_up_clocks is not in the library
+Progress: Parameterizing module clocks
+Progress: Adding character_lcd_0 [altera_up_avalon_character_lcd 12.0]
+Warning: character_lcd_0: Component type altera_up_avalon_character_lcd is not in the library
+Progress: Parameterizing module character_lcd_0
+Progress: Adding pixel_buffer [altera_up_avalon_sram 12.0]
+Warning: pixel_buffer: Component type altera_up_avalon_sram is not in the library
+Progress: Parameterizing module pixel_buffer
+Progress: Adding pixel_buffer_dma [altera_up_avalon_video_pixel_buffer_dma 12.0]
+Warning: pixel_buffer_dma: Component type altera_up_avalon_video_pixel_buffer_dma is not in the library
+Progress: Parameterizing module pixel_buffer_dma
+Progress: Adding rgb_resampler [altera_up_avalon_video_rgb_resampler 12.0]
+Warning: rgb_resampler: Component type altera_up_avalon_video_rgb_resampler is not in the library
+Progress: Parameterizing module rgb_resampler
+Progress: Adding scaler [altera_up_avalon_video_scaler 12.0]
+Warning: scaler: Component type altera_up_avalon_video_scaler is not in the library
+Progress: Parameterizing module scaler
+Progress: Adding video_fifo [altera_up_avalon_video_dual_clock_buffer 12.0]
+Warning: video_fifo: Component type altera_up_avalon_video_dual_clock_buffer is not in the library
+Progress: Parameterizing module video_fifo
+Progress: Adding vga_controller [altera_up_avalon_video_vga_controller 12.0]
+Warning: vga_controller: Component type altera_up_avalon_video_vga_controller is not in the library
+Progress: Parameterizing module vga_controller
+Progress: Adding char_drawer [altera_up_avalon_video_character_buffer_with_dma 12.0]
+Warning: char_drawer: Component type altera_up_avalon_video_character_buffer_with_dma is not in the library
+Progress: Parameterizing module char_drawer
+Progress: Adding alpha_blender [altera_up_avalon_video_alpha_blender 12.0]
+Warning: alpha_blender: Component type altera_up_avalon_video_alpha_blender is not in the library
+Progress: Parameterizing module alpha_blender
+Progress: Building connections
+Progress: Parameterizing connections
+Progress: Validating
+Progress: Done reading input file
+Warning: nios_system.nios2_processor: The clock source connected to the Nios's clock input has an unknown clock frequency.
+Info: nios_system.switches: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
+Error: nios_system.sdram: Unknown input clock frequency.
+Error: nios_system.sdram: Calculated CAS latency is 0 ns.
+Error: nios_system.sdram: Invalid access time t_ac (must be < 0 ns).
+Error: nios_system.clocks: Component altera_up_clocks 12.0 not found or could not be instantiated
+Error: nios_system.character_lcd_0: Component altera_up_avalon_character_lcd 12.0 not found or could not be instantiated
+Error: nios_system.pixel_buffer: Component altera_up_avalon_sram 12.0 not found or could not be instantiated
+Error: nios_system.pixel_buffer_dma: Component altera_up_avalon_video_pixel_buffer_dma 12.0 not found or could not be instantiated
+Error: nios_system.rgb_resampler: Component altera_up_avalon_video_rgb_resampler 12.0 not found or could not be instantiated
+Error: nios_system.scaler: Component altera_up_avalon_video_scaler 12.0 not found or could not be instantiated
+Error: nios_system.video_fifo: Component altera_up_avalon_video_dual_clock_buffer 12.0 not found or could not be instantiated
+Error: nios_system.vga_controller: Component altera_up_avalon_video_vga_controller 12.0 not found or could not be instantiated
+Error: nios_system.char_drawer: Component altera_up_avalon_video_character_buffer_with_dma 12.0 not found or could not be instantiated
+Error: nios_system.alpha_blender: Component altera_up_avalon_video_alpha_blender 12.0 not found or could not be instantiated
+Error: nios_system.clocks.sys_clk/sdram.clk: Illegal connection start (clocks.sys_clk is an end interface)
+Error: nios_system.clocks.sys_clk/jtag_uart.clk: Illegal connection start (clocks.sys_clk is an end interface)
+Error: nios_system.clocks.sys_clk/leds.clk: Illegal connection start (clocks.sys_clk is an end interface)
+Error: nios_system.clocks.sys_clk/switches.clk: Illegal connection start (clocks.sys_clk is an end interface)
+Error: nios_system.clocks.sys_clk/onchip_memory.clk1: Illegal connection start (clocks.sys_clk is an end interface)
+Error: nios_system.clocks.sys_clk/nios2_processor.clk: Illegal connection start (clocks.sys_clk is an end interface)
+Error: nios_system.clocks.sys_clk/character_lcd_0.clock_reset: Illegal connection start (clocks.sys_clk is an end interface)
+Error: nios_system.clocks.sys_clk/pixel_buffer.clock_reset: Illegal connection start (clocks.sys_clk is an end interface)
+Error: nios_system.pixel_buffer_dma.avalon_pixel_dma_master/pixel_buffer.avalon_sram_slave: Illegal connection start (pixel_buffer_dma.avalon_pixel_dma_master is an end interface)
+Error: nios_system.clocks.sys_clk/pixel_buffer_dma.clock_reset: Illegal connection start (clocks.sys_clk is an end interface)
+Error: nios_system.pixel_buffer_dma.avalon_pixel_source/rgb_resampler.avalon_rgb_sink: Exception during validation: java.lang.IllegalArgumentException missing: no such parameter: dataBitsPerSymbol
+Error: nios_system.clocks.sys_clk/rgb_resampler.clock_reset: Illegal connection start (clocks.sys_clk is an end interface)
+Error: nios_system.rgb_resampler.avalon_rgb_source/scaler.avalon_scaler_sink: Exception during validation: java.lang.IllegalArgumentException missing: no such parameter: dataBitsPerSymbol
+Error: nios_system.clocks.sys_clk/scaler.clock_reset: Illegal connection start (clocks.sys_clk is an end interface)
+Error: nios_system.clocks.sys_clk/video_fifo.clock_stream_in: Illegal connection start (clocks.sys_clk is an end interface)
+Error: nios_system.clocks.vga_clk/video_fifo.clock_stream_out: Illegal connection start (clocks.vga_clk is an end interface)
+Error: nios_system.video_fifo.avalon_dc_buffer_source/vga_controller.avalon_vga_sink: Exception during validation: java.lang.IllegalArgumentException missing: no such parameter: dataBitsPerSymbol
+Error: nios_system.clocks.vga_clk/vga_controller.clock_reset: Illegal connection start (clocks.vga_clk is an end interface)
+Error: nios_system.clocks.sys_clk/char_drawer.clock_reset: Illegal connection start (clocks.sys_clk is an end interface)
+Error: nios_system.clocks.sys_clk/alpha_blender.clock_reset: Illegal connection start (clocks.sys_clk is an end interface)
+Error: nios_system.char_drawer.avalon_char_source/alpha_blender.avalon_foreground_sink: Exception during validation: java.lang.IllegalArgumentException missing: no such parameter: dataBitsPerSymbol
+Error: nios_system.scaler.avalon_scaler_source/alpha_blender.avalon_background_sink: Exception during validation: java.lang.IllegalArgumentException missing: no such parameter: dataBitsPerSymbol
+Error: nios_system.alpha_blender.avalon_blended_source/video_fifo.avalon_dc_buffer_sink: Exception during validation: java.lang.IllegalArgumentException missing: no such parameter: dataBitsPerSymbol
+Info: ip-generate succeeded.
+Info: Finished: Create block symbol file (.bsf)
+Info: 
+Info: Starting: Create HDL design files for synthesis
+Info: ip-generate --project-directory=C:/Users/n1v7/Desktop/Code/ --output-directory=C:/Users/n1v7/Desktop/Code/nios_system/synthesis/ --file-set=QUARTUS_SYNTH --report-file=sopcinfo:C:/Users/n1v7/Desktop/Code/nios_system.sopcinfo --report-file=html:C:/Users/n1v7/Desktop/Code/nios_system.html --report-file=qip:C:/Users/n1v7/Desktop/Code/nios_system/synthesis/nios_system.qip --report-file=cmp:C:/Users/n1v7/Desktop/Code/nios_system.cmp --report-file=svd --system-info=DEVICE_FAMILY="Cyclone II" --system-info=DEVICE=EP2C35F672C6 --system-info=DEVICE_SPEEDGRADE=6 --component-file=C:/Users/n1v7/Desktop/Code/nios_system.qsys --language=VERILOG
+Progress: Loading Code/nios_system.qsys
+Progress: Reading input file
+Progress: Adding clk_0 [clock_source 12.0]
+Warning: clk_0: Used clock_source 13.0 (instead of 12.0)
+Progress: Parameterizing module clk_0
+Progress: Adding nios2_processor [altera_nios2_qsys 12.0]
+Warning: nios2_processor: Used altera_nios2_qsys 13.0 (instead of 12.0)
+Progress: Parameterizing module nios2_processor
+Progress: Adding onchip_memory [altera_avalon_onchip_memory2 12.0]
+Warning: onchip_memory: Used altera_avalon_onchip_memory2 13.0.1.99.2 (instead of 12.0)
+Progress: Parameterizing module onchip_memory
+Progress: Adding switches [altera_avalon_pio 12.0]
+Warning: switches: Used altera_avalon_pio 13.0.1.99.2 (instead of 12.0)
+Progress: Parameterizing module switches
+Progress: Adding leds [altera_avalon_pio 12.0]
+Warning: leds: Used altera_avalon_pio 13.0.1.99.2 (instead of 12.0)
+Progress: Parameterizing module leds
+Progress: Adding jtag_uart [altera_avalon_jtag_uart 12.0]
+Warning: jtag_uart: Used altera_avalon_jtag_uart 13.0.1.99.2 (instead of 12.0)
+Progress: Parameterizing module jtag_uart
+Progress: Adding sdram [altera_avalon_new_sdram_controller 12.0]
+Warning: sdram: Used altera_avalon_new_sdram_controller 13.0.1.99.2 (instead of 12.0)
+Progress: Parameterizing module sdram
+Progress: Adding clocks [altera_up_clocks 12.0]
+Warning: clocks: Component type altera_up_clocks is not in the library
+Progress: Parameterizing module clocks
+Progress: Adding character_lcd_0 [altera_up_avalon_character_lcd 12.0]
+Warning: character_lcd_0: Component type altera_up_avalon_character_lcd is not in the library
+Progress: Parameterizing module character_lcd_0
+Progress: Adding pixel_buffer [altera_up_avalon_sram 12.0]
+Warning: pixel_buffer: Component type altera_up_avalon_sram is not in the library
+Progress: Parameterizing module pixel_buffer
+Progress: Adding pixel_buffer_dma [altera_up_avalon_video_pixel_buffer_dma 12.0]
+Warning: pixel_buffer_dma: Component type altera_up_avalon_video_pixel_buffer_dma is not in the library
+Progress: Parameterizing module pixel_buffer_dma
+Progress: Adding rgb_resampler [altera_up_avalon_video_rgb_resampler 12.0]
+Warning: rgb_resampler: Component type altera_up_avalon_video_rgb_resampler is not in the library
+Progress: Parameterizing module rgb_resampler
+Progress: Adding scaler [altera_up_avalon_video_scaler 12.0]
+Warning: scaler: Component type altera_up_avalon_video_scaler is not in the library
+Progress: Parameterizing module scaler
+Progress: Adding video_fifo [altera_up_avalon_video_dual_clock_buffer 12.0]
+Warning: video_fifo: Component type altera_up_avalon_video_dual_clock_buffer is not in the library
+Progress: Parameterizing module video_fifo
+Progress: Adding vga_controller [altera_up_avalon_video_vga_controller 12.0]
+Warning: vga_controller: Component type altera_up_avalon_video_vga_controller is not in the library
+Progress: Parameterizing module vga_controller
+Progress: Adding char_drawer [altera_up_avalon_video_character_buffer_with_dma 12.0]
+Warning: char_drawer: Component type altera_up_avalon_video_character_buffer_with_dma is not in the library
+Progress: Parameterizing module char_drawer
+Progress: Adding alpha_blender [altera_up_avalon_video_alpha_blender 12.0]
+Warning: alpha_blender: Component type altera_up_avalon_video_alpha_blender is not in the library
+Progress: Parameterizing module alpha_blender
+Progress: Building connections
+Progress: Parameterizing connections
+Progress: Validating
+Progress: Done reading input file
+Warning: nios_system.nios2_processor: The clock source connected to the Nios's clock input has an unknown clock frequency.
+Info: nios_system.switches: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
+Error: nios_system.sdram: Unknown input clock frequency.
+Error: nios_system.sdram: Calculated CAS latency is 0 ns.
+Error: nios_system.sdram: Invalid access time t_ac (must be < 0 ns).
+Error: nios_system.clocks: Component altera_up_clocks 12.0 not found or could not be instantiated
+Error: nios_system.character_lcd_0: Component altera_up_avalon_character_lcd 12.0 not found or could not be instantiated
+Error: nios_system.pixel_buffer: Component altera_up_avalon_sram 12.0 not found or could not be instantiated
+Error: nios_system.pixel_buffer_dma: Component altera_up_avalon_video_pixel_buffer_dma 12.0 not found or could not be instantiated
+Error: nios_system.rgb_resampler: Component altera_up_avalon_video_rgb_resampler 12.0 not found or could not be instantiated
+Error: nios_system.scaler: Component altera_up_avalon_video_scaler 12.0 not found or could not be instantiated
+Error: nios_system.video_fifo: Component altera_up_avalon_video_dual_clock_buffer 12.0 not found or could not be instantiated
+Error: nios_system.vga_controller: Component altera_up_avalon_video_vga_controller 12.0 not found or could not be instantiated
+Error: nios_system.char_drawer: Component altera_up_avalon_video_character_buffer_with_dma 12.0 not found or could not be instantiated
+Error: nios_system.alpha_blender: Component altera_up_avalon_video_alpha_blender 12.0 not found or could not be instantiated
+Error: nios_system.clocks.sys_clk/sdram.clk: Illegal connection start (clocks.sys_clk is an end interface)
+Error: nios_system.clocks.sys_clk/jtag_uart.clk: Illegal connection start (clocks.sys_clk is an end interface)
+Error: nios_system.clocks.sys_clk/leds.clk: Illegal connection start (clocks.sys_clk is an end interface)
+Error: nios_system.clocks.sys_clk/switches.clk: Illegal connection start (clocks.sys_clk is an end interface)
+Error: nios_system.clocks.sys_clk/onchip_memory.clk1: Illegal connection start (clocks.sys_clk is an end interface)
+Error: nios_system.clocks.sys_clk/nios2_processor.clk: Illegal connection start (clocks.sys_clk is an end interface)
+Error: nios_system.clocks.sys_clk/character_lcd_0.clock_reset: Illegal connection start (clocks.sys_clk is an end interface)
+Error: nios_system.clocks.sys_clk/pixel_buffer.clock_reset: Illegal connection start (clocks.sys_clk is an end interface)
+Error: nios_system.pixel_buffer_dma.avalon_pixel_dma_master/pixel_buffer.avalon_sram_slave: Illegal connection start (pixel_buffer_dma.avalon_pixel_dma_master is an end interface)
+Error: nios_system.clocks.sys_clk/pixel_buffer_dma.clock_reset: Illegal connection start (clocks.sys_clk is an end interface)
+Error: nios_system.pixel_buffer_dma.avalon_pixel_source/rgb_resampler.avalon_rgb_sink: Exception during validation: java.lang.IllegalArgumentException missing: no such parameter: dataBitsPerSymbol
+Error: nios_system.clocks.sys_clk/rgb_resampler.clock_reset: Illegal connection start (clocks.sys_clk is an end interface)
+Error: nios_system.rgb_resampler.avalon_rgb_source/scaler.avalon_scaler_sink: Exception during validation: java.lang.IllegalArgumentException missing: no such parameter: dataBitsPerSymbol
+Error: nios_system.clocks.sys_clk/scaler.clock_reset: Illegal connection start (clocks.sys_clk is an end interface)
+Error: nios_system.clocks.sys_clk/video_fifo.clock_stream_in: Illegal connection start (clocks.sys_clk is an end interface)
+Error: nios_system.clocks.vga_clk/video_fifo.clock_stream_out: Illegal connection start (clocks.vga_clk is an end interface)
+Error: nios_system.video_fifo.avalon_dc_buffer_source/vga_controller.avalon_vga_sink: Exception during validation: java.lang.IllegalArgumentException missing: no such parameter: dataBitsPerSymbol
+Error: nios_system.clocks.vga_clk/vga_controller.clock_reset: Illegal connection start (clocks.vga_clk is an end interface)
+Error: nios_system.clocks.sys_clk/char_drawer.clock_reset: Illegal connection start (clocks.sys_clk is an end interface)
+Error: nios_system.clocks.sys_clk/alpha_blender.clock_reset: Illegal connection start (clocks.sys_clk is an end interface)
+Error: nios_system.char_drawer.avalon_char_source/alpha_blender.avalon_foreground_sink: Exception during validation: java.lang.IllegalArgumentException missing: no such parameter: dataBitsPerSymbol
+Error: nios_system.scaler.avalon_scaler_source/alpha_blender.avalon_background_sink: Exception during validation: java.lang.IllegalArgumentException missing: no such parameter: dataBitsPerSymbol
+Error: nios_system.alpha_blender.avalon_blended_source/video_fifo.avalon_dc_buffer_sink: Exception during validation: java.lang.IllegalArgumentException missing: no such parameter: dataBitsPerSymbol
+Info: nios_system: Generating nios_system "nios_system" for QUARTUS_SYNTH
+Info: pipeline_bridge_swap_transform: After transform: 17 modules, 73 connections
+Info: No custom instruction connections, skipping transform 
+Error: An unexpected error occurred during Generate: java.lang.NullPointerException
