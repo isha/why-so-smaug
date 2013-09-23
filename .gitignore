@@ -1,0 +1,6 @@
+*.rpt
+*.done
+*.summary
+db/*
+incremental_db/compiled_partitions/*
+simulation/modelsim/*
