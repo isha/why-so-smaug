@@ -1,6 +1,12 @@
+# Quartus build related
 *.rpt
 *.done
 *.summary
 db/*
 incremental_db/compiled_partitions/*
 simulation/modelsim/*
+
+# Qsys generation related
+nios_system.html
+.qsys_edit/*
+nios_system/synthesis/submodules/nios_system_nios2_processor_ociram_default_contents.mif
