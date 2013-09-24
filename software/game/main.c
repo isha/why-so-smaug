@@ -26,7 +26,6 @@ int main(void)
 	alt_up_character_lcd_set_cursor_pos(char_lcd_dev, 0, 1);
 	alt_up_character_lcd_string(char_lcd_dev, second_row);
 
-	alt_up_pixel_buffer_dma_clear_screen(pixel_buffer, 0);
 	alt_up_pixel_buffer_dma_draw_line(pixel_buffer, 0, 240, 320, 0, 0xFFFF, 0);
 
 	alt_up_char_buffer_clear(char_buffer);
