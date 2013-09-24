@@ -10,3 +10,7 @@ simulation/modelsim/*
 nios_system.html
 .qsys_edit/*
 nios_system/synthesis/submodules/nios_system_nios2_processor_ociram_default_contents.mif
+
+# BSP generation
+software/game_bsp/settings.bsp
+software/game_bsp/summary.html
