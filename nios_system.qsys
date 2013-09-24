@@ -164,11 +164,11 @@
          type = "int";
       }
    }
-   element sdram.s1
+   element leds.s1
    {
       datum baseAddress
       {
-         value = "16777216";
+         value = "16400";
          type = "long";
       }
    }
@@ -188,11 +188,11 @@
          type = "long";
       }
    }
-   element leds.s1
+   element sdram.s1
    {
       datum baseAddress
       {
-         value = "16400";
+         value = "16777216";
          type = "long";
       }
    }
@@ -256,7 +256,7 @@
  <parameter name="projectName" value="vga_exercise.qpf" />
  <parameter name="sopcBorderPoints" value="false" />
  <parameter name="systemHash" value="1" />
- <parameter name="timeStamp" value="1379554130943" />
+ <parameter name="timeStamp" value="1379982171936" />
  <parameter name="useTestBenchNamingPattern" value="false" />
  <instanceScript></instanceScript>
  <interface name="clk" internal="clk_0.clk_in" type="clock" dir="end" />
@@ -535,7 +535,7 @@
    version="12.0"
    enabled="1"
    name="pixel_buffer_dma">
-  <parameter name="addr_mode" value="X-Y" />
+  <parameter name="addr_mode" value="Consecutive" />
   <parameter name="start_address" value="0" />
   <parameter name="back_start_address" value="0" />
   <parameter name="image_width" value="320" />
