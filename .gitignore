@@ -12,9 +12,6 @@ nios_system.html
 nios_system/synthesis/submodules/nios_system_nios2_processor_ociram_default_contents.mif
 
 # BSP generation
-software/game_bsp/settings.bsp
-software/game_bsp/summary.html
-
 software/game/game.elf
 software/game/game.map
 software/game/game.objdump
