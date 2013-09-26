@@ -7,7 +7,7 @@ ENTITY lights IS
 
    PORT (
       SW : IN STD_LOGIC_VECTOR(7 DOWNTO 0);
-      KEY : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+      KEY : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
       CLOCK_50 : IN STD_LOGIC;
       LEDG : OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
       DRAM_CLK, DRAM_CKE : OUT STD_LOGIC;
@@ -47,6 +47,7 @@ ARCHITECTURE Structure OF lights IS
       sdram_clk_clk : OUT STD_LOGIC;
       leds_export : OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
       switches_export : IN STD_LOGIC_VECTOR(7 DOWNTO 0);
+      buttons_export : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
       sdram_wire_addr : OUT STD_LOGIC_VECTOR(11 DOWNTO 0);
       sdram_wire_ba : BUFFER STD_LOGIC_VECTOR(1 DOWNTO 0);
       sdram_wire_cas_n : OUT STD_LOGIC;
@@ -91,10 +92,11 @@ ARCHITECTURE Structure OF lights IS
       DRAM_LDQM <= DQM(0);
       NiosII: nios_system PORT MAP (
          clk_clk => CLOCK_50,
-         reset_reset_n => KEY(0),
+         reset_reset_n => KEY(0) or KEY(1),
          sdram_clk_clk => DRAM_CLK,
          leds_export => LEDG,
          switches_export => SW,
+         buttons_export => KEY,
          sdram_wire_addr => DRAM_ADDR,
          sdram_wire_ba => BA,
          sdram_wire_cas_n => DRAM_CAS_N,

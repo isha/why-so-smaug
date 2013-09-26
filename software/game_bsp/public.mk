@@ -87,11 +87,11 @@ ACDS_VERSION := 12.0sp2
 
 # Quartus Generated JDI File. Required for resolving node instance ID's with 
 # design component names. 
-JDI_FILE := C:/Users/n1v7/Desktop/why-so-smaug/vga_exercise.jdi
+JDI_FILE := C:/Users/Kevin/Documents/EECE381/Project1/vga_exercise.jdi
 
 # Qsys--generated SOPCINFO file. Required for resolving node instance ID's with 
 # design component names. 
-SOPCINFO_FILE := C:/Users/n1v7/Desktop/why-so-smaug/nios_system.sopcinfo
+SOPCINFO_FILE := C:/Users/Kevin/Documents/EECE381/Project1/nios_system.sopcinfo
 
 # Big-Endian operation. 
 # setting BIG_ENDIAN is false
