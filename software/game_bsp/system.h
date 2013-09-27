@@ -2,9 +2,9 @@
  * system.h - SOPC Builder system and BSP software package information
  *
  * Machine generated for CPU 'nios2_processor' in SOPC Builder design 'nios_system'
- * SOPC Builder design path: C:/Users/n1v7/Desktop/why-so-smaug/nios_system.sopcinfo
+ * SOPC Builder design path: ../../nios_system.sopcinfo
  *
- * Generated: Mon Sep 23 16:53:20 PDT 2013
+ * Generated: Thu Sep 26 17:41:09 PDT 2013
  */
 
 /*
@@ -129,6 +129,7 @@
 #define __ALTERA_AVALON_PIO
 #define __ALTERA_NIOS2_QSYS
 #define __ALTERA_UP_AVALON_CHARACTER_LCD
+#define __ALTERA_UP_AVALON_PARALLEL_PORT
 #define __ALTERA_UP_AVALON_SRAM
 #define __ALTERA_UP_AVALON_VIDEO_CHARACTER_BUFFER_WITH_DMA
 #define __ALTERA_UP_AVALON_VIDEO_PIXEL_BUFFER_DMA
@@ -168,6 +169,20 @@
 #define ALT_STDOUT_PRESENT
 #define ALT_STDOUT_TYPE "altera_avalon_jtag_uart"
 #define ALT_SYSTEM_NAME "nios_system"
+
+
+/*
+ * buttons configuration
+ *
+ */
+
+#define ALT_MODULE_CLASS_buttons altera_up_avalon_parallel_port
+#define BUTTONS_BASE 0x1000
+#define BUTTONS_IRQ -1
+#define BUTTONS_IRQ_INTERRUPT_CONTROLLER_ID -1
+#define BUTTONS_NAME "/dev/buttons"
+#define BUTTONS_SPAN 16
+#define BUTTONS_TYPE "altera_up_avalon_parallel_port"
 
 
 /*

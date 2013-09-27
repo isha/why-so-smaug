@@ -22,6 +22,11 @@
    }
    element char_drawer.avalon_char_buffer_slave
    {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
       datum baseAddress
       {
          value = "8192";
@@ -30,6 +35,11 @@
    }
    element char_drawer.avalon_char_control_slave
    {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
       datum baseAddress
       {
          value = "16440";
@@ -38,6 +48,11 @@
    }
    element pixel_buffer_dma.avalon_control_slave
    {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
       datum baseAddress
       {
          value = "16416";
@@ -46,6 +61,11 @@
    }
    element jtag_uart.avalon_jtag_slave
    {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
       datum baseAddress
       {
          value = "16432";
@@ -54,18 +74,44 @@
    }
    element character_lcd_0.avalon_lcd_slave
    {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
       datum baseAddress
       {
          value = "16448";
          type = "long";
       }
    }
+   element buttons.avalon_parallel_port_slave
+   {
+      datum baseAddress
+      {
+         value = "4096";
+         type = "long";
+      }
+   }
    element pixel_buffer.avalon_sram_slave
    {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
       datum baseAddress
       {
          value = "524288";
          type = "long";
+      }
+   }
+   element buttons
+   {
+      datum _sortIndex
+      {
+         value = "17";
+         type = "int";
       }
    }
    element char_drawer
@@ -102,6 +148,11 @@
    }
    element nios2_processor.jtag_debug_module
    {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
       datum baseAddress
       {
          value = "6144";
@@ -164,8 +215,39 @@
          type = "int";
       }
    }
+   element sdram.s1
+   {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
+      datum baseAddress
+      {
+         value = "16777216";
+         type = "long";
+      }
+   }
+   element switches.s1
+   {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
+      datum baseAddress
+      {
+         value = "16384";
+         type = "long";
+      }
+   }
    element leds.s1
    {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
       datum baseAddress
       {
          value = "16400";
@@ -178,22 +260,6 @@
       {
          value = "1";
          type = "boolean";
-      }
-   }
-   element switches.s1
-   {
-      datum baseAddress
-      {
-         value = "16384";
-         type = "long";
-      }
-   }
-   element sdram.s1
-   {
-      datum baseAddress
-      {
-         value = "16777216";
-         type = "long";
       }
    }
    element scaler
@@ -256,7 +322,7 @@
  <parameter name="projectName" value="vga_exercise.qpf" />
  <parameter name="sopcBorderPoints" value="false" />
  <parameter name="systemHash" value="1" />
- <parameter name="timeStamp" value="1379982171936" />
+ <parameter name="timeStamp" value="1380229179981" />
  <parameter name="useTestBenchNamingPattern" value="false" />
  <instanceScript></instanceScript>
  <interface name="clk" internal="clk_0.clk_in" type="clock" dir="end" />
@@ -286,6 +352,11 @@
  <interface
    name="vga_controller"
    internal="vga_controller.external_interface"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="buttons"
+   internal="buttons.external_interface"
    type="conduit"
    dir="end" />
  <module kind="clock_source" version="12.0" enabled="1" name="clk_0">
@@ -387,7 +458,7 @@
   <parameter name="tightlyCoupledInstructionMaster2AddrWidth" value="1" />
   <parameter name="tightlyCoupledInstructionMaster3AddrWidth" value="1" />
   <parameter name="instSlaveMapParam"><![CDATA[<address-map><slave name='onchip_memory.s1' start='0x0' end='0x1000' /><slave name='nios2_processor.jtag_debug_module' start='0x1800' end='0x2000' /><slave name='sdram.s1' start='0x1000000' end='0x1800000' /></address-map>]]></parameter>
-  <parameter name="dataSlaveMapParam"><![CDATA[<address-map><slave name='onchip_memory.s1' start='0x0' end='0x1000' /><slave name='nios2_processor.jtag_debug_module' start='0x1800' end='0x2000' /><slave name='char_drawer.avalon_char_buffer_slave' start='0x2000' end='0x4000' /><slave name='switches.s1' start='0x4000' end='0x4010' /><slave name='leds.s1' start='0x4010' end='0x4020' /><slave name='pixel_buffer_dma.avalon_control_slave' start='0x4020' end='0x4030' /><slave name='jtag_uart.avalon_jtag_slave' start='0x4030' end='0x4038' /><slave name='char_drawer.avalon_char_control_slave' start='0x4038' end='0x4040' /><slave name='character_lcd_0.avalon_lcd_slave' start='0x4040' end='0x4042' /><slave name='pixel_buffer.avalon_sram_slave' start='0x80000' end='0x100000' /><slave name='sdram.s1' start='0x1000000' end='0x1800000' /></address-map>]]></parameter>
+  <parameter name="dataSlaveMapParam"><![CDATA[<address-map><slave name='onchip_memory.s1' start='0x0' end='0x1000' /><slave name='buttons.avalon_parallel_port_slave' start='0x1000' end='0x1010' /><slave name='nios2_processor.jtag_debug_module' start='0x1800' end='0x2000' /><slave name='char_drawer.avalon_char_buffer_slave' start='0x2000' end='0x4000' /><slave name='switches.s1' start='0x4000' end='0x4010' /><slave name='leds.s1' start='0x4010' end='0x4020' /><slave name='pixel_buffer_dma.avalon_control_slave' start='0x4020' end='0x4030' /><slave name='jtag_uart.avalon_jtag_slave' start='0x4030' end='0x4038' /><slave name='char_drawer.avalon_char_control_slave' start='0x4038' end='0x4040' /><slave name='character_lcd_0.avalon_lcd_slave' start='0x4040' end='0x4042' /><slave name='pixel_buffer.avalon_sram_slave' start='0x80000' end='0x100000' /><slave name='sdram.s1' start='0x1000000' end='0x1800000' /></address-map>]]></parameter>
   <parameter name="clockFrequency" value="50000000" />
   <parameter name="deviceFamilyName" value="Cyclone II" />
   <parameter name="internalIrqMaskSystemInfo" value="32" />
@@ -610,6 +681,26 @@
    name="alpha_blender">
   <parameter name="mode" value="Simple" />
   <parameter name="AUTO_CLOCK_RESET_CLOCK_RATE" value="50000000" />
+  <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone II" />
+ </module>
+ <module
+   kind="altera_up_avalon_parallel_port"
+   version="12.0"
+   enabled="1"
+   name="buttons">
+  <parameter name="board" value="DE2" />
+  <parameter name="custom_port" value="false" />
+  <parameter name="preset" value="Pushbuttons" />
+  <parameter name="leds" value="Green" />
+  <parameter name="sevensegs" value="3 to 0" />
+  <parameter name="gpio" value="GPIO 0 (JP1)" />
+  <parameter name="custom_DW" value="32" />
+  <parameter name="custom_direction" value="Input only" />
+  <parameter name="capture" value="false" />
+  <parameter name="edge" value="Rising" />
+  <parameter name="irq" value="false" />
+  <parameter name="irq_type" value="Edge" />
+  <parameter name="AUTO_CLOCK_RESET_CLOCK_RATE" value="25000000" />
   <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone II" />
  </module>
  <connection
@@ -1004,4 +1095,27 @@
    version="12.0"
    start="alpha_blender.avalon_blended_source"
    end="video_fifo.avalon_dc_buffer_sink" />
+ <connection
+   kind="clock"
+   version="12.0"
+   start="clocks.vga_clk"
+   end="buttons.clock_reset" />
+ <connection
+   kind="reset"
+   version="12.0"
+   start="nios2_processor.jtag_debug_module_reset"
+   end="buttons.clock_reset_reset" />
+ <connection
+   kind="reset"
+   version="12.0"
+   start="clk_0.clk_reset"
+   end="buttons.clock_reset_reset" />
+ <connection
+   kind="avalon"
+   version="12.0"
+   start="nios2_processor.data_master"
+   end="buttons.avalon_parallel_port_slave">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x1000" />
+ </connection>
 </system>
