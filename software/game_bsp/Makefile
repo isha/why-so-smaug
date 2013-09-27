@@ -101,7 +101,7 @@ ACDS_VERSION := 12.0sp2
 # BUILD_NUMBER: 263
 
 SETTINGS_FILE := settings.bsp
-SOPC_FILE := C:/Users/Kevin/Documents/EECE381/Project1/nios_system.sopcinfo
+SOPC_FILE := ../../nios_system.sopcinfo
 
 #-------------------------------------------------------------------------------
 #                             TOOL & COMMAND DEFINITIONS

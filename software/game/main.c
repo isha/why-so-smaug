@@ -3,9 +3,9 @@
 #include "lcd.h"
 #include <stdbool.h>
 
-#define switches (volatile char *) 0x0004000
-#define leds (char *) 0x0004010
-#define keys (volatile char *) 0x0001000
+#define switches (volatile char *) SWITCHES_BASE
+#define leds (char *) LEDS_BASE
+#define keys (volatile char *) BUTTONS_BASE
 
 alt_up_character_lcd_dev * char_lcd_dev;
 alt_up_pixel_buffer_dma_dev* pixel_buffer;
