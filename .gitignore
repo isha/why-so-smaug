@@ -5,6 +5,10 @@
 db/*
 incremental_db/compiled_partitions/*
 simulation/modelsim/*
+nios_system.sopcinfo
+nios_system/synthesis/nios_system.qip
+nios_system/synthesis/nios_system.v
+
 
 # Qsys generation related
 nios_system.html
@@ -16,5 +20,7 @@ software/game/game.elf
 software/game/game.map
 software/game/game.objdump
 software/game/obj/
-software/game_bsp/libhal_bsp.a
-software/game_bsp/obj/
+software/game_bsp/*
+
+# Random
+vga_exercise.parallel.txt
