@@ -119,36 +119,36 @@ void timer_test(void) {
 	// 50 MHz clock, so 50M cycles per second.
 	// Therefore, multiply by 5 to get the period in cycles
 
-	IOWR_16DIRECT(TIMER_2_BASE, 0, timer_period >> 16);
+	IOWR_16DIRECT(HW_ONLY_CLK_BASE, 0, timer_period >> 16);
 	// IOWR_16DIRECT (timer_base_address, offset, input_data)
 	// Offset 0x8 (8) is where the lower 8 bits of the period is stored
 	// bitwise & converts int period into hex
 
-	IOWR_16DIRECT(TIMER_2_BASE, 8, timer_period & 0xFFFF);
+	IOWR_16DIRECT(HW_ONLY_CLK_BASE, 8, timer_period & 0xFFFF);
 	// Offset 0xC (12) is where the higher 8 bits of the period is stored
 	// complete right shift casts int data to hex and clears the register
 
-	IOWR_16DIRECT(TIMER_2_BASE, 12, timer_period >> 16);
+	IOWR_16DIRECT(HW_ONLY_CLK_BASE, 12, timer_period >> 16);
 	// clear the status register at offset 0x0 (0)
 
 	printf(" Stopping Timer\n");
-	status = IORD_16DIRECT(TIMER_2_BASE, 0);
+	status = IORD_16DIRECT(HW_ONLY_CLK_BASE, 0);
 	// IORD_16DIRECT (timer_base_address, offset)
 	// Offset 0x0 (0) is where the current status of the timer can be read
 
 	if (status & 0x2) {	// ie. if the timer is currently running
-		IOWR_16DIRECT(TIMER_2_BASE, 4, 1 << 3);
+		IOWR_16DIRECT(HW_ONLY_CLK_BASE, 4, 1 << 3);
 		// adjust the control register at offset 0x4 (4) to enable to the stop bit and disable the start bit
 	}
 	printf(" Starting Timer\n");
-	IOWR_16DIRECT(TIMER_2_BASE, 4, 1 << 2);
+	IOWR_16DIRECT(HW_ONLY_CLK_BASE, 4, 1 << 2);
 	// adjust the control register at offset 0x4 (4) to enable the start bit and disable the stop bit
 
 	printf(" Waiting for timer to expire...\n");
 	done = 0;
 
 	while (! done) {
-		status = IORD_16DIRECT(TIMER_2_BASE, 0); // ie. continuously read the status of the timer at offset 0x0 (0)
+		status = IORD_16DIRECT(HW_ONLY_CLK_BASE, 0); // ie. continuously read the status of the timer at offset 0x0 (0)
 		done = status & 0x1; // compare the expected done value with the current status to check if timer completes
 	}
 	printf(" 5 seconds timer is done\n");
