@@ -4,7 +4,7 @@
 #include "obstacle.h"
 
 typedef struct{
-	int graphics[5][5];
+	int graphics[640][240];
 	int velocity;
 	char *phrases[5];
 	Obstacle obstacles [];
