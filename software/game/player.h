@@ -33,6 +33,7 @@ void construct_player(Player* player, char* screen_name) {
 }
 
 void set_coordinates(Player* player) {
+	// Y-component is subtracted to abastract array convention (y=0 at top, y=240 at bottom)
 	player->coordinates_x += player->velocity_x;
 	player->coordinates_y -= player->velocity_y;
 	//TODO: constrain coordinates to screen
@@ -42,7 +43,5 @@ void change_velocity(Player* player, int velocity_x, int velocity_y ) {
 	player->velocity_x = velocity_x;
 	player->velocity_y = velocity_y;
 }
-
-Player player1;
 
 #endif /* PLAYER_H_ */
