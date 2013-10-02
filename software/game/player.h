@@ -38,7 +38,7 @@ void set_coordinates(Player* player) {
 	//TODO: constrain coordinates to screen
 }
 
-void change_speed(Player* player, int velocity_x, int velocity_y ) {
+void change_velocity(Player* player, int velocity_x, int velocity_y ) {
 	player->velocity_x = velocity_x;
 	player->velocity_y = velocity_y;
 }
