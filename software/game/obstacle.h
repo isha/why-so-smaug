@@ -19,9 +19,15 @@ typedef struct{
 	int coordinates_y;
 } Obstacle;
 
-void set_coordinates(Obstacle obstacle, int x, int y){
-	obstacle.coordinates_x = x;
-	obstacle.coordinates_y = y;
+void construct_obstacle(Obstacle* obstacle, ObstacleType type, int xpos, int ypos) {
+	obstacle->type = type;
+	obstacle->coordinates_x = xpos;
+	obstacle->coordinates_y = ypos;
+}
+
+void set_obstacle_coordinates(Obstacle *obstacle, int x, int y){
+	obstacle->coordinates_x = x;
+	obstacle->coordinates_y = y;
 }
 
 #endif /* OBSTACLE_H_ */

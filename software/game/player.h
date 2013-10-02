@@ -32,7 +32,7 @@ void construct_player(Player* player, char* screen_name) {
 	player->coordinates_y = START_COORDINATE_Y;
 }
 
-void set_coordinates(Player* player) {
+void set_player_coordinates(Player* player) {
 	// Y-component is subtracted to abastract array convention (y=0 at top, y=240 at bottom)
 	player->coordinates_x += player->velocity_x;
 	player->coordinates_y -= player->velocity_y;
