@@ -11,11 +11,9 @@
 #define leds (char *) LEDS_BASE
 #define keys (volatile char *) BUTTONS_BASE
 
-alt_up_character_lcd_dev * char_lcd_dev;
-
 
 void init() {
-	initialize_lcd(&char_lcd_dev);
+	initialize_lcd();
 	initialize_vga();
 }
 
@@ -39,45 +37,46 @@ int main(void)
 
 	Obstacle obstacles[2] = {obstacle1, obstacle2};
 	memcpy(map.obstacles, obstacles, sizeof(obstacles));
-
-//	int *buttons;
-//	bool bouncing = false;
-//
-//	printf("Woohoo!\n");
-//
-//	init();
-//
-//	alt_up_pixel_buffer_dma_draw_line(pixel_buffer, 0, 240, 320, 0, 0xFFFF, 0);
-//
-//	alt_up_char_buffer_clear(char_buffer);
-//	alt_up_char_buffer_string(char_buffer, "EECE 381", 60, 50);
-//
-//	timer_test();
-//
-//	while(1){
-//		*leds = *switches;
-//
-//		buttons = (int *) keys;
-//		if (buttons[0] == 8 && !bouncing){
-//			bouncing = true;
-//			alt_up_character_lcd_string(char_lcd_dev, "3");
-//		}
-//		else if (buttons[0] == 4 && !bouncing){
-//			bouncing = true;
-//			alt_up_character_lcd_string(char_lcd_dev, "2");
-//		}
-//		else if (buttons[0] == 2 && !bouncing){
-//			bouncing = true;
-//			alt_up_character_lcd_string(char_lcd_dev, "1");
-//		}
-//		else if (buttons[0] == 1 && !bouncing){
-//			bouncing = true;
-//			alt_up_character_lcd_string(char_lcd_dev, "0");
-//		}
-//		else if (buttons[0] == 0){
-//			bouncing = false;
-//		}
-//	}
 	return 0;
 }
 
+void test() {
+	int *buttons;
+	bool bouncing = false;
+
+	printf("Woohoo!\n");
+
+	init();
+
+	alt_up_pixel_buffer_dma_draw_line(pixel_buffer, 0, 240, 320, 0, 0xFFFF, 0);
+
+	alt_up_char_buffer_clear(char_buffer);
+	alt_up_char_buffer_string(char_buffer, "EECE 381", 60, 50);
+
+	timer_test();
+
+	while(1){
+		*leds = *switches;
+
+		buttons = (int *) keys;
+		if (buttons[0] == 8 && !bouncing){
+			bouncing = true;
+			alt_up_character_lcd_string(char_lcd_dev, "3");
+		}
+		else if (buttons[0] == 4 && !bouncing){
+			bouncing = true;
+			alt_up_character_lcd_string(char_lcd_dev, "2");
+		}
+		else if (buttons[0] == 2 && !bouncing){
+			bouncing = true;
+			alt_up_character_lcd_string(char_lcd_dev, "1");
+		}
+		else if (buttons[0] == 1 && !bouncing){
+			bouncing = true;
+			alt_up_character_lcd_string(char_lcd_dev, "0");
+		}
+		else if (buttons[0] == 0){
+			bouncing = false;
+		}
+	}
+}
