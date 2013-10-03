@@ -5,6 +5,7 @@
 #include "timer.h"
 #include "map.h"
 #include "obstacle.h"
+#include "player.h"
 
 
 #define switches (volatile char *) SWITCHES_BASE
@@ -21,22 +22,20 @@ int main(void)
 {
 	init();
 
-	//Player player1;
+	bool game_on = true;
 	Map map;
-	Obstacle obstacle1, obstacle2;
+	Player player1;
+	char* phrases[PHRASES_COUNT] = {"Pow", "Nice Job", "You Suck", "", ""};
 
-	obstacle1.type = WALL;
-	set_coordinates(obstacle1, 0, 0);
+	construct_player(&player1, "The big cheese");
+	construct_map(&map, phrases, 10);
 
-	obstacle2.type = POTION;
-	set_coordinates(obstacle2, 10, 10);
-
-	map.velocity = 10;
-	char **phrases = {"Pow", "Nice Job", "You Suck", "", ""};
-	memcpy(map.phrases, phrases, sizeof(phrases));
-
-	Obstacle obstacles[2] = {obstacle1, obstacle2};
-	memcpy(map.obstacles, obstacles, sizeof(obstacles));
+	while (player1.health != 0 && game_on) {
+		// read player controls
+		// calc player next move
+		// check interactions
+		// draw ALL THE THINGS!!!!
+	}
 	return 0;
 }
 
