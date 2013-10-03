@@ -8,7 +8,7 @@
 #define ADJECTIVE_COUNT 14
 #define LAST_NAME_COUNT 13
 
-char first_names[FIRST_NAME_COUNT][] = {
+char *first_names[FIRST_NAME_COUNT] = {
   "Kevin",
   "Isha",
   "Rafael",
@@ -19,9 +19,9 @@ char first_names[FIRST_NAME_COUNT][] = {
   "Lance",
   "Romeo",
   "Hulio"
-}
+};
 
-char adjectives[][] = {
+char *adjectives[ADJECTIVE_COUNT] = {
   "Fluffy",
   "Hammered",
   "Feisty",
@@ -36,9 +36,9 @@ char adjectives[][] = {
   "Hungry",
   "Abrasive",
   "Raging"
-}
+};
 
-char last_names[][] = {
+char *last_names[LAST_NAME_COUNT] = {
   "Dwarve-lord",
   "Dragon-slayer",
   "Fiddler",
@@ -52,17 +52,15 @@ char last_names[][] = {
   "Penguin",
   "Accident",
   "Balla"
-}
+};
 
 char* get_screen_name() {
-  srand(time(NULL));
-
-  char name[] = first_names[rand() % FIRST_NAME_COUNT];
+  char *name;
+  strcpy(name, first_names[rand() % FIRST_NAME_COUNT]);
   strcat(name, " the ");
   strcat(name, adjectives[rand() % ADJECTIVE_COUNT]);
   strcat(name, " ");
   strcat(name, last_names[rand() % LAST_NAME_COUNT]);
-
   return name;
 }
 

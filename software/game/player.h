@@ -1,6 +1,8 @@
 #ifndef PLAYER_H_
 #define PLAYER_H_
 
+#include "screen_name.h"
+
 #define MAX_HEALTH 3
 #define START_TIME 0
 #define START_SCORE 0
@@ -30,6 +32,8 @@ void construct_player(Player* player, char* screen_name) {
 	player->velocity_y = START_VELOCITY_Y;
 	player->coordinates_x = START_COORDINATE_X;
 	player->coordinates_y = START_COORDINATE_Y;
+
+	printf("\nPlayer created with name %s ", player->screen_name);
 }
 
 void set_player_coordinates(Player* player) {

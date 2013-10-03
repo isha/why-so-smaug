@@ -7,7 +7,6 @@
 #include "obstacle.h"
 #include "player.h"
 
-
 #define switches (volatile char *) SWITCHES_BASE
 #define leds (char *) LEDS_BASE
 #define keys (volatile char *) BUTTONS_BASE
@@ -20,14 +19,17 @@ void init() {
 
 int main(void)
 {
+	alt_timestamp_start();
 	init();
-
 	bool game_on = true;
+
+	srand((int)alt_timestamp());
+
 	Map map;
 	Player player1;
 	char* phrases[PHRASES_COUNT] = {"Pow", "Nice Job", "You Suck", "", ""};
 
-	construct_player(&player1, "The big cheese");
+	construct_player(&player1, get_screen_name());
 	construct_map(&map, phrases, 10);
 
 	while (player1.health != 0 && game_on) {
@@ -44,8 +46,6 @@ void test() {
 	bool bouncing = false;
 
 	printf("Woohoo!\n");
-
-	init();
 
 	alt_up_pixel_buffer_dma_draw_line(pixel_buffer, 0, 240, 320, 0, 0xFFFF, 0);
 
