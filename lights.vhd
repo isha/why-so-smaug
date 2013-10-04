@@ -33,10 +33,10 @@ ENTITY lights IS
 		SRAM_CE_N :	OUT STD_LOGIC;
 		SRAM_OE_N :	OUT STD_LOGIC;
 		SRAM_WE_N : OUT STD_LOGIC;
-		SD_DAT : OUT STD_LOGIC;
-		SD_DAT3 : OUT STD_LOGIC;
-		SD_CMD: OUT STD_LOGIC;
-		SD_CLK: OUT STD_LOGIC
+		SD_DAT  : INOUT STD_LOGIC;
+		SD_DAT3 : INOUT STD_LOGIC;
+		SD_CMD  : INOUT STD_LOGIC;
+		SD_CLK  : OUT STD_LOGIC
 	);
 
    END lights;
@@ -81,7 +81,12 @@ ARCHITECTURE Structure OF lights IS
 		sram_UB_N : out STD_LOGIC;
 		sram_CE_N : out STD_LOGIC;
 		sram_OE_N : out STD_LOGIC;
-		sram_WE_N : out STD_LOGIC
+		sram_WE_N : out STD_LOGIC;
+		sdcard_b_SD_cmd      : inout std_logic;
+      sdcard_b_SD_dat      : inout std_logic;
+      sdcard_b_SD_dat3     : inout std_logic;
+      sdcard_o_SD_clock    : out   std_logic
+		
 	);
  
    END COMPONENT;
@@ -130,7 +135,11 @@ ARCHITECTURE Structure OF lights IS
 			sram_UB_N	=>	SRAM_UB_N,
 			sram_CE_N	=>	SRAM_CE_N,
 			sram_OE_N	=>	SRAM_OE_N,
-			sram_WE_N	=>	SRAM_WE_N
+			sram_WE_N	=>	SRAM_WE_N,
+			sdcard_b_SD_cmd   => SD_CMD,
+         sdcard_b_SD_dat   => SD_DAT,
+         sdcard_b_SD_dat3  => SD_DAT3,
+         sdcard_o_SD_clock => SD_CLK
 		);
 
    END Structure;

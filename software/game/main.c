@@ -24,9 +24,8 @@ int main(void)
 	init();
 	bool game_on = true;
 
-<<<<<<< HEAD
 	srand((int)alt_timestamp());
-=======
+
 	test();
 
 	//Player player1;
@@ -35,7 +34,6 @@ int main(void)
 
 	obstacle1.type = WALL;
 	set_coordinates(obstacle1, 0, 0);
->>>>>>> Revised test suite
 
 	Map map;
 	Player player1;
@@ -57,14 +55,12 @@ void test() {
 	int *buttons;
 	bool bouncing = false;
 
-	printf("Woohoo!\n");
-
 	alt_up_pixel_buffer_dma_draw_line(pixel_buffer, 0, 240, 320, 0, 0xFFFF, 0);
 
 	alt_up_char_buffer_clear(char_buffer);
 	alt_up_char_buffer_string(char_buffer, "EECE 381", 60, 50);
 
-	timer_test();
+//	timer_test();
 	sdcard_test();
 
 	while(1){

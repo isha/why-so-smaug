@@ -231,6 +231,14 @@
          type = "int";
       }
    }
+   element sys_clk.s1
+   {
+      datum baseAddress
+      {
+         value = "5184";
+         type = "long";
+      }
+   }
    element onchip_memory.s1
    {
       datum _lockedAddress
@@ -252,6 +260,19 @@
          type = "long";
       }
    }
+   element sdram.s1
+   {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
+      datum baseAddress
+      {
+         value = "16777216";
+         type = "long";
+      }
+   }
    element switches.s1
    {
       datum _lockedAddress
@@ -265,22 +286,6 @@
          type = "long";
       }
    }
-   element timestamp_clk.s1
-   {
-      datum baseAddress
-      {
-         value = "5152";
-         type = "long";
-      }
-   }
-   element sys_clk.s1
-   {
-      datum baseAddress
-      {
-         value = "5184";
-         type = "long";
-      }
-   }
    element hw_only_clk.s1
    {
       datum baseAddress
@@ -289,16 +294,11 @@
          type = "long";
       }
    }
-   element sdram.s1
+   element timestamp_clk.s1
    {
-      datum _lockedAddress
-      {
-         value = "1";
-         type = "boolean";
-      }
       datum baseAddress
       {
-         value = "16777216";
+         value = "5152";
          type = "long";
       }
    }
@@ -386,7 +386,7 @@
  <parameter name="projectName" value="vga_exercise.qpf" />
  <parameter name="sopcBorderPoints" value="false" />
  <parameter name="systemHash" value="1" />
- <parameter name="timeStamp" value="1380832764467" />
+ <parameter name="timeStamp" value="1380839247780" />
  <parameter name="useTestBenchNamingPattern" value="false" />
  <instanceScript></instanceScript>
  <interface name="clk" internal="clk_0.clk_in" type="clock" dir="end" />
@@ -1329,7 +1329,6 @@
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x1000" />
  </connection>
- <connection kind="clock" version="12.0" start="clk_0.clk" end="sdcard.clock_sink" />
  <connection
    kind="reset"
    version="12.0"
@@ -1340,4 +1339,9 @@
    version="12.0"
    start="nios2_processor.jtag_debug_module_reset"
    end="sdcard.clock_sink_reset" />
+ <connection
+   kind="clock"
+   version="12.0"
+   start="clocks.sys_clk"
+   end="sdcard.clock_sink" />
 </system>
