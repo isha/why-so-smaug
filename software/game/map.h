@@ -2,25 +2,25 @@
 #define MAP_H_
 
 #include "obstacle.h"
+
+/* Following info will usually come from a map structure in the sdcard */
 #define PHRASES_COUNT 5
+#define MAP_VELOCITY 10
+char* phrases[PHRASES_COUNT] = {"Pow", "Nice Job", "You Suck", "", ""};
+/**/
 
 typedef struct{
 	int graphics[640][240];
 	int velocity;
 	char *phrases[PHRASES_COUNT];
-	Obstacle obstacles [];
+	Obstacle * obstacles;
 } Map;
 
-void construct_map(Map* map, char* phrases[PHRASES_COUNT], int velocity) {
-	Obstacle obstacle1, obstacle2;
-
-	construct_obstacle(&obstacle1, WALL, 0, 0);
-	construct_obstacle(&obstacle2, POTION, 10, 10);
-
-	map->velocity = velocity;
+Map * construct_map() {
+	Map * map;
+	map->velocity = MAP_VELOCITY;
 	memcpy(map->phrases, phrases, sizeof(phrases));
-	map->obstacles[0] = obstacle1;
-	map->obstacles[1] = obstacle1;
+	map->obstacles = construct_obstacle(WALL, 100, 100);
 }
 
 #endif /* LCD_H_ */

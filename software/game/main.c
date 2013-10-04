@@ -13,7 +13,6 @@
 #define keys (volatile char *) BUTTONS_BASE
 
 void init() {
-	initialize_lcd();
 	initialize_vga();
 	initialize_sdcard();
 }
@@ -22,30 +21,16 @@ int main(void)
 {
 	alt_timestamp_start();
 	init();
+	printf("\nSeed %d", (unsigned int)alt_timestamp());
+	srand((unsigned int)alt_timestamp());
 	bool game_on = true;
 
-<<<<<<< HEAD
-	srand((int)alt_timestamp());
+	Player *player1 = construct_player(get_screen_name());
+	printf("\nPlayer created with name %s, screen %s", player1->screen_name, get_screen_name());
+	Map *map = construct_map();
 
-=======
->>>>>>> Moved test method from main() to test()
-	test();
-
-	//Player player1;
-	Map map;
-	Obstacle obstacle1, obstacle2;
-
-	obstacle1.type = WALL;
-	set_coordinates(obstacle1, 0, 0);
-
-	Map map;
-	Player player1;
-	char* phrases[PHRASES_COUNT] = {"Pow", "Nice Job", "You Suck", "", ""};
-
-	construct_player(&player1, get_screen_name());
-	construct_map(&map, phrases, 10);
-
-	while (player1.health != 0 && game_on) {
+	while (player1->health != 0 && game_on) {
+		printf("\nGame playing");
 		// read player controls
 		// calc player next move
 		// check interactions
