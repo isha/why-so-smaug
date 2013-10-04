@@ -36,7 +36,17 @@ ENTITY lights IS
 		SD_DAT  : INOUT STD_LOGIC;
 		SD_DAT3 : INOUT STD_LOGIC;
 		SD_CMD  : INOUT STD_LOGIC;
-		SD_CLK  : OUT STD_LOGIC
+		SD_CLK  : OUT STD_LOGIC;
+		I2C_SDAT : INOUT STD_LOGIC;
+		I2C_SCLK : OUT STD_LOGIC;
+		AUD_XCK : OUT STD_LOGIC;
+		CLOCK_27 : IN STD_LOGIC;
+		AUD_ADCDAT : IN STD_LOGIC;
+		AUD_ADCLRCK : IN STD_LOGIC;
+		AUD_BCLK : IN STD_LOGIC;
+		AUD_DACDAT : OUT STD_LOGIC;
+		AUD_DACLRCK : IN STD_LOGIC;
+		TD_RESET : OUT STD_LOGIC
 	);
 
    END lights;
@@ -85,8 +95,16 @@ ARCHITECTURE Structure OF lights IS
 		sdcard_b_SD_cmd      : inout std_logic;
       sdcard_b_SD_dat      : inout std_logic;
       sdcard_b_SD_dat3     : inout std_logic;
-      sdcard_o_SD_clock    : out   std_logic
-		
+      sdcard_o_SD_clock    : out   std_logic;
+		audio_config_SDAT : INOUT STD_LOGIC;
+		audio_config_SCLK : OUT STD_LOGIC;
+		audio_clk_clk : OUT STD_LOGIC;
+		clk_27_clk : IN STD_LOGIC;
+		audio_ADCDAT : IN STD_LOGIC;
+		audio_ADCLRCK : IN STD_LOGIC;
+		audio_BCLK : IN STD_LOGIC;
+		audio_DACDAT : OUT STD_LOGIC;
+		audio_DACLRCK : IN STD_LOGIC
 	);
  
    END COMPONENT;
@@ -99,6 +117,7 @@ ARCHITECTURE Structure OF lights IS
       DRAM_BA_1 <= BA(1);
       DRAM_UDQM <= DQM(1);
       DRAM_LDQM <= DQM(0);
+		TD_RESET <= '1';
       NiosII: nios_system PORT MAP (
          clk_clk => CLOCK_50,
          reset_reset_n => KEY(0) or KEY(1),
@@ -139,7 +158,16 @@ ARCHITECTURE Structure OF lights IS
 			sdcard_b_SD_cmd   => SD_CMD,
          sdcard_b_SD_dat   => SD_DAT,
          sdcard_b_SD_dat3  => SD_DAT3,
-         sdcard_o_SD_clock => SD_CLK
+         sdcard_o_SD_clock => SD_CLK,
+			audio_config_SDAT  => I2C_SDAT,
+			audio_config_SCLK  => I2C_SCLK,
+			audio_clk_clk => AUD_XCK,
+			clk_27_clk => CLOCK_27,
+			audio_ADCDAT => AUD_ADCDAT,
+			audio_ADCLRCK => AUD_ADCLRCK,
+			audio_BCLK => AUD_BCLK,
+			audio_DACDAT => AUD_DACDAT,
+			audio_DACLRCK => AUD_DACLRCK
 		);
 
    END Structure;
