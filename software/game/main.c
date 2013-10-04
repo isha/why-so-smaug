@@ -24,8 +24,11 @@ int main(void)
 	init();
 	bool game_on = true;
 
+<<<<<<< HEAD
 	srand((int)alt_timestamp());
 
+=======
+>>>>>>> Moved test method from main() to test()
 	test();
 
 	//Player player1;
@@ -60,7 +63,7 @@ void test() {
 	alt_up_char_buffer_clear(char_buffer);
 	alt_up_char_buffer_string(char_buffer, "EECE 381", 60, 50);
 
-//	timer_test();
+	timer_test();
 	sdcard_test();
 
 	while(1){
