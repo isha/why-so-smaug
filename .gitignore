@@ -8,6 +8,10 @@ simulation/modelsim/*
 nios_system.sopcinfo
 nios_system/synthesis/nios_system.qip
 nios_system/synthesis/nios_system.v
+vga_exercise.jdi
+vga_exercise.pin
+vga_exercise.pof
+vga_exercise.sof
 
 
 # Qsys generation related
