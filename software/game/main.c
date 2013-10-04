@@ -31,6 +31,8 @@ int main(void)
 
 	alt_timestamp_start();
 	init();
+	printf("\nSeed %d", (unsigned int)alt_timestamp());
+	srand((unsigned int)alt_timestamp());
 	bool game_on = true;
 
 	Map map;
@@ -53,18 +55,6 @@ int main(void)
 		}
 		alt_up_pixel_buffer_dma_draw(pixel_buffer, 0x740, player1.coordinates_x, player1.coordinates_y);
 		alt_up_pixel_buffer_dma_swap_buffers(pixel_buffer);
-	}
-
-
-
-
-//	while (player1.health != 0 && game_on) {
-//		// read player controls
-//		// calc player next move
-//		// check interactions
-//		// draw ALL THE THINGS!!!!
-//	}
-
 
 	return 0;
 }

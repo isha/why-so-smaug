@@ -23,7 +23,8 @@ typedef struct{
 	int coordinates_y;
 } Player;
 
-void construct_player(Player* player, char* screen_name) {
+Player * construct_player(char* screen_name) {
+	Player * player;
 	player->screen_name = screen_name;
 	player->score = START_SCORE;
 	player->time = START_TIME;
@@ -32,8 +33,7 @@ void construct_player(Player* player, char* screen_name) {
 	player->velocity_y = START_VELOCITY_Y;
 	player->coordinates_x = START_COORDINATE_X;
 	player->coordinates_y = START_COORDINATE_Y;
-
-	printf("\nPlayer created with name %s ", player->screen_name);
+	return player;
 }
 
 void set_player_coordinates(Player* player) {

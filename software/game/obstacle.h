@@ -10,24 +10,27 @@
 
 typedef enum {
 	WALL,
-	POTION
+	POTION,
+	WENCH,
+	CHEST,
+	COIN,
+	POISION
 } ObstacleType;
 
 typedef struct{
 	ObstacleType type;
 	int coordinates_x;
 	int coordinates_y;
+	struct Obstacle * next;
 } Obstacle;
 
-void construct_obstacle(Obstacle* obstacle, ObstacleType type, int xpos, int ypos) {
+Obstacle * construct_obstacle(ObstacleType type, int xpos, int ypos) {
+	Obstacle * obstacle;
 	obstacle->type = type;
 	obstacle->coordinates_x = xpos;
 	obstacle->coordinates_y = ypos;
-}
-
-void set_obstacle_coordinates(Obstacle *obstacle, int x, int y){
-	obstacle->coordinates_x = x;
-	obstacle->coordinates_y = y;
+	obstacle->next = NULL;
+	return obstacle;
 }
 
 #endif /* OBSTACLE_H_ */
