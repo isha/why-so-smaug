@@ -55,12 +55,13 @@ char *last_names[LAST_NAME_COUNT] = {
 };
 
 char* get_screen_name() {
-  char *name;
+  char *name = " ";
   strcpy(name, first_names[rand() % FIRST_NAME_COUNT]);
   strcat(name, " the ");
   strcat(name, adjectives[rand() % ADJECTIVE_COUNT]);
   strcat(name, " ");
   strcat(name, last_names[rand() % LAST_NAME_COUNT]);
+  printf("\nName returned %s", name);
   return name;
 }
 

@@ -14,7 +14,6 @@
 
 void init() {
 	initialize_vga();
-	initialize_sdcard();
 }
 
 int main(void)
@@ -25,16 +24,19 @@ int main(void)
 	srand((unsigned int)alt_timestamp());
 	bool game_on = true;
 
-	Player *player1 = construct_player(get_screen_name());
-	printf("\nPlayer created with name %s, screen %s", player1->screen_name, get_screen_name());
+	Player *player1 = construct_player("Elf friend");
+	printf("\nPlayer created with name %s", player1->screen_name);
 	Map *map = construct_map();
+	printf("\nConstructed Map with velocity %d", map->velocity);
 
 	while (player1->health != 0 && game_on) {
-		printf("\nGame playing");
+		usleep(2000000); // sleep 3 seconds
 		// read player controls
 		// calc player next move
 		// check interactions
-		// draw ALL THE THINGS!!!!
+		next_map(map);
+		update_screen(map);
+		draw_to_screen();
 	}
 	return 0;
 }
