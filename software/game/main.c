@@ -6,7 +6,7 @@
 #include "map.h"
 #include "obstacle.h"
 #include "player.h"
-
+#include "scoreboard.h"
 
 #define switches (volatile char *) SWITCHES_BASE
 #define leds (char *) LEDS_BASE
@@ -21,6 +21,7 @@ void init() {
 int main(void)
 {
 	init();
+
 
 	bool game_on = true;
 	Map map;
@@ -53,6 +54,16 @@ void test() {
 	alt_up_char_buffer_string(char_buffer, "EECE 381", 60, 50);
 
 	timer_test();
+
+
+	// testing scoreboard
+	Player test_player;
+	test_player.score = 59;
+
+	test_scoreboard();
+	print_scoreboard();
+	update_scoreboard(test_player);
+	print_scoreboard();
 
 	while(1){
 		*leds = *switches;
