@@ -31,8 +31,8 @@
 //   ARBITRATION_SCHEME   "round-robin"
 //   PIPELINE_ARB:        1
 //   PKT_TRANS_LOCK:      54 (arbitration locking enabled)
-//   ST_DATA_W:           87
-//   ST_CHANNEL_W:        16
+//   ST_DATA_W:           89
+//   ST_CHANNEL_W:        18
 // ------------------------------------------
 
 module nios_system_cmd_xbar_mux_002
@@ -41,15 +41,15 @@ module nios_system_cmd_xbar_mux_002
     // Sinks
     // ----------------------
     input                       sink0_valid,
-    input [87-1   : 0]  sink0_data,
-    input [16-1: 0]  sink0_channel,
+    input [89-1   : 0]  sink0_data,
+    input [18-1: 0]  sink0_channel,
     input                       sink0_startofpacket,
     input                       sink0_endofpacket,
     output                      sink0_ready,
 
     input                       sink1_valid,
-    input [87-1   : 0]  sink1_data,
-    input [16-1: 0]  sink1_channel,
+    input [89-1   : 0]  sink1_data,
+    input [18-1: 0]  sink1_channel,
     input                       sink1_startofpacket,
     input                       sink1_endofpacket,
     output                      sink1_ready,
@@ -59,8 +59,8 @@ module nios_system_cmd_xbar_mux_002
     // Source
     // ----------------------
     output                      src_valid,
-    output [87-1    : 0] src_data,
-    output [16-1 : 0] src_channel,
+    output [89-1    : 0] src_data,
+    output [18-1 : 0] src_channel,
     output                      src_startofpacket,
     output                      src_endofpacket,
     input                       src_ready,
@@ -71,12 +71,12 @@ module nios_system_cmd_xbar_mux_002
     input clk,
     input reset
 );
-    localparam PAYLOAD_W        = 87 + 16 + 2;
+    localparam PAYLOAD_W        = 89 + 18 + 2;
     localparam NUM_INPUTS       = 2;
     localparam SHARE_COUNTER_W  = 1;
     localparam PIPELINE_ARB     = 1;
-    localparam ST_DATA_W        = 87;
-    localparam ST_CHANNEL_W     = 16;
+    localparam ST_DATA_W        = 89;
+    localparam ST_CHANNEL_W     = 18;
     localparam PKT_TRANS_LOCK   = 54;
 
     // ------------------------------------------

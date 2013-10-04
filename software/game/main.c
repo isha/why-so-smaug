@@ -7,6 +7,7 @@
 #include "map.h"
 #include "obstacle.h"
 #include "player.h"
+#include "audio.h"
 
 #define switches (volatile char *) SWITCHES_BASE
 #define leds (char *) LEDS_BASE
@@ -16,6 +17,7 @@ void init() {
 	initialize_lcd();
 	initialize_vga();
 	initialize_sdcard();
+	initialize_audio();
 }
 
 int main(void)
@@ -24,19 +26,7 @@ int main(void)
 	init();
 	bool game_on = true;
 
-<<<<<<< HEAD
-	srand((int)alt_timestamp());
-
-=======
->>>>>>> Moved test method from main() to test()
 	test();
-
-	//Player player1;
-	Map map;
-	Obstacle obstacle1, obstacle2;
-
-	obstacle1.type = WALL;
-	set_coordinates(obstacle1, 0, 0);
 
 	Map map;
 	Player player1;
