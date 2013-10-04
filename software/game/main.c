@@ -7,6 +7,7 @@
 #include "map.h"
 #include "obstacle.h"
 #include "player.h"
+#include "audio.h"
 
 #define switches (volatile char *) SWITCHES_BASE
 #define leds (char *) LEDS_BASE
@@ -16,6 +17,7 @@ void init() {
 	initialize_lcd();
 	initialize_vga();
 	initialize_sdcard();
+	initialize_audio();
 }
 
 int main(void)
@@ -24,20 +26,6 @@ int main(void)
 	init();
 	bool game_on = true;
 
-<<<<<<< HEAD
-	srand((int)alt_timestamp());
-
-=======
->>>>>>> Moved test method from main() to test()
-	test();
-
-	//Player player1;
-	Map map;
-	Obstacle obstacle1, obstacle2;
-
-	obstacle1.type = WALL;
-	set_coordinates(obstacle1, 0, 0);
-
 	Map map;
 	Player player1;
 	char* phrases[PHRASES_COUNT] = {"Pow", "Nice Job", "You Suck", "", ""};
@@ -45,12 +33,12 @@ int main(void)
 	construct_player(&player1, get_screen_name());
 	construct_map(&map, phrases, 10);
 
-	while (player1.health != 0 && game_on) {
-		// read player controls
-		// calc player next move
-		// check interactions
-		// draw ALL THE THINGS!!!!
-	}
+//	while (player1.health != 0 && game_on) {
+//		// read player controls
+//		// calc player next move
+//		// check interactions
+//		// draw ALL THE THINGS!!!!
+//	}
 	return 0;
 }
 
