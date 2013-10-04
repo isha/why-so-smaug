@@ -18,7 +18,6 @@ bool buttons[4] = {false, false, false, false};
 // 0 is not pressed
 
 void init() {
-	initialize_lcd();
 	initialize_vga();
 	initialize_sdcard();
 //	initialize_audio();
