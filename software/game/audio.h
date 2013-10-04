@@ -13,7 +13,8 @@
 
 void initialize_audio() {
 	alt_up_av_config_dev * av_config = alt_up_av_config_open_dev("/dev/audio_config");
-	while (!alt_up_av_config_read_ready(av_config)) {
+	if (!alt_up_av_config_read_ready(av_config)) {
+		printf("Audio can not be initialised\n");
 	}
 }
 

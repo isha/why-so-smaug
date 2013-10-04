@@ -26,8 +26,6 @@ int main(void)
 	init();
 	bool game_on = true;
 
-	test();
-
 	Map map;
 	Player player1;
 	char* phrases[PHRASES_COUNT] = {"Pow", "Nice Job", "You Suck", "", ""};
@@ -35,12 +33,12 @@ int main(void)
 	construct_player(&player1, get_screen_name());
 	construct_map(&map, phrases, 10);
 
-	while (player1.health != 0 && game_on) {
-		// read player controls
-		// calc player next move
-		// check interactions
-		// draw ALL THE THINGS!!!!
-	}
+//	while (player1.health != 0 && game_on) {
+//		// read player controls
+//		// calc player next move
+//		// check interactions
+//		// draw ALL THE THINGS!!!!
+//	}
 	return 0;
 }
 
