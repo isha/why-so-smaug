@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdbool.h>
+#include "sdcard.h"
 #include "vga.h"
 #include "lcd.h"
 #include "timer.h"
@@ -11,10 +12,10 @@
 #define leds (char *) LEDS_BASE
 #define keys (volatile char *) BUTTONS_BASE
 
-
 void init() {
 	initialize_lcd();
 	initialize_vga();
+	initialize_sdcard();
 }
 
 int main(void)
@@ -23,7 +24,19 @@ int main(void)
 	init();
 	bool game_on = true;
 
+<<<<<<< HEAD
 	srand((int)alt_timestamp());
+
+=======
+>>>>>>> Moved test method from main() to test()
+	test();
+
+	//Player player1;
+	Map map;
+	Obstacle obstacle1, obstacle2;
+
+	obstacle1.type = WALL;
+	set_coordinates(obstacle1, 0, 0);
 
 	Map map;
 	Player player1;
@@ -45,14 +58,13 @@ void test() {
 	int *buttons;
 	bool bouncing = false;
 
-	printf("Woohoo!\n");
-
 	alt_up_pixel_buffer_dma_draw_line(pixel_buffer, 0, 240, 320, 0, 0xFFFF, 0);
 
 	alt_up_char_buffer_clear(char_buffer);
 	alt_up_char_buffer_string(char_buffer, "EECE 381", 60, 50);
 
 	timer_test();
+	sdcard_test();
 
 	while(1){
 		*leds = *switches;
