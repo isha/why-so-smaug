@@ -6,14 +6,14 @@
 #include "map.h"
 #include "obstacle.h"
 #include "player.h"
-
+#include "audio.h"
 
 #define switches (volatile char *) SWITCHES_BASE
 #define leds (char *) LEDS_BASE
 #define keys (volatile char *) BUTTONS_BASE
 
-
 void init() {
+	initialize_audio();
 	initialize_lcd();
 	initialize_vga();
 }
@@ -36,8 +36,11 @@ int main(void)
 		// check interactions
 		// draw ALL THE THINGS!!!!
 	}
+
 	return 0;
 }
+
+
 
 void test() {
 	int *buttons;
