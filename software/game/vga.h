@@ -14,6 +14,8 @@
 #define RESOLUTION_X 320
 #define RESOLUTION_Y 240
 
+extern int pixel_colors[RESOLUTION_X][RESOLUTION_Y];
+
 alt_up_pixel_buffer_dma_dev* pixel_buffer;
 alt_up_char_buffer_dev *char_buffer;
 
@@ -37,12 +39,13 @@ void initialize_vga() {
 	alt_up_char_buffer_init(char_buffer);
 }
 
-void draw_to_screen(int pixel_colors[RESOLUTION_X][RESOLUTION_Y]) {
+void draw_to_screen() {
 	int i, j;
 	for (i=0; i<RESOLUTION_X; i++){
 		for (j=0; j<RESOLUTION_Y; j++){
 			alt_up_pixel_buffer_dma_draw(pixel_buffer, pixel_colors[i][j], i, j);
 		}
 	}
+	alt_up_pixel_buffer_dma_swap_buffers(pixel_buffer);
 }
 #endif /* VGA_H_ */

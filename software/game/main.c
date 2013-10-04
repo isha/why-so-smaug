@@ -20,7 +20,6 @@ bool buttons[4] = {false, false, false, false};
 void init() {
 	initialize_vga();
 	initialize_sdcard();
-//	initialize_audio();
 }
 
 int main(void)
@@ -35,12 +34,10 @@ int main(void)
 	srand((unsigned int)alt_timestamp());
 	bool game_on = true;
 
-	Map map;
-	Player player1;
-	char* phrases[PHRASES_COUNT] = {"Pow", "Nice Job", "You Suck", "", ""};
-
-	construct_player(&player1, get_screen_name());
-	construct_map(&map, phrases, 10);
+	Player *player1 = construct_player("Elf friend");
+	printf("\nPlayer created with name %s", player1->screen_name);
+	Map *map = construct_map();
+	printf("\nConstructed Map with velocity %d", map->velocity);
 
 	printf("\nRock n' Roll\n");
 	while(1) {
@@ -55,7 +52,18 @@ int main(void)
 		}
 		alt_up_pixel_buffer_dma_draw(pixel_buffer, 0x740, player1.coordinates_x, player1.coordinates_y);
 		alt_up_pixel_buffer_dma_swap_buffers(pixel_buffer);
+	}
 
+
+	while (player1->health != 0 && game_on) {
+		usleep(2000000); // sleep 3 seconds
+		// read player controls
+		// calc player next move
+		// check interactions
+		next_map(map);
+		update_screen(map);
+		draw_to_screen();
+	}
 	return 0;
 }
 
