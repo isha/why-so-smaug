@@ -13,7 +13,6 @@
 #define keys (volatile char *) BUTTONS_BASE
 
 void init() {
-	initialize_lcd();
 	initialize_vga();
 	initialize_sdcard();
 }
