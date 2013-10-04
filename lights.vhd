@@ -32,7 +32,17 @@ ENTITY lights IS
 		SRAM_UB_N :	OUT STD_LOGIC;
 		SRAM_CE_N :	OUT STD_LOGIC;
 		SRAM_OE_N :	OUT STD_LOGIC;
-		SRAM_WE_N : OUT STD_LOGIC
+		SRAM_WE_N : OUT STD_LOGIC;
+		I2C_SDAT : INOUT STD_LOGIC;
+		I2C_SCLK : OUT STD_LOGIC;
+		AUD_XCK : OUT STD_LOGIC;
+		CLOCK_27 : IN STD_LOGIC;
+		AUD_ADCDAT : IN STD_LOGIC;
+		AUD_ADCLRCK : IN STD_LOGIC;
+		AUD_BCLK : IN STD_LOGIC;
+		AUD_DACDAT : OUT STD_LOGIC;
+		AUD_DACLRCK : IN STD_LOGIC;
+		TD_RESET : OUT STD_LOGIC
 	);
 
    END lights;
@@ -77,7 +87,16 @@ ARCHITECTURE Structure OF lights IS
 		sram_UB_N : out STD_LOGIC;
 		sram_CE_N : out STD_LOGIC;
 		sram_OE_N : out STD_LOGIC;
-		sram_WE_N : out STD_LOGIC
+		sram_WE_N : out STD_LOGIC;
+		audio_config_SDAT : INOUT STD_LOGIC;
+		audio_config_SCLK : OUT STD_LOGIC;
+		audio_clk_clk : OUT STD_LOGIC;
+		clk_27_clk : IN STD_LOGIC;
+		audio_ADCDAT : IN STD_LOGIC;
+		audio_ADCLRCK : IN STD_LOGIC;
+		audio_BCLK : IN STD_LOGIC;
+		audio_DACDAT : OUT STD_LOGIC;
+		audio_DACLRCK : IN STD_LOGIC
 	);
  
    END COMPONENT;
@@ -90,6 +109,7 @@ ARCHITECTURE Structure OF lights IS
       DRAM_BA_1 <= BA(1);
       DRAM_UDQM <= DQM(1);
       DRAM_LDQM <= DQM(0);
+		TD_RESET <= '1';
       NiosII: nios_system PORT MAP (
          clk_clk => CLOCK_50,
          reset_reset_n => KEY(0) or KEY(1),
@@ -126,7 +146,17 @@ ARCHITECTURE Structure OF lights IS
 			sram_UB_N	=>	SRAM_UB_N,
 			sram_CE_N	=>	SRAM_CE_N,
 			sram_OE_N	=>	SRAM_OE_N,
-			sram_WE_N	=>	SRAM_WE_N
+			sram_WE_N	=>	SRAM_WE_N,
+			audio_config_SDAT  => I2C_SDAT,
+			audio_config_SCLK  => I2C_SCLK,
+			audio_clk_clk => AUD_XCK,
+			clk_27_clk => CLOCK_27,
+			audio_ADCDAT => AUD_ADCDAT,
+			audio_ADCLRCK => AUD_ADCLRCK,
+			audio_BCLK => AUD_BCLK,
+			audio_DACDAT => AUD_DACDAT,
+			audio_DACLRCK => AUD_DACLRCK
+
 		);
 
    END Structure;

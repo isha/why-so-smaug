@@ -16,8 +16,50 @@
    {
       datum _sortIndex
       {
-         value = "14";
+         value = "15";
          type = "int";
+      }
+      datum sopceditor_expanded
+      {
+         value = "0";
+         type = "boolean";
+      }
+   }
+   element audio
+   {
+      datum _sortIndex
+      {
+         value = "23";
+         type = "int";
+      }
+   }
+   element audio_config
+   {
+      datum _sortIndex
+      {
+         value = "22";
+         type = "int";
+      }
+   }
+   element audio.avalon_audio_slave
+   {
+      datum baseAddress
+      {
+         value = "4224";
+         type = "long";
+      }
+   }
+   element audio_config.avalon_av_config_slave
+   {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
+      datum baseAddress
+      {
+         value = "4208";
+         type = "long";
       }
    }
    element char_drawer.avalon_char_buffer_slave
@@ -87,6 +129,11 @@
    }
    element buttons.avalon_parallel_port_slave
    {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
       datum baseAddress
       {
          value = "4192";
@@ -110,24 +157,39 @@
    {
       datum _sortIndex
       {
-         value = "17";
+         value = "18";
          type = "int";
+      }
+      datum sopceditor_expanded
+      {
+         value = "0";
+         type = "boolean";
       }
    }
    element char_drawer
    {
       datum _sortIndex
       {
-         value = "13";
+         value = "14";
          type = "int";
+      }
+      datum sopceditor_expanded
+      {
+         value = "0";
+         type = "boolean";
       }
    }
    element character_lcd_0
    {
       datum _sortIndex
       {
-         value = "8";
+         value = "9";
          type = "int";
+      }
+      datum sopceditor_expanded
+      {
+         value = "0";
+         type = "boolean";
       }
    }
    element clk_0
@@ -137,12 +199,25 @@
          value = "0";
          type = "int";
       }
+      datum sopceditor_expanded
+      {
+         value = "1";
+         type = "boolean";
+      }
+   }
+   element clk_1
+   {
+      datum _sortIndex
+      {
+         value = "1";
+         type = "int";
+      }
    }
    element clocks
    {
       datum _sortIndex
       {
-         value = "7";
+         value = "8";
          type = "int";
       }
    }
@@ -150,8 +225,13 @@
    {
       datum _sortIndex
       {
-         value = "20";
+         value = "21";
          type = "int";
+      }
+      datum sopceditor_expanded
+      {
+         value = "0";
+         type = "boolean";
       }
    }
    element nios2_processor.jtag_debug_module
@@ -171,27 +251,29 @@
    {
       datum _sortIndex
       {
-         value = "5";
+         value = "6";
          type = "int";
+      }
+      datum sopceditor_expanded
+      {
+         value = "0";
+         type = "boolean";
       }
    }
    element leds
    {
       datum _sortIndex
       {
-         value = "4";
+         value = "5";
          type = "int";
+      }
+      datum sopceditor_expanded
+      {
+         value = "0";
+         type = "boolean";
       }
    }
    element nios2_processor
-   {
-      datum _sortIndex
-      {
-         value = "1";
-         type = "int";
-      }
-   }
-   element onchip_memory
    {
       datum _sortIndex
       {
@@ -199,35 +281,68 @@
          type = "int";
       }
    }
-   element pixel_buffer
+   element onchip_memory
    {
       datum _sortIndex
       {
-         value = "9";
+         value = "3";
          type = "int";
       }
+      datum sopceditor_expanded
+      {
+         value = "0";
+         type = "boolean";
+      }
    }
-   element pixel_buffer_dma
+   element pixel_buffer
    {
       datum _sortIndex
       {
          value = "10";
          type = "int";
       }
+      datum sopceditor_expanded
+      {
+         value = "0";
+         type = "boolean";
+      }
    }
-   element rgb_resampler
+   element pixel_buffer_dma
    {
       datum _sortIndex
       {
          value = "11";
          type = "int";
       }
+      datum sopceditor_expanded
+      {
+         value = "0";
+         type = "boolean";
+      }
    }
-   element timestamp_clk.s1
+   element rgb_resampler
    {
+      datum _sortIndex
+      {
+         value = "12";
+         type = "int";
+      }
+      datum sopceditor_expanded
+      {
+         value = "0";
+         type = "boolean";
+      }
+   }
+   element hw_only_clk.s1
+   {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
       datum baseAddress
       {
-         value = "4128";
+         value = "4160";
          type = "long";
       }
    }
@@ -265,6 +380,32 @@
          type = "long";
       }
    }
+   element sys_clk.s1
+   {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
+      datum baseAddress
+      {
+         value = "4096";
+         type = "long";
+      }
+   }
+   element timestamp_clk.s1
+   {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
+      datum baseAddress
+      {
+         value = "4128";
+         type = "long";
+      }
+   }
    element sdram.s1
    {
       datum _lockedAddress
@@ -278,35 +419,24 @@
          type = "long";
       }
    }
-   element hw_only_clk.s1
-   {
-      datum baseAddress
-      {
-         value = "4160";
-         type = "long";
-      }
-   }
-   element sys_clk.s1
-   {
-      datum baseAddress
-      {
-         value = "4096";
-         type = "long";
-      }
-   }
    element scaler
    {
       datum _sortIndex
       {
-         value = "12";
+         value = "13";
          type = "int";
+      }
+      datum sopceditor_expanded
+      {
+         value = "0";
+         type = "boolean";
       }
    }
    element sdram
    {
       datum _sortIndex
       {
-         value = "6";
+         value = "7";
          type = "int";
       }
       datum megawizard_uipreferences
@@ -314,45 +444,75 @@
          value = "{}";
          type = "String";
       }
+      datum sopceditor_expanded
+      {
+         value = "0";
+         type = "boolean";
+      }
    }
    element switches
    {
       datum _sortIndex
       {
-         value = "3";
+         value = "4";
          type = "int";
+      }
+      datum sopceditor_expanded
+      {
+         value = "0";
+         type = "boolean";
       }
    }
    element sys_clk
    {
       datum _sortIndex
       {
-         value = "18";
+         value = "19";
          type = "int";
+      }
+      datum sopceditor_expanded
+      {
+         value = "0";
+         type = "boolean";
       }
    }
    element timestamp_clk
    {
       datum _sortIndex
       {
-         value = "19";
+         value = "20";
          type = "int";
+      }
+      datum sopceditor_expanded
+      {
+         value = "0";
+         type = "boolean";
       }
    }
    element vga_controller
    {
       datum _sortIndex
       {
-         value = "16";
+         value = "17";
          type = "int";
+      }
+      datum sopceditor_expanded
+      {
+         value = "0";
+         type = "boolean";
       }
    }
    element video_fifo
    {
       datum _sortIndex
       {
-         value = "15";
+         value = "16";
          type = "int";
+      }
+      datum sopceditor_expanded
+      {
+         value = "0";
+         type = "boolean";
       }
    }
 }
@@ -370,7 +530,7 @@
  <parameter name="projectName" value="vga_exercise.qpf" />
  <parameter name="sopcBorderPoints" value="false" />
  <parameter name="systemHash" value="1" />
- <parameter name="timeStamp" value="1380662647734" />
+ <parameter name="timeStamp" value="1380825000664" />
  <parameter name="useTestBenchNamingPattern" value="false" />
  <instanceScript></instanceScript>
  <interface name="clk" internal="clk_0.clk_in" type="clock" dir="end" />
@@ -407,6 +567,19 @@
    internal="buttons.external_interface"
    type="conduit"
    dir="end" />
+ <interface
+   name="audio_config"
+   internal="audio_config.external_interface"
+   type="conduit"
+   dir="end" />
+ <interface name="clk_27" internal="clk_1.clk_in" type="clock" dir="end" />
+ <interface name="reset_27" internal="clk_1.clk_in_reset" type="reset" dir="end" />
+ <interface
+   name="audio"
+   internal="audio.external_interface"
+   type="conduit"
+   dir="end" />
+ <interface name="audio_clk" internal="clocks.audio_clk" type="clock" dir="start" />
  <module kind="clock_source" version="12.0" enabled="1" name="clk_0">
   <parameter name="clockFrequency" value="50000000" />
   <parameter name="clockFrequencyKnown" value="true" />
@@ -506,7 +679,7 @@
   <parameter name="tightlyCoupledInstructionMaster2AddrWidth" value="1" />
   <parameter name="tightlyCoupledInstructionMaster3AddrWidth" value="1" />
   <parameter name="instSlaveMapParam"><![CDATA[<address-map><slave name='onchip_memory.s1' start='0x0' end='0x1000' /><slave name='nios2_processor.jtag_debug_module' start='0x1800' end='0x2000' /><slave name='sdram.s1' start='0x1000000' end='0x1800000' /></address-map>]]></parameter>
-  <parameter name="dataSlaveMapParam"><![CDATA[<address-map><slave name='onchip_memory.s1' start='0x0' end='0x1000' /><slave name='sys_clk.s1' start='0x1000' end='0x1020' /><slave name='timestamp_clk.s1' start='0x1020' end='0x1040' /><slave name='hw_only_clk.s1' start='0x1040' end='0x1060' /><slave name='buttons.avalon_parallel_port_slave' start='0x1060' end='0x1070' /><slave name='nios2_processor.jtag_debug_module' start='0x1800' end='0x2000' /><slave name='char_drawer.avalon_char_buffer_slave' start='0x2000' end='0x4000' /><slave name='switches.s1' start='0x4000' end='0x4010' /><slave name='leds.s1' start='0x4010' end='0x4020' /><slave name='pixel_buffer_dma.avalon_control_slave' start='0x4020' end='0x4030' /><slave name='jtag_uart.avalon_jtag_slave' start='0x4030' end='0x4038' /><slave name='char_drawer.avalon_char_control_slave' start='0x4038' end='0x4040' /><slave name='character_lcd_0.avalon_lcd_slave' start='0x4040' end='0x4042' /><slave name='pixel_buffer.avalon_sram_slave' start='0x80000' end='0x100000' /><slave name='sdram.s1' start='0x1000000' end='0x1800000' /></address-map>]]></parameter>
+  <parameter name="dataSlaveMapParam"><![CDATA[<address-map><slave name='onchip_memory.s1' start='0x0' end='0x1000' /><slave name='sys_clk.s1' start='0x1000' end='0x1020' /><slave name='timestamp_clk.s1' start='0x1020' end='0x1040' /><slave name='hw_only_clk.s1' start='0x1040' end='0x1060' /><slave name='buttons.avalon_parallel_port_slave' start='0x1060' end='0x1070' /><slave name='audio_config.avalon_av_config_slave' start='0x1070' end='0x1080' /><slave name='audio.avalon_audio_slave' start='0x1080' end='0x1090' /><slave name='nios2_processor.jtag_debug_module' start='0x1800' end='0x2000' /><slave name='char_drawer.avalon_char_buffer_slave' start='0x2000' end='0x4000' /><slave name='switches.s1' start='0x4000' end='0x4010' /><slave name='leds.s1' start='0x4010' end='0x4020' /><slave name='pixel_buffer_dma.avalon_control_slave' start='0x4020' end='0x4030' /><slave name='jtag_uart.avalon_jtag_slave' start='0x4030' end='0x4038' /><slave name='char_drawer.avalon_char_control_slave' start='0x4038' end='0x4040' /><slave name='character_lcd_0.avalon_lcd_slave' start='0x4040' end='0x4042' /><slave name='pixel_buffer.avalon_sram_slave' start='0x80000' end='0x100000' /><slave name='sdram.s1' start='0x1000000' end='0x1800000' /></address-map>]]></parameter>
   <parameter name="clockFrequency" value="50000000" />
   <parameter name="deviceFamilyName" value="Cyclone II" />
   <parameter name="internalIrqMaskSystemInfo" value="39" />
@@ -625,7 +798,7 @@
   <parameter name="sys_clk_freq" value="50" />
   <parameter name="sdram_clk" value="true" />
   <parameter name="vga_clk" value="true" />
-  <parameter name="audio_clk" value="false" />
+  <parameter name="audio_clk" value="true" />
   <parameter name="audio_clk_freq" value="12.288" />
   <parameter name="AUTO_CLK_IN_PRIMARY_CLOCK_RATE" value="50000000" />
   <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone II" />
@@ -794,6 +967,42 @@
   <parameter name="systemFrequency" value="50000000" />
   <parameter name="timeoutPulseOutput" value="false" />
   <parameter name="timerPreset" value="FULL_FEATURED" />
+ </module>
+ <module
+   kind="altera_up_avalon_audio_and_video_config"
+   version="12.0"
+   enabled="1"
+   name="audio_config">
+  <parameter name="device">On-Board Peripherals</parameter>
+  <parameter name="board" value="DE2" />
+  <parameter name="eai" value="true" />
+  <parameter name="audio_in" value="Microphone to ADC" />
+  <parameter name="dac_enable" value="true" />
+  <parameter name="mic_bypass" value="false" />
+  <parameter name="line_in_bypass" value="false" />
+  <parameter name="mic_attenuation" value="-6dB" />
+  <parameter name="data_format" value="Left Justified" />
+  <parameter name="bit_length" value="16" />
+  <parameter name="sampling_rate" value="32 kHz" />
+  <parameter name="video_format" value="NTSC" />
+  <parameter name="d5m_resolution" value="2592 x 1944" />
+  <parameter name="exposure" value="false" />
+  <parameter name="AUTO_CLOCK_RESET_CLOCK_RATE" value="50000000" />
+  <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone II" />
+ </module>
+ <module kind="clock_source" version="12.0" enabled="1" name="clk_1">
+  <parameter name="clockFrequency" value="27000000" />
+  <parameter name="clockFrequencyKnown" value="true" />
+  <parameter name="inputClockFrequency" value="0" />
+  <parameter name="resetSynchronousEdges" value="NONE" />
+ </module>
+ <module kind="altera_up_avalon_audio" version="12.0" enabled="1" name="audio">
+  <parameter name="avalon_bus_type" value="Memory Mapped" />
+  <parameter name="audio_in" value="true" />
+  <parameter name="audio_out" value="true" />
+  <parameter name="dw" value="16" />
+  <parameter name="AUTO_CLOCK_RESET_CLOCK_RATE" value="50000000" />
+  <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone II" />
  </module>
  <connection
    kind="avalon"
@@ -1296,4 +1505,45 @@
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x1000" />
  </connection>
+ <connection
+   kind="reset"
+   version="12.0"
+   start="clk_0.clk_reset"
+   end="audio_config.clock_reset_reset" />
+ <connection
+   kind="avalon"
+   version="12.0"
+   start="nios2_processor.data_master"
+   end="audio_config.avalon_av_config_slave">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x1070" />
+ </connection>
+ <connection
+   kind="clock"
+   version="12.0"
+   start="clocks.sys_clk"
+   end="audio_config.clock_reset" />
+ <connection
+   kind="clock"
+   version="12.0"
+   start="clocks.sys_clk"
+   end="audio.clock_reset" />
+ <connection
+   kind="reset"
+   version="12.0"
+   start="clk_0.clk_reset"
+   end="audio.clock_reset_reset" />
+ <connection
+   kind="avalon"
+   version="12.0"
+   start="nios2_processor.data_master"
+   end="audio.avalon_audio_slave">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x1080" />
+ </connection>
+ <connection
+   kind="clock"
+   version="12.0"
+   start="clk_1.clk"
+   end="clocks.clk_in_secondary" />
 </system>
