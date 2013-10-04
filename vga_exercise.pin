@@ -166,7 +166,7 @@ GND*                         : AC19      :        :                   :         
 GND*                         : AC20      :        :                   :         : 7         :                
 GND*                         : AC21      :        :                   :         : 7         :                
 GND*                         : AC22      :        :                   :         : 7         :                
-GND*                         : AC23      :        :                   :         : 6         :                
+SD_DAT3                      : AC23      : bidir  : 3.3-V LVTTL       :         : 6         : Y              
 NC                           : AC24      :        :                   :         :           :                
 GND*                         : AC25      :        :                   :         : 6         :                
 GND*                         : AC26      :        :                   :         : 6         :                
@@ -193,8 +193,8 @@ VCCIO7                       : AD20      : power  :                   : 3.3V    
 GND*                         : AD21      :        :                   :         : 7         :                
 GND*                         : AD22      :        :                   :         : 7         :                
 GND*                         : AD23      :        :                   :         : 7         :                
-GND*                         : AD24      :        :                   :         : 6         :                
-GND*                         : AD25      :        :                   :         : 6         :                
+SD_DAT                       : AD24      : bidir  : 3.3-V LVTTL       :         : 6         : Y              
+SD_CLK                       : AD25      : output : 3.3-V LVTTL       :         : 6         : Y              
 VCCIO6                       : AD26      : power  :                   : 3.3V    : 6         :                
 GND                          : AE1       : gnd    :                   :         :           :                
 DRAM_BA_0                    : AE2       : output : 3.3-V LVTTL       :         : 1         : Y              
@@ -734,7 +734,7 @@ GND                          : Y17       : gnd    :                   :         
 LEDG[7]                      : Y18       : output : 3.3-V LVTTL       :         : 7         : Y              
 GNDA_PLL4                    : Y19       : gnd    :                   :         :           :                
 VCCD_PLL4                    : Y20       : power  :                   : 1.2V    :           :                
-GND*                         : Y21       :        :                   :         : 6         :                
+SD_CMD                       : Y21       : bidir  : 3.3-V LVTTL       :         : 6         : Y              
 GND*                         : Y22       :        :                   :         : 6         :                
 GND*                         : Y23       :        :                   :         : 6         :                
 GND*                         : Y24       :        :                   :         : 6         :                
