@@ -7,6 +7,7 @@
 #include "map.h"
 #include "obstacle.h"
 #include "player.h"
+#include "bitmap.h"
 
 #define switches (volatile char *) SWITCHES_BASE
 #define leds (char *) LEDS_BASE
@@ -14,28 +15,31 @@
 
 void init() {
 	initialize_vga();
+	alt_timestamp_start();
 }
 
 int main(void)
 {
-	alt_timestamp_start();
 	init();
-	printf("\nSeed %d", (unsigned int)alt_timestamp());
-	srand((unsigned int)alt_timestamp());
 	bool game_on = true;
 
-	Player *player1 = construct_player("Elf friend");
+	char * name = "Elf friend";
+	Player *player1 = construct_player(name);
 	printf("\nPlayer created with name %s", player1->screen_name);
+
 	Map *map = construct_map();
 	printf("\nConstructed Map with velocity %d", map->velocity);
 
 	while (player1->health != 0 && game_on) {
-		usleep(2000000); // sleep 3 seconds
-		// read player controls
-		// calc player next move
-		// check interactions
+		// usleep(1000000);
+
+		// Calculations
 		next_map(map);
+
+		// Modify screen buffer matrix
 		update_screen(map);
+
+		// Draw to screen
 		draw_to_screen();
 	}
 	return 0;

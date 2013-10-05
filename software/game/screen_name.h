@@ -9,33 +9,33 @@
 #define LAST_NAME_COUNT 13
 
 char *first_names[FIRST_NAME_COUNT] = {
-  "Kevin",
-  "Isha",
-  "Rafael",
-  "Joey",
-  "Jeff",
-  "Bilbo",
-  "Richard",
-  "Lance",
-  "Romeo",
-  "Hulio"
+  "Kevin ",
+  "Isha ",
+  "Rafael ",
+  "Joey ",
+  "Jeff ",
+  "Bilbo ",
+  "Richard ",
+  "Lance ",
+  "Romeo ",
+  "Hulio "
 };
 
 char *adjectives[ADJECTIVE_COUNT] = {
-  "Fluffy",
-  "Hammered",
-  "Feisty",
-  "Provocative",
-  "Pesky",
-  "Well endowed",
-  "Sleepy",
-  "Doped",
-  "Innocent",
-  "Easy",
-  "Pimpin",
-  "Hungry",
-  "Abrasive",
-  "Raging"
+  "the Fluffy ",
+  "the Hammered ",
+  "the Feisty ",
+  "the Provocative ",
+  "the Pesky ",
+  "the Well endowed ",
+  "the Sleepy ",
+  "the Doped ",
+  "the Innocent ",
+  "the Easy ",
+  "the Pimpin ",
+  "the Hungry ",
+  "the Abrasive ",
+  "the Raging "
 };
 
 char *last_names[LAST_NAME_COUNT] = {
@@ -54,14 +54,11 @@ char *last_names[LAST_NAME_COUNT] = {
   "Balla"
 };
 
-char* get_screen_name() {
-  char *name = " ";
-  strcpy(name, first_names[rand() % FIRST_NAME_COUNT]);
-  strcat(name, " the ");
-  strcat(name, adjectives[rand() % ADJECTIVE_COUNT]);
-  strcat(name, " ");
-  strcat(name, last_names[rand() % LAST_NAME_COUNT]);
-  printf("\nName returned %s", name);
+char * get_screen_name() {
+  char * name;
+  strcpy(name, first_names[(unsigned int)alt_timestamp() % FIRST_NAME_COUNT]);
+  strcat(name, adjectives[(unsigned int)alt_timestamp() % ADJECTIVE_COUNT]);
+  strcat(name, last_names[(unsigned int)alt_timestamp() % LAST_NAME_COUNT]);
   return name;
 }
 
