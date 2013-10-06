@@ -34,12 +34,14 @@ int main(void)
 	init();
 	bool game_on = true;
 
-	char * name = "Elf friend";
-	Player *player1 = construct_player(name);
-	printf("\nPlayer created with name %s", player1->screen_name);
+	alt_up_pixel_buffer_dma_clear_screen(pixel_buffer, 0);
+	alt_up_pixel_buffer_dma_clear_screen(pixel_buffer, 1);
 
-	Map *map = construct_map();
-	printf("\nConstructed Map with velocity %d", map->velocity);
+	Bitmap * bitmap = load_bitmap("map.bmp");
+	int i, j, k=0;
+	for (i=0; i<bitmap->height; i++)
+		for (j=0; j<bitmap->width; j++)
+			{pixel_colors[j][i] = bitmap->data[k]; k++;}
 
 	printf("\nRock n' Roll\n");
 	while(1) {
@@ -56,19 +58,6 @@ int main(void)
 		alt_up_pixel_buffer_dma_swap_buffers(pixel_buffer);
 	}
 
-
-	while (player1->health != 0 && game_on) {
-		// usleep(1000000);
-
-		// Calculations
-		next_map(map);
-
-		// Modify screen buffer matrix
-		update_screen(map);
-
-		// Draw to screen
-		draw_to_screen();
-	}
 	return 0;
 }
 

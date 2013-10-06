@@ -306,7 +306,11 @@
          type = "int";
       }
    }
+<<<<<<< HEAD
    element hw_only_clk.s1
+=======
+   element timestamp_clk.s1
+>>>>>>> Bitmap loading from file
    {
       datum _lockedAddress
       {
@@ -315,11 +319,19 @@
       }
       datum baseAddress
       {
+<<<<<<< HEAD
          value = "5120";
          type = "long";
       }
    }
    element timestamp_clk.s1
+=======
+         value = "5152";
+         type = "long";
+      }
+   }
+   element sdram.s1
+>>>>>>> Bitmap loading from file
    {
       datum _lockedAddress
       {
@@ -328,7 +340,11 @@
       }
       datum baseAddress
       {
+<<<<<<< HEAD
          value = "5152";
+=======
+         value = "16777216";
+>>>>>>> Bitmap loading from file
          type = "long";
       }
    }
@@ -345,20 +361,27 @@
          type = "long";
       }
    }
+<<<<<<< HEAD
    element leds.s1
+=======
+   element sys_clk.s1
+>>>>>>> Bitmap loading from file
    {
-      datum _lockedAddress
-      {
-         value = "1";
-         type = "boolean";
-      }
       datum baseAddress
       {
+<<<<<<< HEAD
          value = "16400";
          type = "long";
       }
    }
    element sdram.s1
+=======
+         value = "5184";
+         type = "long";
+      }
+   }
+   element leds.s1
+>>>>>>> Bitmap loading from file
    {
       datum _lockedAddress
       {
@@ -367,6 +390,7 @@
       }
       datum baseAddress
       {
+<<<<<<< HEAD
          value = "16777216";
          type = "long";
       }
@@ -385,11 +409,31 @@
       }
    }
    element onchip_memory.s1
+=======
+         value = "16400";
+         type = "long";
+      }
+   }
+   element onchip_memory.s1
    {
       datum _lockedAddress
       {
          value = "1";
          type = "boolean";
+      }
+   }
+   element hw_only_clk.s1
+>>>>>>> Bitmap loading from file
+   {
+      datum _lockedAddress
+      {
+<<<<<<< HEAD
+         value = "1";
+         type = "boolean";
+=======
+         value = "5120";
+         type = "long";
+>>>>>>> Bitmap loading from file
       }
    }
    element scaler
@@ -486,7 +530,11 @@
  <parameter name="projectName" value="vga_exercise.qpf" />
  <parameter name="sopcBorderPoints" value="false" />
  <parameter name="systemHash" value="1" />
+<<<<<<< HEAD
  <parameter name="timeStamp" value="1380849621225" />
+=======
+ <parameter name="timeStamp" value="1380919500784" />
+>>>>>>> Bitmap loading from file
  <parameter name="useTestBenchNamingPattern" value="false" />
  <instanceScript></instanceScript>
  <interface name="clk" internal="clk_0.clk_in" type="clock" dir="end" />
@@ -878,7 +926,7 @@
   <parameter name="edge" value="Rising" />
   <parameter name="irq" value="false" />
   <parameter name="irq_type" value="Edge" />
-  <parameter name="AUTO_CLOCK_RESET_CLOCK_RATE" value="25000000" />
+  <parameter name="AUTO_CLOCK_RESET_CLOCK_RATE" value="50000000" />
   <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone II" />
  </module>
  <module kind="altera_avalon_timer" version="12.0" enabled="1" name="sys_clk">
@@ -1362,11 +1410,6 @@
    start="alpha_blender.avalon_blended_source"
    end="video_fifo.avalon_dc_buffer_sink" />
  <connection
-   kind="clock"
-   version="12.0"
-   start="clocks.vga_clk"
-   end="buttons.clock_reset" />
- <connection
    kind="reset"
    version="12.0"
    start="nios2_processor.jtag_debug_module_reset"
@@ -1496,6 +1539,7 @@
  <connection
    kind="clock"
    version="12.0"
+<<<<<<< HEAD
    start="clk_1.clk"
    end="clocks.clk_in_secondary" />
  <connection
@@ -1534,4 +1578,8 @@
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x1480" />
  </connection>
+=======
+   start="clocks.sys_clk"
+   end="buttons.clock_reset" />
+>>>>>>> Bitmap loading from file
 </system>
