@@ -15,6 +15,7 @@
 
 void init() {
 	initialize_vga();
+	initialize_sdcard();
 	alt_timestamp_start();
 }
 
@@ -23,25 +24,34 @@ int main(void)
 	init();
 	bool game_on = true;
 
-	char * name = "Elf friend";
-	Player *player1 = construct_player(name);
-	printf("\nPlayer created with name %s", player1->screen_name);
+	alt_up_pixel_buffer_dma_clear_screen(pixel_buffer, 0);
+	alt_up_pixel_buffer_dma_clear_screen(pixel_buffer, 1);
 
-	Map *map = construct_map();
-	printf("\nConstructed Map with velocity %d", map->velocity);
+	Bitmap * bitmap = load_bitmap("map.bmp");
+	int i, j, k=0;
+	for (i=0; i<bitmap->height; i++)
+		for (j=0; j<bitmap->width; j++)
+			{pixel_colors[j][i] = bitmap->data[k]; k++;}
 
-	while (player1->health != 0 && game_on) {
-		// usleep(1000000);
+	draw_to_screen();
 
-		// Calculations
-		next_map(map);
+//	char * name = "Elf friend";
+//	Player *player1 = construct_player(name);
+//	printf("\nPlayer created with name %s", player1->screen_name);
 
-		// Modify screen buffer matrix
-		update_screen(map);
+//	Map *map = construct_map();
+//	printf("\nConstructed Map with velocity %d", map->velocity);
 
-		// Draw to screen
-		draw_to_screen();
-	}
+//	while (player1->health != 0 && game_on) {
+//		// Calculations
+//		next_map(map);
+//
+//		// Modify screen buffer matrix
+//		update_screen(map);
+//
+//		// Draw to screen
+//		draw_to_screen();
+//	}
 	return 0;
 }
 

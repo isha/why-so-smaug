@@ -231,32 +231,11 @@
          type = "int";
       }
    }
-   element sys_clk.s1
+   element timestamp_clk.s1
    {
       datum baseAddress
       {
-         value = "5184";
-         type = "long";
-      }
-   }
-   element onchip_memory.s1
-   {
-      datum _lockedAddress
-      {
-         value = "1";
-         type = "boolean";
-      }
-   }
-   element leds.s1
-   {
-      datum _lockedAddress
-      {
-         value = "1";
-         type = "boolean";
-      }
-      datum baseAddress
-      {
-         value = "16400";
+         value = "5152";
          type = "long";
       }
    }
@@ -286,19 +265,40 @@
          type = "long";
       }
    }
+   element sys_clk.s1
+   {
+      datum baseAddress
+      {
+         value = "5184";
+         type = "long";
+      }
+   }
+   element leds.s1
+   {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
+      datum baseAddress
+      {
+         value = "16400";
+         type = "long";
+      }
+   }
+   element onchip_memory.s1
+   {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
+   }
    element hw_only_clk.s1
    {
       datum baseAddress
       {
          value = "5120";
-         type = "long";
-      }
-   }
-   element timestamp_clk.s1
-   {
-      datum baseAddress
-      {
-         value = "5152";
          type = "long";
       }
    }
@@ -386,7 +386,7 @@
  <parameter name="projectName" value="vga_exercise.qpf" />
  <parameter name="sopcBorderPoints" value="false" />
  <parameter name="systemHash" value="1" />
- <parameter name="timeStamp" value="1380839247780" />
+ <parameter name="timeStamp" value="1380919500784" />
  <parameter name="useTestBenchNamingPattern" value="false" />
  <instanceScript></instanceScript>
  <interface name="clk" internal="clk_0.clk_in" type="clock" dir="end" />
@@ -765,7 +765,7 @@
   <parameter name="edge" value="Rising" />
   <parameter name="irq" value="false" />
   <parameter name="irq_type" value="Edge" />
-  <parameter name="AUTO_CLOCK_RESET_CLOCK_RATE" value="25000000" />
+  <parameter name="AUTO_CLOCK_RESET_CLOCK_RATE" value="50000000" />
   <parameter name="AUTO_DEVICE_FAMILY" value="Cyclone II" />
  </module>
  <module kind="altera_avalon_timer" version="12.0" enabled="1" name="sys_clk">
@@ -1213,11 +1213,6 @@
    start="alpha_blender.avalon_blended_source"
    end="video_fifo.avalon_dc_buffer_sink" />
  <connection
-   kind="clock"
-   version="12.0"
-   start="clocks.vga_clk"
-   end="buttons.clock_reset" />
- <connection
    kind="reset"
    version="12.0"
    start="nios2_processor.jtag_debug_module_reset"
@@ -1344,4 +1339,9 @@
    version="12.0"
    start="clocks.sys_clk"
    end="sdcard.clock_sink" />
+ <connection
+   kind="clock"
+   version="12.0"
+   start="clocks.sys_clk"
+   end="buttons.clock_reset" />
 </system>

@@ -22,7 +22,7 @@ typedef struct{
 Map * construct_map() {
 	Map * map = malloc(sizeof(Map));
 	map->velocity = MAP_VELOCITY;
-	map->obstacles = construct_obstacle(WALL, 240, 100);
+	map->obstacles = construct_obstacle(POTION, 240, 100);
 	// add_obstacle(map);
 	return map;
 }
@@ -30,10 +30,11 @@ Map * construct_map() {
 void add_obstacle (Map * map) {
 	Obstacle * current = map->obstacles;
 	while (current->next !=  NULL) current = current->next;
-	current->next = construct_obstacle(POTION, 200, 200);
+	current->next = construct_obstacle(WALL, 200, 200);
 }
 
 void next_map(Map * map){
+	// Update existing Obstacle positions
 	Obstacle * prev = NULL;
 	Obstacle * current = map->obstacles;
 
@@ -49,7 +50,6 @@ void next_map(Map * map){
 			printf("\nType %d, position %d, %d", current->type, current->coordinates_x, current->coordinates_y);
 
 			prev = current;
-
 		}
 		current = current->next;
 	}
@@ -61,7 +61,7 @@ void update_screen(Map * map) {
 	// Main map
 	for (i=0; i<RESOLUTION_X; i++)
 		for(j=0; j<RESOLUTION_Y; j++)
-			pixel_colors[i][j] = 0;
+			pixel_colors[i][j] = map->graphics[i][j];
 
 	// Obstacles
 	Obstacle * current = map->obstacles;
