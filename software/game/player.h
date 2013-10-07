@@ -8,8 +8,8 @@
 #define START_SCORE 0
 #define START_VELOCITY_X 0
 #define START_VELOCITY_Y 0
-#define START_COORDINATE_X 120
-#define START_COORDINATE_Y 0
+#define START_COORDINATE_X 160
+#define START_COORDINATE_Y 120
 
 typedef struct{
 	char* screen_name;
@@ -40,12 +40,17 @@ void set_player_coordinates(Player* player) {
 	// Y-component is subtracted to abastract array convention (y=0 at top, y=240 at bottom)
 	player->coordinates_x += player->velocity_x;
 	player->coordinates_y -= player->velocity_y;
-	//TODO: constrain coordinates to screen
+	if(player->coordinates_x < 0) player->coordinates_x = 0;
+	if(player->coordinates_x >= RESOLUTION_X - 1) player->coordinates_x = RESOLUTION_X;
+	if(player->coordinates_y < 0) player->coordinates_x = 0;
+	if(player->coordinates_y >= RESOLUTION_Y - 1) player->coordinates_y = RESOLUTION_Y;
 }
 
 void change_velocity(Player* player, int velocity_x, int velocity_y ) {
 	player->velocity_x = velocity_x;
 	player->velocity_y = velocity_y;
 }
+
+
 
 #endif /* PLAYER_H_ */
