@@ -11,12 +11,12 @@
 #include "bitmap.h"
 
 typedef enum {
-	WALL,
-	POTION,
-	WENCH,
-	CHEST,
-	COIN,
-	POISON
+	WALL = 0,
+	POTION = 1,
+	WENCH = 2,
+	CHEST = 3,
+	COIN = 4,
+	POISON = 5
 } ObstacleType;
 
 typedef struct{

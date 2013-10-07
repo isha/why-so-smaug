@@ -79,56 +79,64 @@ Bitmap * load_bitmap(char *file) {
 	return bitmap;
 }
 
-Bitmap * bitmap_for(ObstacleType type) {
+Bitmap * bitmap_for(int type) {
 	Bitmap * bitmap;
 	switch(type) {
-	case POTION:
-		if (bitmap_to_obstacle_type[POTION] == NULL) {
+	case 0:
+		if (bitmap_to_obstacle_type[0] == NULL) {
 			bitmap = load_bitmap("chest.bmp");
-			bitmap_to_obstacle_type[POTION] = bitmap;
+			bitmap_to_obstacle_type[0] = bitmap;
 		}
 		else
-			bitmap = bitmap_to_obstacle_type[POTION];
+			bitmap = bitmap_to_obstacle_type[0];
 		break;
-	case CHEST:
-		if (bitmap_to_obstacle_type[CHEST] == NULL) {
+	case 1:
+		if (bitmap_to_obstacle_type[1] == NULL) {
 			bitmap = load_bitmap("chest.bmp");
-			bitmap_to_obstacle_type[CHEST] = bitmap;
+			bitmap_to_obstacle_type[1] = bitmap;
 		}
 		else
-			bitmap = bitmap_to_obstacle_type[CHEST];
+			bitmap = bitmap_to_obstacle_type[1];
 		break;
-	case COIN:
-		if (bitmap_to_obstacle_type[COIN] == NULL) {
+	case 2:
+		if (bitmap_to_obstacle_type[2] == NULL) {
 			bitmap = load_bitmap("star.bmp");
-			bitmap_to_obstacle_type[COIN] = bitmap;
+			bitmap_to_obstacle_type[2] = bitmap;
 		}
 		else
-			bitmap = bitmap_to_obstacle_type[COIN];
+			bitmap = bitmap_to_obstacle_type[2];
 		break;
-	case WENCH:
-		if (bitmap_to_obstacle_type[WENCH] == NULL) {
+	case 3:
+		if (bitmap_to_obstacle_type[3] == NULL) {
 			bitmap = load_bitmap("star.bmp");
-			bitmap_to_obstacle_type[WENCH] = bitmap;
+			bitmap_to_obstacle_type[3] = bitmap;
 		}
 		else
-			bitmap = bitmap_to_obstacle_type[WENCH];
+			bitmap = bitmap_to_obstacle_type[3];
 		break;
-	case POISON:
-		if (bitmap_to_obstacle_type[POISON] == NULL) {
+	case 4:
+		if (bitmap_to_obstacle_type[4] == NULL) {
 			bitmap = load_bitmap("pylon.bmp");
-			bitmap_to_obstacle_type[POISON] = bitmap;
+			bitmap_to_obstacle_type[4] = bitmap;
 		}
 		else
-			bitmap = bitmap_to_obstacle_type[POISON];
+			bitmap = bitmap_to_obstacle_type[4];
+		break;
+	case 5:
+		if (bitmap_to_obstacle_type[5] == NULL) {
+			bitmap = load_bitmap("pylon.bmp");
+			bitmap_to_obstacle_type[5] = bitmap;
+		}
+		else
+			bitmap = bitmap_to_obstacle_type[5];
 		break;
 	default:
-		if (bitmap_to_obstacle_type[POTION] == NULL) {
+		if (bitmap_to_obstacle_type[0] == NULL) {
 			bitmap = load_bitmap("star.bmp");
-			bitmap_to_obstacle_type[POTION] = bitmap;
+			bitmap_to_obstacle_type[0] = bitmap;
 		}
 		else
-			bitmap = bitmap_to_obstacle_type[POTION];
+			bitmap = bitmap_to_obstacle_type[0];
 		break;
 	}
 	return bitmap;
