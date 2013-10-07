@@ -38,36 +38,36 @@ int main(void)
 	Player *player1 = construct_player(name);
 	printf("\nPlayer created with name %s", player1->screen_name);
 
-	Map *map = construct_map();
-	printf("\nConstructed Map with velocity %d", map->velocity);
+//	Map *map = construct_map();
+//	printf("\nConstructed Map with velocity %d", map->velocity);
 
-//	printf("\nRock n' Roll\n");
-//	while(1) {
-//		read_buttons();
-//		new_timestamp = alt_timestamp();
-//		alt_up_pixel_buffer_dma_swap_buffers(pixel_buffer);
-//		alt_up_pixel_buffer_dma_draw(pixel_buffer, 0x00, player1->coordinates_x, player1->coordinates_y);
-//		alt_up_pixel_buffer_dma_swap_buffers(pixel_buffer);
-//		if(new_timestamp >= old_timestamp + debounce_interval) {
-//			move_player(player1);
-//			old_timestamp = new_timestamp;
-//		}
-//		alt_up_pixel_buffer_dma_draw(pixel_buffer, 0x740, player1->coordinates_x, player1->coordinates_y);
-//		alt_up_pixel_buffer_dma_swap_buffers(pixel_buffer);
-//	}
-	while (player1->health != 0 && game_on) {
-		// Calculations
-		next_map(map);
-
-		// Modify screen buffer matrix
-		update_screen(map);
-
-		// Character buffer
-		text(map, player1);
-
-		// Draw to screen
-		draw_to_screen();
+	printf("\nRock n' Roll\n");
+	while(1) {
+		read_buttons();
+		new_timestamp = alt_timestamp();
+		alt_up_pixel_buffer_dma_swap_buffers(pixel_buffer);
+		alt_up_pixel_buffer_dma_draw(pixel_buffer, 0x00, player1->coordinates_x, player1->coordinates_y);
+		alt_up_pixel_buffer_dma_swap_buffers(pixel_buffer);
+		if(new_timestamp >= old_timestamp + debounce_interval) {
+			move_player(player1);
+			old_timestamp = new_timestamp;
+		}
+		alt_up_pixel_buffer_dma_draw(pixel_buffer, 0x740, player1->coordinates_x, player1->coordinates_y);
+		alt_up_pixel_buffer_dma_swap_buffers(pixel_buffer);
 	}
+//	while (player1->health != 0 && game_on) {
+//		// Calculations
+//		next_map(map);
+//
+//		// Modify screen buffer matrix
+//		update_screen(map);
+//
+//		// Character buffer
+//		text(map, player1);
+//
+//		// Draw to screen
+//		draw_to_screen();
+//	}
 
 	/* Game over screen displayed.
 	 * Press any key to continue
@@ -88,10 +88,10 @@ void read_buttons() {
 }
 
 void move_player(Player* player) {
-	if(buttons[0]) player->coordinates_y++;
-	if(buttons[1]) player->coordinates_x++;
-	if(buttons[2]) player->coordinates_x--;
-	if(buttons[3]) player->coordinates_y--;
+	if(buttons[0]) player->coordinates_x++;
+	if(buttons[1]) player->coordinates_y++;
+	if(buttons[2]) player->coordinates_y--;
+	if(buttons[3]) player->coordinates_x--;
 }
 
 void test() {

@@ -11,7 +11,7 @@
 typedef struct {
 	int width;
 	int height;
-	char *data;
+	short int *data;
 } Bitmap;
 
 Bitmap * bitmap_to_obstacle_type[6];
@@ -48,6 +48,7 @@ Bitmap * load_bitmap(char *file) {
 	}
 
 	long index;
+	short int color_data, red, blue, green;
 	int num_colors;
 	int x;
 
@@ -72,8 +73,13 @@ Bitmap * load_bitmap(char *file) {
 
 	/* read the bitmap */
 	for(index = (bitmap->height-1)*bitmap->width; index >= 0; index -= bitmap->width)
-		for(x = 0; x < bitmap->width; x++)
-		  bitmap->data[(int)index+x]=(char)sdcard_read(fp);
+		for(x = 0; x < bitmap->width; x++){
+			color_data = sdcard_read(fp);
+			red = ((color_data & 0xE0) >> 5) * 32 / 8;
+			green = ((color_data & 0x1C) >> 2) * 64 / 8;
+			blue = ((color_data & 0x03)) * 32 / 4;
+			bitmap->data[(int)index+x] = (red << 11 ) + (green << 5 ) + (blue);
+		}
 
 	sdcard_fclose(fp);
 	return bitmap;
