@@ -15,9 +15,10 @@
 #define RESOLUTION_Y 240
 
 extern int pixel_colors[RESOLUTION_X][RESOLUTION_Y];
+int old_pixel_colors[RESOLUTION_X][RESOLUTION_Y];
 
 alt_up_pixel_buffer_dma_dev* pixel_buffer;
-alt_up_char_buffer_dev *char_buffer;
+extern alt_up_char_buffer_dev *char_buffer;
 
 unsigned int pixel_buffer_addr1 = PIXEL_BUFFER_BASE;
 unsigned int pixel_buffer_addr2 = PIXEL_BUFFER_BASE + (320 * 240 * 2);
@@ -31,9 +32,7 @@ void initialize_vga() {
 	// Set the 2nd buffer address
 	alt_up_pixel_buffer_dma_change_back_buffer_address(pixel_buffer,
 	pixel_buffer_addr2);
-	// Clear both buffers (this makes all pixels black)
 	alt_up_pixel_buffer_dma_clear_screen(pixel_buffer, 0);
-	alt_up_pixel_buffer_dma_clear_screen(pixel_buffer, 1);
 
 	char_buffer = alt_up_char_buffer_open_dev("/dev/char_drawer");
 	alt_up_char_buffer_init(char_buffer);
