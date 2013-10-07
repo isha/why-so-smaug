@@ -3,7 +3,7 @@
 
 #include "screen_name.h"
 
-#define MAX_HEALTH 3
+#define MAX_HEALTH 10
 #define START_TIME 0
 #define START_SCORE 0
 #define START_VELOCITY_X 0

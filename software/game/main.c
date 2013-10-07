@@ -24,34 +24,33 @@ int main(void)
 	init();
 	bool game_on = true;
 
-	alt_up_pixel_buffer_dma_clear_screen(pixel_buffer, 0);
-	alt_up_pixel_buffer_dma_clear_screen(pixel_buffer, 1);
+	char * name = "Elf friend";
+	Player *player1 = construct_player(name);
+	printf("\nPlayer created with name %s", player1->screen_name);
 
-	Bitmap * bitmap = load_bitmap("map.bmp");
-	int i, j, k=0;
-	for (i=0; i<bitmap->height; i++)
-		for (j=0; j<bitmap->width; j++)
-			{pixel_colors[j][i] = bitmap->data[k]; k++;}
+	Map *map = construct_map();
+	printf("\nConstructed Map with velocity %d", map->velocity);
 
-	draw_to_screen();
+	while (player1->health != 0 && game_on) {
+		// Calculations
+		next_map(map);
 
-//	char * name = "Elf friend";
-//	Player *player1 = construct_player(name);
-//	printf("\nPlayer created with name %s", player1->screen_name);
+		// Modify screen buffer matrix
+		update_screen(map);
 
-//	Map *map = construct_map();
-//	printf("\nConstructed Map with velocity %d", map->velocity);
+		// Character buffer
+		text(map, player1);
 
-//	while (player1->health != 0 && game_on) {
-//		// Calculations
-//		next_map(map);
-//
-//		// Modify screen buffer matrix
-//		update_screen(map);
-//
-//		// Draw to screen
-//		draw_to_screen();
-//	}
+		// Draw to screen
+		draw_to_screen();
+	}
+
+	/* Game over screen displayed.
+	 * Press any key to continue
+	 * then move to scoreboard
+	 */
+	game_over();
+
 	return 0;
 }
 

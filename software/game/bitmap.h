@@ -5,6 +5,7 @@
 #ifndef BITMAP_H_
 #define BITMAP_H_
 
+#include "obstacle.h"
 #include "sdcard.h"
 
 typedef struct {
@@ -12,6 +13,8 @@ typedef struct {
 	int height;
 	char *data;
 } Bitmap;
+
+Bitmap * bitmap_to_obstacle_type[6];
 
 void skip(FILE *fp, int chars) {
    int i;
@@ -44,10 +47,6 @@ Bitmap * load_bitmap(char *file) {
 		printf("%s is not a bitmap file.\n",file);
 	}
 
-//	int i=0;
-//	for (i=1; i<80; i++) {
-//		printf("\nAt %d = %x", i, sdcard_read(fp));
-//	}
 	long index;
 	int num_colors;
 	int x;
@@ -58,8 +57,6 @@ Bitmap * load_bitmap(char *file) {
 	skip(fp,20);
 	num_colors = sdcard_read_int(fp);
 	skip(fp,4);
-
-	printf("\nWidth = %d, height = %d, num_colors = %d", bitmap->width, bitmap->height, num_colors);
 
 	/* assume we are working with an 8-bit file */
 	if (num_colors == 0) num_colors = 256;
@@ -81,4 +78,58 @@ Bitmap * load_bitmap(char *file) {
 	sdcard_fclose(fp);
 	return bitmap;
 }
+
+void bitmap_for(Obstacle * obstacle) {
+	switch(obstacle->type) {
+	case POTION:
+		if (bitmap_to_obstacle_type[POTION] == NULL) {
+			obstacle->bitmap = load_bitmap("rocket.bmp");
+			bitmap_to_obstacle_type[POTION] = bitmap;
+		}
+		else
+			obstacle->bitmap = bitmap_to_obstacle_type[POTION];
+		break;
+	case CHEST:
+		if (bitmap_to_obstacle_type[CHEST] == NULL) {
+			obstacle->bitmap = load_bitmap("rocket.bmp");
+			bitmap_to_obstacle_type[CHEST] = bitmap;
+		}
+		else
+			obstacle->bitmap = bitmap_to_obstacle_type[CHEST];
+		break;
+	case COIN:
+		if (bitmap_to_obstacle_type[COIN] == NULL) {
+			obstacle->bitmap = load_bitmap("rocket.bmp");
+			bitmap_to_obstacle_type[COIN] = bitmap;
+		}
+		else
+			obstacle->bitmap = bitmap_to_obstacle_type[COIN];
+		break;
+	case WENCH:
+		if (bitmap_to_obstacle_type[WENCH] == NULL) {
+			obstacle->bitmap = load_bitmap("rocket.bmp");
+			bitmap_to_obstacle_type[WENCH] = bitmap;
+		}
+		else
+			obstacle->bitmap = bitmap_to_obstacle_type[WENCH];
+		break;
+	case POISON:
+		if (bitmap_to_obstacle_type[POISON] == NULL) {
+			obstacle->bitmap = load_bitmap("rocket.bmp");
+			bitmap_to_obstacle_type[POISON] = bitmap;
+		}
+		else
+			obstacle->bitmap = bitmap_to_obstacle_type[POISON];
+		break;
+	default:
+		if (bitmap_to_obstacle_type[POTION] == NULL) {
+			obstacle->bitmap = load_bitmap("rocket.bmp");
+			bitmap_to_obstacle_type[POTION] = bitmap;
+		}
+		else
+			obstacle->bitmap = bitmap_to_obstacle_type[POTION];
+		break;
+	}
+}
+
 #endif /* BITMAP_H_ */
