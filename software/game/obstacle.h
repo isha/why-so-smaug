@@ -33,7 +33,7 @@ Obstacle * construct_obstacle(ObstacleType type, int xpos, int ypos) {
 	obstacle->coordinates_x = xpos;
 	obstacle->coordinates_y = ypos;
 	obstacle->next = NULL;
-	bitmap_for(obstacle);
+	obstacle->bitmap = bitmap_for(type);
 	return obstacle;
 }
 

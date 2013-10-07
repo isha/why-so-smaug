@@ -41,20 +41,20 @@ int main(void)
 	Map *map = construct_map();
 	printf("\nConstructed Map with velocity %d", map->velocity);
 
-	printf("\nRock n' Roll\n");
-	while(1) {
-		read_buttons();
-		new_timestamp = alt_timestamp();
-		alt_up_pixel_buffer_dma_swap_buffers(pixel_buffer);
-		alt_up_pixel_buffer_dma_draw(pixel_buffer, 0x00, player1.coordinates_x, player1.coordinates_y);
-		alt_up_pixel_buffer_dma_swap_buffers(pixel_buffer);
-		if(new_timestamp >= old_timestamp + debounce_interval) {
-			move_player(&player1);
-			old_timestamp = new_timestamp;
-		}
-		alt_up_pixel_buffer_dma_draw(pixel_buffer, 0x740, player1.coordinates_x, player1.coordinates_y);
-		alt_up_pixel_buffer_dma_swap_buffers(pixel_buffer);
-	}
+//	printf("\nRock n' Roll\n");
+//	while(1) {
+//		read_buttons();
+//		new_timestamp = alt_timestamp();
+//		alt_up_pixel_buffer_dma_swap_buffers(pixel_buffer);
+//		alt_up_pixel_buffer_dma_draw(pixel_buffer, 0x00, player1->coordinates_x, player1->coordinates_y);
+//		alt_up_pixel_buffer_dma_swap_buffers(pixel_buffer);
+//		if(new_timestamp >= old_timestamp + debounce_interval) {
+//			move_player(player1);
+//			old_timestamp = new_timestamp;
+//		}
+//		alt_up_pixel_buffer_dma_draw(pixel_buffer, 0x740, player1->coordinates_x, player1->coordinates_y);
+//		alt_up_pixel_buffer_dma_swap_buffers(pixel_buffer);
+//	}
 	while (player1->health != 0 && game_on) {
 		// Calculations
 		next_map(map);

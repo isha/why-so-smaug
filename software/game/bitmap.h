@@ -79,57 +79,59 @@ Bitmap * load_bitmap(char *file) {
 	return bitmap;
 }
 
-void bitmap_for(Obstacle * obstacle) {
-	switch(obstacle->type) {
+Bitmap * bitmap_for(ObstacleType type) {
+	Bitmap * bitmap;
+	switch(type) {
 	case POTION:
 		if (bitmap_to_obstacle_type[POTION] == NULL) {
-			obstacle->bitmap = load_bitmap("rocket.bmp");
+			bitmap = load_bitmap("chest.bmp");
 			bitmap_to_obstacle_type[POTION] = bitmap;
 		}
 		else
-			obstacle->bitmap = bitmap_to_obstacle_type[POTION];
+			bitmap = bitmap_to_obstacle_type[POTION];
 		break;
 	case CHEST:
 		if (bitmap_to_obstacle_type[CHEST] == NULL) {
-			obstacle->bitmap = load_bitmap("rocket.bmp");
+			bitmap = load_bitmap("chest.bmp");
 			bitmap_to_obstacle_type[CHEST] = bitmap;
 		}
 		else
-			obstacle->bitmap = bitmap_to_obstacle_type[CHEST];
+			bitmap = bitmap_to_obstacle_type[CHEST];
 		break;
 	case COIN:
 		if (bitmap_to_obstacle_type[COIN] == NULL) {
-			obstacle->bitmap = load_bitmap("rocket.bmp");
+			bitmap = load_bitmap("star.bmp");
 			bitmap_to_obstacle_type[COIN] = bitmap;
 		}
 		else
-			obstacle->bitmap = bitmap_to_obstacle_type[COIN];
+			bitmap = bitmap_to_obstacle_type[COIN];
 		break;
 	case WENCH:
 		if (bitmap_to_obstacle_type[WENCH] == NULL) {
-			obstacle->bitmap = load_bitmap("rocket.bmp");
+			bitmap = load_bitmap("star.bmp");
 			bitmap_to_obstacle_type[WENCH] = bitmap;
 		}
 		else
-			obstacle->bitmap = bitmap_to_obstacle_type[WENCH];
+			bitmap = bitmap_to_obstacle_type[WENCH];
 		break;
 	case POISON:
 		if (bitmap_to_obstacle_type[POISON] == NULL) {
-			obstacle->bitmap = load_bitmap("rocket.bmp");
+			bitmap = load_bitmap("pylon.bmp");
 			bitmap_to_obstacle_type[POISON] = bitmap;
 		}
 		else
-			obstacle->bitmap = bitmap_to_obstacle_type[POISON];
+			bitmap = bitmap_to_obstacle_type[POISON];
 		break;
 	default:
 		if (bitmap_to_obstacle_type[POTION] == NULL) {
-			obstacle->bitmap = load_bitmap("rocket.bmp");
+			bitmap = load_bitmap("star.bmp");
 			bitmap_to_obstacle_type[POTION] = bitmap;
 		}
 		else
-			obstacle->bitmap = bitmap_to_obstacle_type[POTION];
+			bitmap = bitmap_to_obstacle_type[POTION];
 		break;
 	}
+	return bitmap;
 }
 
 #endif /* BITMAP_H_ */
