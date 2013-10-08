@@ -25,7 +25,7 @@ typedef struct{
 
 Player * construct_player(char* screen_name) {
 	Player * player = malloc(sizeof(Player));
-	strcpy(player->screen_name, screen_name);
+	player->screen_name = screen_name;
 	player->score = START_SCORE;
 	player->time = START_TIME;
 	player->health = MAX_HEALTH;

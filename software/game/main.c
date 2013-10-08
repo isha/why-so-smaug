@@ -8,6 +8,7 @@
 #include "obstacle.h"
 #include "player.h"
 #include "bitmap.h"
+#include "audio.h"
 
 #define switches (volatile char *) SWITCHES_BASE
 #define leds (char *) LEDS_BASE
@@ -21,6 +22,8 @@ void init() {
 	initialize_vga();
 	initialize_sdcard();
 	alt_timestamp_start();
+	initialize_audio();
+	start_audio();
 }
 
 int main(void)
@@ -34,9 +37,9 @@ int main(void)
 	init();
 	bool game_on = true;
 
-	char * name = "Elf friend";
+	char * name = get_screen_name();
 	Player *player1 = construct_player(name);
-	printf("\nPlayer created with name %s", player1->screen_name);
+	printf("Player created with name %s\n", player1->screen_name);
 
 	Map *map = construct_map();
 	printf("\nConstructed Map with velocity %d", map->velocity);
