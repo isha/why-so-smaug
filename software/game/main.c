@@ -30,7 +30,7 @@ int main(void)
 {
 	int old_timestamp = 0;
 	int new_timestamp = 0;
-	int i,j;
+	int i,j, k=0;
 
 	alt_timestamp_start();
 
@@ -41,36 +41,46 @@ int main(void)
 	Player *player1 = construct_player(name);
 	printf("Player created with name %s\n", player1->screen_name);
 
-//	Map *map = construct_map();
-//	printf("\nConstructed Map with velocity %d", map->velocity);
+	Map *map = construct_map();
+	printf("\nConstructed Map with velocity %d", map->velocity);
 
-	printf("\nRock n' Roll\n");
-	while(1) {
-		read_buttons();
-		new_timestamp = alt_timestamp();
-		alt_up_pixel_buffer_dma_swap_buffers(pixel_buffer);
-		alt_up_pixel_buffer_dma_draw(pixel_buffer, 0x00, player1->coordinates_x, player1->coordinates_y);
-		alt_up_pixel_buffer_dma_swap_buffers(pixel_buffer);
-		if(new_timestamp >= old_timestamp + debounce_interval) {
-			move_player(player1);
-			old_timestamp = new_timestamp;
-		}
-		alt_up_pixel_buffer_dma_draw(pixel_buffer, 0x740, player1->coordinates_x, player1->coordinates_y);
-		alt_up_pixel_buffer_dma_swap_buffers(pixel_buffer);
-	}
-//	while (player1->health != 0 && game_on) {
-//		// Calculations
-//		next_map(map);
-//
-//		// Modify screen buffer matrix
-//		update_screen(map);
-//
-//		// Character buffer
-//		text(map, player1);
-//
-//		// Draw to screen
-//		draw_to_screen();
+//	Bitmap * bmp = load_bitmap("star.bmp");
+//	for (i=0, k=0; i<bmp->height; i++) {
+//		for(j=0; j<bmp->width; j++, k++) {
+//			pixel_colors[i][j] = bmp->data[k];
+//		}
 //	}
+//	draw_to_screen();
+//	while(1);
+
+//	printf("\nRock n' Roll\n");
+//	while(1) {
+//		read_buttons();
+//		new_timestamp = alt_timestamp();
+//		alt_up_pixel_buffer_dma_swap_buffers(pixel_buffer);
+//		alt_up_pixel_buffer_dma_draw(pixel_buffer, 0x00, player1->coordinates_x, player1->coordinates_y);
+//		alt_up_pixel_buffer_dma_swap_buffers(pixel_buffer);
+//		if(new_timestamp >= old_timestamp + debounce_interval) {
+//			move_player(player1);
+//			old_timestamp = new_timestamp;
+//		}
+//		alt_up_pixel_buffer_dma_draw(pixel_buffer, 0x740, player1->coordinates_x, player1->coordinates_y);
+//		alt_up_pixel_buffer_dma_swap_buffers(pixel_buffer);
+//	}
+
+	while (player1->health != 0 && game_on) {
+		// Calculations
+		next_map(map);
+
+		// Modify screen buffer matrix
+		update_screen(map);
+
+		// Character buffer
+		text(map, player1);
+
+		// Draw to screen
+		draw_to_screen();
+	}
 
 	/* Game over screen displayed.
 	 * Press any key to continue
