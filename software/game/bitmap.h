@@ -75,10 +75,10 @@ Bitmap * load_bitmap(char *file) {
 	for (index = bitmap->height-1; index >=0; index--) {
 		for (x = 0; x < bitmap->width; x++){
 			color_data = sdcard_read(fp);
-			red = ((color_data & 0xE0) >> 5) * 32 / 8;
-			green = ((color_data & 0x1C) >> 2) * 64 / 8;
-			blue = ((color_data & 0x03)) * 32 / 4;
-			bitmap->data[index*bitmap->width + x] = (red << 11 ) + (green << 5 ) + (blue);
+			red = ((color_data & 0xE0) >> 5) * 31 / 7;
+			green = ((color_data & 0x1C) >> 2) * 63 / 7;
+			blue = ((color_data & 0x03)) * 31 / 3;
+			bitmap->data[((bitmap->height-1-index) * bitmap->width) + x] = (red << 11 ) + (green << 5 ) + (blue);
 		}
 		if (bitmap->width % 4) skip(fp, (4 - bitmap->width % 4));
 	}
