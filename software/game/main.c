@@ -8,6 +8,7 @@
 #include "obstacle.h"
 #include "player.h"
 #include "bitmap.h"
+#include "audio.h"
 
 #define switches (volatile char *) SWITCHES_BASE
 #define leds (char *) LEDS_BASE
@@ -23,78 +24,26 @@ void init() {
 	initialize_vga();
 	initialize_sdcard();
 	alt_timestamp_start();
+	//initialize_audio();
+	//start_audio();
 }
 
 int main(void)
 {
-	int old_timestamp = 0;
-	int new_timestamp = 0;
-	int i,j;
-
-	alt_timestamp_start();
-
 	init();
 	bool game_on = true;
-
-	char * name = "Elf friend";
-	Player *player1 = construct_player(name);
-	printf("\nPlayer created with name %s", player1->screen_name);
-
 	Map *map = construct_map();
-	printf("\nConstructed Map with velocity %d", map->velocity);
+
+	// Selection
+	char * name = "Elf";
+	Player *player1 = construct_player(name);
+	printf("Player created with name %s\n", player1->screen_name);
 
 	test_collision(player1, map);
 
 	printf("\nRock n' Roll\n");
-/*
-	while(player1->health > 0) {
-		read_buttons();
-		new_timestamp = alt_timestamp();
-//		alt_up_pixel_buffer_dma_swap_buffers(pixel_buffer);
-//		alt_up_pixel_buffer_dma_draw(pixel_buffer, 0x00, player1->coordinates_x, player1->coordinates_y);
-//		alt_up_pixel_buffer_dma_swap_buffers(pixel_buffer);
-//		if(new_timestamp >= old_timestamp + debounce_interval) {
-//			move_player(player1);
-//			old_timestamp = new_timestamp;
-//		}
-//		alt_up_pixel_buffer_dma_draw(pixel_buffer, 0x740, player1->coordinates_x, player1->coordinates_y);
-//		alt_up_pixel_buffer_dma_swap_buffers(pixel_buffer);
 
-		check_collision(player1, map);
-
-		// Calculations
-		next_map(map);
-
-		// Modify screen buffer matrix
-		update_screen(map);
-
-		// Character buffer
-		text(map, player1);
-
-		// Draw to screen
-		draw_to_screen();
-
-	}
-*/
-
-//	while (player1->health != 0 && game_on) {
-//		// Calculations
-//		next_map(map);
-//
-//		// Modify screen buffer matrix
-//		update_screen(map);
-//
-//		// Character buffer
-//		text(map, player1);
-//
-//		// Draw to screen
-//		draw_to_screen();
-//	}
-
-	/* Game over screen displayed.
-	 * Press any key to continue
-	 * then move to scoreboard
-	 */
+	// Game over
 	game_over();
 
 	return 0;
