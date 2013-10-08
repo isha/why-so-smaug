@@ -28,6 +28,8 @@ void init() {
 
 int main(void)
 {
+	int new_timestamp, old_timestamp;
+	int previous_x_position, previous_y_position;
 	init();
 	bool game_on = true;
 	Map *map = construct_map();
@@ -54,12 +56,32 @@ int main(void)
 
 	// Main game play
 	initial_screen(map);
+	initial_screen(map);
 	while (player1->health > 0 && game_on) {
-		next_map(map);
-		update_screen(map);
-		text(map, player1);
-		draw_to_screen();
-		player1->health--;
+		previous_x_position = player1->coordinates_x;
+		previous_y_position = player1->coordinates_y;
+
+		read_buttons();
+		new_timestamp = alt_timestamp();
+		alt_up_pixel_buffer_dma_swap_buffers(pixel_buffer);
+//		next_map(map);
+//		update_screen(player1, map);
+//		text(map, player1);
+//		draw_to_screen();
+		erase_previous_player_position(player1);
+
+		constrain_player_movement(player1);
+
+		alt_up_pixel_buffer_dma_swap_buffers(pixel_buffer);
+		if(new_timestamp >= old_timestamp + debounce_interval) {
+			move_player(player1);
+			old_timestamp = new_timestamp;
+		}
+		draw_player(player1);
+
+
+		alt_up_pixel_buffer_dma_swap_buffers(pixel_buffer);
+//		player1->health--;
 	}
 
 	// Game over

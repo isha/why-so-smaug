@@ -40,9 +40,9 @@ void set_player_coordinates(Player* player) {
 	// Y-component is subtracted to abastract array convention (y=0 at top, y=240 at bottom)
 	player->coordinates_x += player->velocity_x;
 	player->coordinates_y -= player->velocity_y;
-	if(player->coordinates_x < 0) player->coordinates_x = 0;
+	if(player->coordinates_x < 20) player->coordinates_x = 20;
 	if(player->coordinates_x >= RESOLUTION_X - 1) player->coordinates_x = RESOLUTION_X;
-	if(player->coordinates_y < 0) player->coordinates_x = 0;
+	if(player->coordinates_y < 20) player->coordinates_y = 20;
 	if(player->coordinates_y >= RESOLUTION_Y - 1) player->coordinates_y = RESOLUTION_Y;
 }
 
@@ -51,6 +51,40 @@ void change_velocity(Player* player, int velocity_x, int velocity_y ) {
 	player->velocity_y = velocity_y;
 }
 
+void erase_previous_player_position(Player* player) {
+	alt_up_pixel_buffer_dma_draw(pixel_buffer, 0x00, player->coordinates_x+1, player->coordinates_y);
+	alt_up_pixel_buffer_dma_draw(pixel_buffer, 0x00, player->coordinates_x+1, player->coordinates_y-1);
+	alt_up_pixel_buffer_dma_draw(pixel_buffer, 0x00, player->coordinates_x+1, player->coordinates_y+1);
+	alt_up_pixel_buffer_dma_draw(pixel_buffer, 0x00, player->coordinates_x, player->coordinates_y);
+	alt_up_pixel_buffer_dma_draw(pixel_buffer, 0x00, player->coordinates_x, player->coordinates_y-1);
+	alt_up_pixel_buffer_dma_draw(pixel_buffer, 0x00, player->coordinates_x, player->coordinates_y+1);
+	alt_up_pixel_buffer_dma_draw(pixel_buffer, 0x00, player->coordinates_x-1, player->coordinates_y);
+	alt_up_pixel_buffer_dma_draw(pixel_buffer, 0x00, player->coordinates_x-2, player->coordinates_y);
+	alt_up_pixel_buffer_dma_draw(pixel_buffer, 0x00, player->coordinates_x-3, player->coordinates_y);
+	alt_up_pixel_buffer_dma_draw(pixel_buffer, 0x00, player->coordinates_x-4, player->coordinates_y);
+	alt_up_pixel_buffer_dma_draw(pixel_buffer, 0x00, player->coordinates_x-4, player->coordinates_y-1);
 
+}
+
+void draw_player(Player* player) {
+	alt_up_pixel_buffer_dma_draw(pixel_buffer, 0x740, player->coordinates_x, player->coordinates_y);
+	alt_up_pixel_buffer_dma_draw(pixel_buffer, 0x740, player->coordinates_x+1, player->coordinates_y-1);
+	alt_up_pixel_buffer_dma_draw(pixel_buffer, 0x740, player->coordinates_x+1, player->coordinates_y+1);
+	alt_up_pixel_buffer_dma_draw(pixel_buffer, 0x740, player->coordinates_x, player->coordinates_y);
+	alt_up_pixel_buffer_dma_draw(pixel_buffer, 0x740, player->coordinates_x, player->coordinates_y-1);
+	alt_up_pixel_buffer_dma_draw(pixel_buffer, 0x740, player->coordinates_x, player->coordinates_y+1);
+	alt_up_pixel_buffer_dma_draw(pixel_buffer, 0x740, player->coordinates_x-1, player->coordinates_y);
+	alt_up_pixel_buffer_dma_draw(pixel_buffer, 0x740, player->coordinates_x-2, player->coordinates_y);
+	alt_up_pixel_buffer_dma_draw(pixel_buffer, 0x740, player->coordinates_x-3, player->coordinates_y);
+	alt_up_pixel_buffer_dma_draw(pixel_buffer, 0x740, player->coordinates_x-4, player->coordinates_y);
+	alt_up_pixel_buffer_dma_draw(pixel_buffer, 0x740, player->coordinates_x-4, player->coordinates_y-1);
+}
+
+void constrain_player_movement(Player* player) {
+	if(player->coordinates_x < 10) player->coordinates_x = 10;
+	if(player->coordinates_y < 15) player->coordinates_y = 15;
+	if(player->coordinates_x >= RESOLUTION_X - 10) player->coordinates_x = RESOLUTION_X - 10;
+	if(player->coordinates_y >= RESOLUTION_Y - 70) player->coordinates_y = RESOLUTION_Y - 70;
+}
 
 #endif /* PLAYER_H_ */
