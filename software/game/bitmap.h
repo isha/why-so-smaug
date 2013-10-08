@@ -12,7 +12,7 @@
 typedef struct {
 	int width;
 	int height;
-	short int *data;
+	int *data;
 } Bitmap;
 
 void skip(short int fp, int chars) {
@@ -31,7 +31,7 @@ int sdcard_read_int (short int fp) {
 	return num;
 }
 
-Bitmap * load_bitmap(char *file) {
+void * load_bitmap(char *file) {
 	Bitmap * bitmap = malloc(sizeof(Bitmap));
 	short int fp;
 	fp = sdcard_fopen(file, 0);
@@ -63,9 +63,9 @@ Bitmap * load_bitmap(char *file) {
 	if (num_colors == 0) num_colors = 256;
 
 	/* try to allocate memory */
-	if (( bitmap->data = (short int *) malloc((int)(bitmap->width*bitmap->height))) == NULL) {
+	if (( bitmap->data = malloc(bitmap->width*bitmap->height*sizeof(int))) == NULL) {
 		sdcard_fclose(fp);
-		printf("\nError allocating memory for file %s", file);
+		printf("\nError allocating memory for bitmap data %s", file);
 	}
 
 	/* Ignore the palette information for now */
@@ -78,7 +78,7 @@ Bitmap * load_bitmap(char *file) {
 			red = ((color_data & 0xE0) >> 5) * 31 / 7;
 			green = ((color_data & 0x1C) >> 2) * 63 / 7;
 			blue = ((color_data & 0x03)) * 31 / 3;
-			bitmap->data[((bitmap->height-1-index) * bitmap->width) + x] = (red << 11 ) + (green << 5 ) + (blue);
+			bitmap->data[(index*bitmap->width) + x] = (blue << 11 ) + (green << 5 ) + (red);;
 		}
 		if (bitmap->width % 4) skip(fp, (4 - bitmap->width % 4));
 	}

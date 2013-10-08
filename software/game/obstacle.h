@@ -25,6 +25,8 @@ struct Obstacle{
 	ObstacleType type;
 	int coordinates_x;
 	int coordinates_y;
+	int old_coordinates_x;
+	int old_coordinates_y;
 	Obstacle * next;
 };
 
@@ -65,14 +67,12 @@ Bitmap * get_bitmap(ObstacleType type) {
 
 Obstacle * construct_obstacle(ObstacleType type, int xpos, int ypos) {
 	Obstacle * obstacle = malloc(sizeof(Obstacle));
-	if (obstacle == NULL) printf("\nError allocating memory for obstacle");
-	else {
-		obstacle->type = type;
-		obstacle->coordinates_x = xpos;
-		obstacle->coordinates_y = ypos;
-		obstacle->next = NULL;
-		printf("\nCreated Obstacle of type %d", type);
-	}
+	obstacle->type = type;
+	obstacle->coordinates_x = xpos;
+	obstacle->coordinates_y = ypos;
+	obstacle->old_coordinates_x = xpos;
+	obstacle->old_coordinates_y = ypos;
+	obstacle->next = NULL;
 	return obstacle;
 }
 #endif /* OBSTACLE_H_ */

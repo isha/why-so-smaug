@@ -19,12 +19,12 @@ alt_up_sd_card_dev* sdcard;
 //Initializes SD Card module
 void initialize_sdcard() {
 	sdcard = alt_up_sd_card_open_dev("/dev/sdcard");
-	if(sdcard == NULL) printf("Error: SD Card Module cannot be initialized\n");
+	if(sdcard == NULL) printf("\nError: SD Card Module cannot be initialized");
 	if(!alt_up_sd_card_is_Present()){
-		printf("SD Card not connected\n");
+		printf("\nSD Card not connected");
 		return;
 	}
-	if(alt_up_sd_card_is_FAT16()) printf("SD Card Module initialized\n");
+	if(alt_up_sd_card_is_FAT16()) printf("\nSD Card Module initialized");
 	else printf("Error: File system not recognized.\n");
 }
 

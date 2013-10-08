@@ -43,9 +43,15 @@ void draw_to_screen() {
 	int i, j;
 	for (i=0; i<RESOLUTION_X; i++){
 		for (j=0; j<RESOLUTION_Y; j++){
-			alt_up_pixel_buffer_dma_draw(pixel_buffer, pixel_colors[i][j], i, j);
+			if (pixel_colors[i][j] != old_pixel_colors[i][j]) {
+				alt_up_pixel_buffer_dma_draw(pixel_buffer, pixel_colors[i][j], i, j);
+				old_pixel_colors[i][j] = pixel_colors[i][j];
+				alt_up_pixel_buffer_dma_swap_buffers(pixel_buffer);
+				alt_up_pixel_buffer_dma_draw(pixel_buffer, pixel_colors[i][j], i, j);
+			}
+
 		}
 	}
-	alt_up_pixel_buffer_dma_swap_buffers(pixel_buffer);
+
 }
 #endif /* VGA_H_ */
