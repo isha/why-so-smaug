@@ -7,6 +7,7 @@
 
 #include "obstacle.h"
 #include "sdcard.h"
+#include <stdlib.h>
 
 typedef struct {
 	int width;
@@ -14,15 +15,13 @@ typedef struct {
 	short int *data;
 } Bitmap;
 
-Bitmap * bitmap_to_obstacle_type[6];
-
-void skip(FILE *fp, int chars) {
+void skip(short int fp, int chars) {
    int i;
    for (i=0; i<chars; i++)
       sdcard_read(fp);
 }
 
-int sdcard_read_int (FILE *fp) {
+int sdcard_read_int (short int fp) {
 	unsigned char arr[4];
 	int i;
 	for (i=0; i<4; i++) {
@@ -34,7 +33,7 @@ int sdcard_read_int (FILE *fp) {
 
 Bitmap * load_bitmap(char *file) {
 	Bitmap * bitmap = malloc(sizeof(Bitmap));
-	FILE *fp;
+	short int fp;
 	fp = sdcard_fopen(file, 0);
 	if (fp == -1) {
 		printf("\nError opening bmp file %s", file);
@@ -58,12 +57,13 @@ Bitmap * load_bitmap(char *file) {
 	skip(fp,20);
 	num_colors = sdcard_read_int(fp);
 	skip(fp,4);
+	printf("\nWidth = %d, height = %d, num_colors = %d", bitmap->width, bitmap->height, num_colors);
 
 	/* assume we are working with an 8-bit file */
 	if (num_colors == 0) num_colors = 256;
 
 	/* try to allocate memory */
-	if (( bitmap->data = (char *) malloc((int)(bitmap->width*bitmap->height))) == NULL) {
+	if (( bitmap->data = (short int *) malloc((int)(bitmap->width*bitmap->height))) == NULL) {
 		sdcard_fclose(fp);
 		printf("\nError allocating memory for file %s", file);
 	}
@@ -72,80 +72,19 @@ Bitmap * load_bitmap(char *file) {
 	skip(fp, num_colors*4);
 
 	/* read the bitmap */
-	for(index = (bitmap->height-1)*bitmap->width; index >= 0; index -= bitmap->width)
-		for(x = 0; x < bitmap->width; x++){
+	for (index = bitmap->height-1; index >=0; index--) {
+		for (x = 0; x < bitmap->width; x++){
 			color_data = sdcard_read(fp);
 			red = ((color_data & 0xE0) >> 5) * 32 / 8;
 			green = ((color_data & 0x1C) >> 2) * 64 / 8;
 			blue = ((color_data & 0x03)) * 32 / 4;
-			bitmap->data[(int)index+x] = (red << 11 ) + (green << 5 ) + (blue);
+			bitmap->data[index*bitmap->width + x] = (red << 11 ) + (green << 5 ) + (blue);
 		}
-
+		if (bitmap->width % 4) skip(fp, (4 - bitmap->width % 4));
+	}
 	sdcard_fclose(fp);
 	return bitmap;
 }
 
-Bitmap * bitmap_for(int type) {
-	Bitmap * bitmap;
-	switch(type) {
-	case 0:
-		if (bitmap_to_obstacle_type[0] == NULL) {
-			bitmap = load_bitmap("chest.bmp");
-			bitmap_to_obstacle_type[0] = bitmap;
-		}
-		else
-			bitmap = bitmap_to_obstacle_type[0];
-		break;
-	case 1:
-		if (bitmap_to_obstacle_type[1] == NULL) {
-			bitmap = load_bitmap("chest.bmp");
-			bitmap_to_obstacle_type[1] = bitmap;
-		}
-		else
-			bitmap = bitmap_to_obstacle_type[1];
-		break;
-	case 2:
-		if (bitmap_to_obstacle_type[2] == NULL) {
-			bitmap = load_bitmap("star.bmp");
-			bitmap_to_obstacle_type[2] = bitmap;
-		}
-		else
-			bitmap = bitmap_to_obstacle_type[2];
-		break;
-	case 3:
-		if (bitmap_to_obstacle_type[3] == NULL) {
-			bitmap = load_bitmap("star.bmp");
-			bitmap_to_obstacle_type[3] = bitmap;
-		}
-		else
-			bitmap = bitmap_to_obstacle_type[3];
-		break;
-	case 4:
-		if (bitmap_to_obstacle_type[4] == NULL) {
-			bitmap = load_bitmap("pylon.bmp");
-			bitmap_to_obstacle_type[4] = bitmap;
-		}
-		else
-			bitmap = bitmap_to_obstacle_type[4];
-		break;
-	case 5:
-		if (bitmap_to_obstacle_type[5] == NULL) {
-			bitmap = load_bitmap("pylon.bmp");
-			bitmap_to_obstacle_type[5] = bitmap;
-		}
-		else
-			bitmap = bitmap_to_obstacle_type[5];
-		break;
-	default:
-		if (bitmap_to_obstacle_type[0] == NULL) {
-			bitmap = load_bitmap("star.bmp");
-			bitmap_to_obstacle_type[0] = bitmap;
-		}
-		else
-			bitmap = bitmap_to_obstacle_type[0];
-		break;
-	}
-	return bitmap;
-}
 
 #endif /* BITMAP_H_ */
