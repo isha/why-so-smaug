@@ -19,12 +19,14 @@ typedef enum {
 	POISON
 } ObstacleType;
 
-typedef struct{
+typedef struct Obstacle Obstacle;
+
+typedef struct Obstacle{
 	ObstacleType type;
 	int coordinates_x;
 	int coordinates_y;
-	struct Obstacle * next;
-} Obstacle;
+	Obstacle * next;
+};
 
 extern void * bitmap_for_obstacle_type[6];
 
@@ -63,10 +65,14 @@ Bitmap * get_bitmap(ObstacleType type) {
 
 Obstacle * construct_obstacle(ObstacleType type, int xpos, int ypos) {
 	Obstacle * obstacle = malloc(sizeof(Obstacle));
-	obstacle->type = type;
-	obstacle->coordinates_x = xpos;
-	obstacle->coordinates_y = ypos;
-	obstacle->next = NULL;
+	if (obstacle == NULL) printf("\nError allocating memory for obstacle");
+	else {
+		obstacle->type = type;
+		obstacle->coordinates_x = xpos;
+		obstacle->coordinates_y = ypos;
+		obstacle->next = NULL;
+		printf("\nCreated Obstacle of type %d", type);
+	}
 	return obstacle;
 }
 

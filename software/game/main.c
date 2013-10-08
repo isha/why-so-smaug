@@ -22,36 +22,20 @@ void init() {
 	initialize_vga();
 	initialize_sdcard();
 	alt_timestamp_start();
-	initialize_audio();
-	start_audio();
+	//initialize_audio();
+	//start_audio();
 }
 
 int main(void)
 {
-	int old_timestamp = 0;
-	int new_timestamp = 0;
-	int i,j, k=0;
-
-	alt_timestamp_start();
-
 	init();
 	bool game_on = true;
+	Map *map = construct_map();
 
-	char * name = get_screen_name();
+	// Selection
+	char * name = "Elf";
 	Player *player1 = construct_player(name);
 	printf("Player created with name %s\n", player1->screen_name);
-
-	Map *map = construct_map();
-	printf("\nConstructed Map with velocity %d", map->velocity);
-
-//	Bitmap * bmp = load_bitmap("star.bmp");
-//	for (i=0, k=0; i<bmp->height; i++) {
-//		for(j=0; j<bmp->width; j++, k++) {
-//			pixel_colors[i][j] = bmp->data[k];
-//		}
-//	}
-//	draw_to_screen();
-//	while(1);
 
 //	printf("\nRock n' Roll\n");
 //	while(1) {
@@ -68,24 +52,17 @@ int main(void)
 //		alt_up_pixel_buffer_dma_swap_buffers(pixel_buffer);
 //	}
 
-	while (player1->health != 0 && game_on) {
-		// Calculations
+	// Main game play
+	initial_screen(map);
+	while (player1->health > 0 && game_on) {
 		next_map(map);
-
-		// Modify screen buffer matrix
 		update_screen(map);
-
-		// Character buffer
 		text(map, player1);
-
-		// Draw to screen
 		draw_to_screen();
+		player1->health--;
 	}
 
-	/* Game over screen displayed.
-	 * Press any key to continue
-	 * then move to scoreboard
-	 */
+	// Game over
 	game_over();
 
 	return 0;

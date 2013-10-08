@@ -26,9 +26,9 @@ typedef struct{
 
 Map * construct_map() {
 	Map * map = malloc(sizeof(Map));
-//	map->bitmap = load_bitmap("bwin.bmp");
+	map->bitmap = load_bitmap("bsum.bmp");
 	map->velocity = MAP_VELOCITY;
-	map->obstacles = construct_obstacle(alt_timestamp()%6, alt_timestamp()%100 + 100, alt_timestamp()%40 + 100);
+	map->obstacles = construct_obstacle(alt_timestamp()%6, alt_timestamp()%100 + 200, alt_timestamp()%20 + 200);
 	return map;
 }
 
@@ -37,7 +37,7 @@ void add_obstacle (Map * map) {
 	while (current->next !=  NULL) {
 		current = current->next;
 	}
-	current->next = construct_obstacle(alt_timestamp()%6, alt_timestamp()%100 + 100, alt_timestamp()%40 + 100);
+	current->next = construct_obstacle(alt_timestamp()%6, alt_timestamp()%100 + 200, alt_timestamp()%20 + 200);
 }
 
 void next_map(Map * map){
@@ -68,22 +68,35 @@ void next_map(Map * map){
 		}
 		number_of_obstacles++;
 	}
-	printf("\nNumber of obstacles = %d", number_of_obstacles);
 
 	// Generate more obstacles if needed
 	if (alt_timestamp() % 10 < DIFFICULTY && number_of_obstacles < 6) {
-		printf("\nAdding obstacle");
 		add_obstacle(map);
 	}
 }
 
-void update_screen(Map * map) {
-	int i, j, k;
+void initial_screen(Map * map) {
+	int i, j;
+	for (i=0; i<map->bitmap->height; i++)
+		for(j=0; j<map->bitmap->width; j++)
+			pixel_colors[j][i+100] = map->bitmap->data[i*(map->bitmap->width)+j];
 
-	// Main map
-	for (i=0, k=0; i<map->bitmap->height; i++)
-		for(j=0; j<map->bitmap->width; j++, k++)
-			pixel_colors[i][j] = map->bitmap->data[k];
+	Bitmap * bitmap = load_bitmap("sun.bmp");
+	for (i=0; i<bitmap->width; i++)
+		for(j=0; j<bitmap->height; j++)
+			pixel_colors[i+250][j+10] = bitmap->data[i*(bitmap->width)+j];
+
+	for (i=0; i<RESOLUTION_X; i++)
+		for(j=178; j<RESOLUTION_Y; j++)
+			pixel_colors[i][j] = 0x5e231;
+
+	draw_to_screen();
+	alt_up_char_buffer_clear(char_buffer);
+	alt_up_char_buffer_string(char_buffer, "Go Go Go !!!", 60, 30);
+}
+
+void update_screen(Map * map) {
+	int i, j;
 
 	// Obstacles
 	Obstacle * current = map->obstacles;
@@ -91,7 +104,7 @@ void update_screen(Map * map) {
 		Bitmap * bitmap = get_bitmap(current->type);
 		for (i=0; i<bitmap->height; i++) {
 			for (j=0; j<bitmap->width; j++) {
-				if (bitmap->data[i*bitmap->width + j]) pixel_colors[current->coordinates_x+i][current->coordinates_y+j] = bitmap->data[i*bitmap->width + j];
+				if (bitmap->data[i*bitmap->width + j]) pixel_colors[current->coordinates_x+j][current->coordinates_y+i] = bitmap->data[i*bitmap->width + j];
 			}
 		}
 		current = current->next;
@@ -104,7 +117,7 @@ void text (Map * map, Player * player) {
 	char str[30];
 	sprintf(str, "Health: %d", player->health);
 
-	alt_up_char_buffer_string(char_buffer, str, 2, 15);
+	alt_up_char_buffer_string(char_buffer, str, 2, 2);
 }
 
 
