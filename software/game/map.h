@@ -112,7 +112,7 @@ void update_screen(Map * map) {
 		// Erase old
 		for (i=0; i<bitmap->height; i++) {
 			for (j=0; j<bitmap->width; j++) {
-				if (bitmap->data[i*bitmap->width + j]) pixel_colors[current->old_coordinates_x+j][current->old_coordinates_y+i] = 0;
+				pixel_colors[current->old_coordinates_x+j][current->old_coordinates_y+i] = 0;
 			}
 		}
 		for (i=0; i<bitmap->height; i++) {
