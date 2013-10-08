@@ -8,6 +8,7 @@
 #include "player.h"
 #include "bitmap.h"
 #include "audio.h"
+#include "screen_name.h"
 
 void init() {
 	initialize_vga();
@@ -31,7 +32,6 @@ int main(void)
 
 	// Main game play
 	initial_screen(map);
-	//initial_screen(map);
 	while (game_on) {
 		// User input
 		read_buttons();

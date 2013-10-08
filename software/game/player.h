@@ -1,15 +1,10 @@
 #ifndef PLAYER_H_
 #define PLAYER_H_
-
-#include "screen_name.h"
 #include "vga.h"
-#include "bitmap.h"
 
 #define MAX_HEALTH 10
 #define START_TIME 0
 #define START_SCORE 0
-#define START_VELOCITY_X 0
-#define START_VELOCITY_Y 0
 #define START_COORDINATE_X 160
 #define START_COORDINATE_Y 120
 #define debounce_interval 250000
@@ -23,14 +18,11 @@ static long int new_timestamp;
 static long int old_timestamp;
 
 typedef struct{
-	Bitmap * bitmap;
 	char* screen_name;
 	int score;
 	int time;
 	int health;
 	
-	int old_coordinates_x;
-	int old_coordinates_y;
 	int coordinates_x;
 	int coordinates_y;
 } Player;
@@ -43,7 +35,6 @@ Player * construct_player(char* screen_name) {
 	player->health = MAX_HEALTH;
 	player->coordinates_x = START_COORDINATE_X;
 	player->coordinates_y = START_COORDINATE_Y;
-	player->bitmap = load_bitmap("star.bmp");
 	return player;
 }
 

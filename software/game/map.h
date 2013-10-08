@@ -97,8 +97,6 @@ void initial_screen(Map * map) {
 			pixel_colors[i+250][j+10] = bitmap->data[i*(bitmap->width)+j];
 
 	draw_to_screen();
-	alt_up_char_buffer_clear(char_buffer);
-	alt_up_char_buffer_string(char_buffer, "WHY SO SMAUG", 62, 50);
 
 }
 
