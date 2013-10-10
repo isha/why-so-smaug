@@ -56,10 +56,10 @@ char *last_names[LAST_NAME_COUNT] = {
 
 char * get_screen_name() {
   char * name;
-  strcpy(name, first_names[(unsigned int)alt_timestamp() % FIRST_NAME_COUNT]);
-  strcat(name, adjectives[(unsigned int)alt_timestamp() % ADJECTIVE_COUNT]);
-  strcat(name, last_names[(unsigned int)alt_timestamp() % LAST_NAME_COUNT]);
+  name = first_names[(unsigned int)alt_timestamp() % FIRST_NAME_COUNT];
+
+  asprintf(&name, "%s%s", name, adjectives[(unsigned int)alt_timestamp() % ADJECTIVE_COUNT]);
+  asprintf(&name, "%s%s", name, last_names[(unsigned int)alt_timestamp() % LAST_NAME_COUNT]);
   return name;
 }
-
 #endif

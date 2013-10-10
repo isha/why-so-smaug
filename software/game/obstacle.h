@@ -12,11 +12,11 @@
 
 typedef enum {
 	PYLON,
-	POTION,
+	PLANE,
 	WENCH,
 	CHEST,
 	STAR,
-	POISON
+	BURGER
 } ObstacleType;
 
 typedef struct Obstacle Obstacle;
@@ -43,6 +43,22 @@ Bitmap * get_bitmap(ObstacleType type) {
 		}
 		else
 			bitmap = bitmap_for_obstacle_type[PYLON];
+		break;
+	case PLANE:
+		if (bitmap_for_obstacle_type[PLANE] == NULL) {
+			bitmap = load_bitmap("plane.bmp");
+			bitmap_for_obstacle_type[PLANE] = bitmap;
+		}
+		else
+			bitmap = bitmap_for_obstacle_type[PLANE];
+		break;
+	case BURGER:
+		if (bitmap_for_obstacle_type[BURGER] == NULL) {
+			bitmap = load_bitmap("burger.bmp");
+			bitmap_for_obstacle_type[BURGER] = bitmap;
+		}
+		else
+			bitmap = bitmap_for_obstacle_type[BURGER];
 		break;
 	case CHEST:
 		if (bitmap_for_obstacle_type[CHEST] == NULL) {

@@ -6,13 +6,15 @@
 #include "vga.h"
 #include "player.h"
 
+extern char * screen_name;
+
 int pixel_colors[RESOLUTION_X][RESOLUTION_Y];
 alt_up_char_buffer_dev *char_buffer;
 void * bitmap_for_obstacle_type[6];
 
 /* Following info will usually come from a map structure in the sdcard */
 #define MAP_VELOCITY 10
-#define DIFFICULTY 4
+#define DIFFICULTY 6
 /**/
 
 typedef struct{
@@ -23,12 +25,12 @@ typedef struct{
 
 Map * construct_map() {
 	Map * map = malloc(sizeof(Map));
-	map->bitmap = load_bitmap("bsum.bmp");
+	map->bitmap = load_bitmap("bwin.bmp");
 	map->velocity = MAP_VELOCITY;
 
 	int d1 = alt_timestamp()%6;
 	int d2 = 320;
-	int d3 = alt_timestamp()%55 + 30;
+	int d3 = alt_timestamp()%40 + 30;
 
 	map->obstacles = construct_obstacle(d1, d2, d3);
 	return map;
@@ -41,7 +43,7 @@ void add_obstacle (Map * map) {
 	}
 	int d1 = alt_timestamp()%6;
 	int d2 = 320;
-	int d3 = alt_timestamp()%55 + 30;
+	int d3 = alt_timestamp()%40 + 30;
 
 	current->next = construct_obstacle(d1, d2, d3);
 }
@@ -91,7 +93,7 @@ void initial_screen(Map * map) {
 	free(map->bitmap->data);
 	free(map->bitmap);
 
-	Bitmap * bitmap = load_bitmap("sun.bmp");
+	Bitmap * bitmap = load_bitmap("moon.bmp");
 	for (i=0; i<bitmap->width; i++)
 		for(j=0; j<bitmap->height; j++)
 			pixel_colors[i+250][j+10] = bitmap->data[i*(bitmap->width)+j];
@@ -112,7 +114,7 @@ void update_screen(Map * map) {
 		// Erase old
 		for (i=0; i<bitmap->height; i++) {
 			for (j=0; j<bitmap->width; j++) {
-				if (bitmap->data[i*bitmap->width + j]) pixel_colors[current->old_coordinates_x+j][current->old_coordinates_y+i] = 0;
+				pixel_colors[current->old_coordinates_x+j][current->old_coordinates_y+i] = 0;
 			}
 		}
 		for (i=0; i<bitmap->height; i++) {
@@ -124,13 +126,13 @@ void update_screen(Map * map) {
 	}
 }
 
-void text (Map * map, Player * player) {
+void text (Map * map, int time) {
 	alt_up_char_buffer_clear(char_buffer);
 
 	char str1[30], str2[30], str3[30];
-	sprintf(str1, "Time: %d", player->time);
-	sprintf(str2, "Health: %d", player->health);
-	sprintf(str3, "%s", player->screen_name);
+	sprintf(str1, "Time: %d", time);
+	sprintf(str2, "Health: %d", 10);
+	sprintf(str3, "%s", screen_name);
 
 	alt_up_char_buffer_string(char_buffer, str1, 1, 3);
 	alt_up_char_buffer_string(char_buffer, str2, 1, 2);

@@ -22,6 +22,9 @@ extern bool buttons[4] = {false, false, false, false};
 static long int new_timestamp;
 static long int old_timestamp;
 
+static int old_coordinates_x = START_COORDINATE_X;
+static int old_coordinates_y = START_COORDINATE_Y;
+
 typedef struct{
 	Bitmap * bitmap;
 	char* screen_name;
@@ -37,10 +40,12 @@ typedef struct{
 
 Player * construct_player(char* screen_name) {
 	Player * player = malloc(sizeof(Player));
-	strcpy(player->screen_name, screen_name);
+	//strcpy(player->screen_name, screen_name);
 	player->score = START_SCORE;
 	player->time = START_TIME;
 	player->health = MAX_HEALTH;
+	old_coordinates_x = START_COORDINATE_X;
+	old_coordinates_y = START_COORDINATE_Y;
 	player->coordinates_x = START_COORDINATE_X;
 	player->coordinates_y = START_COORDINATE_Y;
 	player->bitmap = load_bitmap("star.bmp");
@@ -51,10 +56,38 @@ void next_player (Player * player) {
 	new_timestamp = alt_timestamp();
 	erase_previous_player_position(player);
 	if(new_timestamp >= old_timestamp + debounce_interval) {
-		if(buttons[0]) player->coordinates_x+=15;
-		if(buttons[1]) player->coordinates_y+=15;
-		if(buttons[2]) player->coordinates_y-=15;
-		if(buttons[3]) player->coordinates_x-=15;
+		if(buttons[0]) {
+			if (abs(player->coordinates_x - old_coordinates_x)<20) {
+				old_coordinates_x = player->coordinates_x;
+				player->coordinates_x+=15;
+			} else {
+				player->coordinates_x = old_coordinates_x;
+			}
+		}
+		if(buttons[1]) {
+			if (abs(player->coordinates_y - old_coordinates_y)<20) {
+				old_coordinates_y = player->coordinates_y;
+				player->coordinates_y+=15;
+			} else {
+				player->coordinates_y = old_coordinates_y;
+			}
+		}
+		if(buttons[2]) {
+			if (abs(player->coordinates_y - old_coordinates_y)<20) {
+				old_coordinates_y = player->coordinates_y;
+				player->coordinates_y-=15;
+			} else {
+				player->coordinates_y = old_coordinates_y;
+			}
+		}
+		if(buttons[3]) {
+			if (abs(player->coordinates_x - old_coordinates_x)<20) {
+				old_coordinates_x = player->coordinates_x;
+				player->coordinates_x-=15;
+			} else {
+				player->coordinates_x = old_coordinates_x;
+			}
+		}
 		old_timestamp = new_timestamp;
 	}
 	constrain_player_movement(player);

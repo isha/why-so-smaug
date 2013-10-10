@@ -41,7 +41,7 @@ alt_u32 handle_timer_interrupts(alt_up_audio_dev * device)
 	if (game_of_thrones[note_iterator][1] == 0){
 		period = 1;
 	}else{
-		period = floor(1000/game_of_thrones[note_iterator][1] + 0.5);
+		period = floor(500/game_of_thrones[note_iterator][1] + 0.5);
 	}
 
 	if (alt_up_audio_write_interrupt_pending(device) && period != 1){
