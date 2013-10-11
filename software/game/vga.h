@@ -10,6 +10,7 @@
 
 #include "altera_up_avalon_video_character_buffer_with_dma.h"
 #include "altera_up_avalon_video_pixel_buffer_dma.h"
+#include "io.h"
 
 #define RESOLUTION_X 320
 #define RESOLUTION_Y 240
@@ -54,4 +55,7 @@ void draw_to_screen() {
 	}
 
 }
+
+
+
 #endif /* VGA_H_ */

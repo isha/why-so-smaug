@@ -29,7 +29,7 @@ Map * construct_map() {
 
 	int d1 = alt_timestamp()%6;
 	int d2 = 320;
-	int d3 = alt_timestamp()%40 + 30;
+	int d3 = alt_timestamp()%110 + 30;
 
 	map->obstacles = construct_obstacle(d1, d2, d3);
 	return map;
@@ -102,8 +102,6 @@ void initial_screen(Map * map) {
 			pixel_colors[i+250][j+10] = bitmap->data[i*(bitmap->width)+j];
 
 	draw_to_screen();
-	alt_up_char_buffer_clear(char_buffer);
-	alt_up_char_buffer_string(char_buffer, "WHY SO SMAUG", 62, 50);
 
 }
 
@@ -127,7 +125,6 @@ void update_screen(Map * map) {
 					if (bitmap->data[i*bitmap->width + j])
 						pixel_colors[current->coordinates_x+j][current->coordinates_y+i] = bitmap->data[i*bitmap->width + j];
 				}
-
 			}
 		}
 		current = current->next;
@@ -137,7 +134,10 @@ void update_screen(Map * map) {
 void text (Map * map, int time, char * name) {
 	alt_up_char_buffer_clear(char_buffer);
 
-	char str1[40], str2[30], str3[30];
+	char str1[50], str2[30], str3[30];
+//	str1 = strcat("Time: ", time);
+//	str2 = strcat("Health: ", time);
+//	str3 = name;
 	sprintf(str1, "Time: %d", time);
 	sprintf(str2, "Health: %d", 10);
 	sprintf(str3, "%s", name);

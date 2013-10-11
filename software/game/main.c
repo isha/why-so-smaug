@@ -8,6 +8,8 @@
 #include "player.h"
 #include "bitmap.h"
 #include "audio.h"
+#include "screen_name.h"
+#include "io.h"
 
 void init() {
 	initialize_vga();
@@ -52,7 +54,6 @@ int main(void)
 		player1->time++;
 	}
 
-	// Game over
 	game_over();
 
 	while(1);
