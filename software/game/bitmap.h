@@ -43,7 +43,7 @@ void * load_bitmap(char *file) {
 	if (sdcard_read(fp)!='B' || sdcard_read(fp)!='M')
 	{
 		sdcard_fclose(fp);
-		printf("%s is not a bitmap file.\n",file);
+		printf("\n%s is not a bitmap file.\n",file);
 	}
 
 	long index;

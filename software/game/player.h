@@ -7,13 +7,13 @@
 #define START_SCORE 0
 #define START_COORDINATE_X 160
 #define START_COORDINATE_Y 120
-#define debounce_interval 250000
 
 #define switches (volatile char *) SWITCHES_BASE
 #define leds (char *) LEDS_BASE
 #define keys (volatile char *) BUTTONS_BASE
 
 extern bool buttons[4] = {false, false, false, false};
+
 static long int new_timestamp;
 static long int old_timestamp;
 
@@ -35,23 +35,49 @@ Player * construct_player(char* screen_name) {
 	player->health = MAX_HEALTH;
 	player->coordinates_x = START_COORDINATE_X;
 	player->coordinates_y = START_COORDINATE_Y;
+	player->bitmap = load_bitmap("star.bmp");
 	return player;
 }
 
 void next_player (Player * player) {
 	new_timestamp = alt_timestamp();
 	erase_previous_player_position(player);
-	if(new_timestamp >= old_timestamp + debounce_interval) {
-		if(buttons[0]) player->coordinates_x+=15;
-		if(buttons[1]) player->coordinates_y+=15;
-		if(buttons[2]) player->coordinates_y-=15;
-		if(buttons[3]) player->coordinates_x-=15;
-		old_timestamp = new_timestamp;
+	if(buttons[0]) {
+		if (abs(player->coordinates_x - old_coordinates_x)<20) {
+			old_coordinates_x = player->coordinates_x;
+			player->coordinates_x+=10;
+		} else {
+			player->coordinates_x = old_coordinates_x;
+		}
 	}
+	if(buttons[1]) {
+		if (abs(player->coordinates_y - old_coordinates_y)<20) {
+			old_coordinates_y = player->coordinates_y;
+			player->coordinates_y+=10;
+		} else {
+			player->coordinates_y = old_coordinates_y;
+		}
+	}
+	if(buttons[2]) {
+		if (abs(player->coordinates_y - old_coordinates_y)<20) {
+			old_coordinates_y = player->coordinates_y;
+			player->coordinates_y-=10;
+		} else {
+			player->coordinates_y = old_coordinates_y;
+		}
+	}
+	if(buttons[3]) {
+		if (abs(player->coordinates_x - old_coordinates_x)<20) {
+			old_coordinates_x = player->coordinates_x;
+			player->coordinates_x-=10;
+		} else {
+			player->coordinates_x = old_coordinates_x;
+		}
+	}
+
 	constrain_player_movement(player);
 
 	draw_player(player);
-	old_timestamp = new_timestamp;
 
 }
 
@@ -91,12 +117,11 @@ void constrain_player_movement(Player* player) {
 }
 
 void read_buttons() {
-	int *new_button_values = (int *) keys;
-	buttons[0] = ((new_button_values[0] & 0x01) == 0x01);
-	buttons[1] = ((new_button_values[0] & 0x02) == 0x02);
-	buttons[2] = ((new_button_values[0] & 0x04) == 0x04);
-	buttons[3] = ((new_button_values[0] & 0x08) == 0x08);
-	*leds = (buttons[3] << 3) + (buttons[2] << 2) + (buttons[1] << 1) + (buttons[0]);
+	int new_button_values = IORD_8DIRECT(keys, 0);
+	buttons[0] = ((new_button_values & 0x01) == 0x01);
+	buttons[1] = ((new_button_values & 0x02) == 0x02);
+	buttons[2] = ((new_button_values & 0x04) == 0x04);
+	buttons[3] = ((new_button_values & 0x08) == 0x08);
 }
 
 

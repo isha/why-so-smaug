@@ -122,6 +122,7 @@ void update_screen(Map * map) {
 	}
 }
 
+<<<<<<< Updated upstream
 void text (Map * map, Player * player) {
 	alt_up_char_buffer_clear(char_buffer);
 
@@ -134,6 +135,20 @@ void text (Map * map, Player * player) {
 	alt_up_char_buffer_string(char_buffer, str2, 1, 2);
 	alt_up_char_buffer_string(char_buffer, str3, 1, 1);
 }
+=======
+//void text (Map * map, int time) {
+//	alt_up_char_buffer_clear(char_buffer);
+//
+//	char str1[30], str2[30], str3[30];
+//	sprintf(str1, "Time: %d", time);
+//	sprintf(str2, "Health: %d", 10);
+//	sprintf(str3, "%s", screen_name);
+//
+//	alt_up_char_buffer_string(char_buffer, str1, 1, 3);
+//	alt_up_char_buffer_string(char_buffer, str2, 1, 2);
+//	alt_up_char_buffer_string(char_buffer, str3, 1, 1);
+//}
+>>>>>>> Stashed changes
 
 
 void game_over() {
