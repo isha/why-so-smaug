@@ -17,12 +17,15 @@ extern bool buttons[4] = {false, false, false, false};
 static long int new_timestamp;
 static long int old_timestamp;
 
+static int old_coordinates_x = START_COORDINATE_X;
+static int old_coordinates_y = START_COORDINATE_Y;
+
 typedef struct{
+	Bitmap * bitmap;
 	char* screen_name;
 	int score;
 	int time;
 	int health;
-	
 	int coordinates_x;
 	int coordinates_y;
 } Player;
@@ -33,9 +36,11 @@ Player * construct_player(char* screen_name) {
 	player->score = START_SCORE;
 	player->time = START_TIME;
 	player->health = MAX_HEALTH;
+	old_coordinates_x = START_COORDINATE_X;
+	old_coordinates_y = START_COORDINATE_Y;
 	player->coordinates_x = START_COORDINATE_X;
 	player->coordinates_y = START_COORDINATE_Y;
-	player->bitmap = load_bitmap("star.bmp");
+//	player->bitmap = load_bitmap("star.bmp");
 	return player;
 }
 

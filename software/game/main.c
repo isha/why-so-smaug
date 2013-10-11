@@ -22,11 +22,13 @@ void init() {
 int main(void)
 {
 	init();
+
 	Map* map = construct_map();
 	Player* player1 = construct_player(get_screen_name());
 
 	initial_screen(map);
-	while (game_on) {
+
+	while (1) {
 		// User input
 		read_buttons();
 
