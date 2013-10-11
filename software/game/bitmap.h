@@ -57,7 +57,7 @@ void * load_bitmap(char *file) {
 	skip(fp,20);
 	num_colors = sdcard_read_int(fp);
 	skip(fp,4);
-	printf("\nWidth = %d, height = %d, num_colors = %d", bitmap->width, bitmap->height, num_colors);
+	//printf("\nWidth = %d, height = %d, num_colors = %d", bitmap->width, bitmap->height, num_colors);
 
 	/* assume we are working with an 8-bit file */
 	if (num_colors == 0) num_colors = 256;

@@ -9,8 +9,6 @@
 #include "bitmap.h"
 #include "audio.h"
 
-char * screen_name;
-
 void init() {
 	initialize_vga();
 	initialize_sdcard();
@@ -21,39 +19,37 @@ void init() {
 
 int main(void)
 {
-	int time =0;
+	char * player_name;
 	init();
 
 	// Selection
-	screen_name = get_screen_name();
-	Player *player1 = construct_player("LOL");
-	printf("\nPlayer created with name %s\n", player1->screen_name);
+	player_name = get_screen_name();
+	Player *player1 = construct_player(player_name);
 
 	bool game_on = true;
 	Map *map = construct_map();
 
-	// Main game play
 	initial_screen(map);
-	//initial_screen(map);
-	while (game_on && time < 200) {
+
+	// Main game play
+	while (game_on && player1->time < 500) {
 		// User input
 		read_buttons();
 
 		// Update positions
 		next_map(map);
 
-
 		// Update screen
 		update_screen(map);
 		next_player(player1);
 
 		// All text on screen
-		text(map, time);
+		text(map, player1->time, player1->screen_name);
 
 		// Draw EVERYTHING
 		draw_to_screen();
 
-		time++;
+		player1->time++;
 	}
 
 	// Game over

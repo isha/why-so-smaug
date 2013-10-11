@@ -6,8 +6,6 @@
 #include "vga.h"
 #include "player.h"
 
-extern char * screen_name;
-
 int pixel_colors[RESOLUTION_X][RESOLUTION_Y];
 alt_up_char_buffer_dev *char_buffer;
 void * bitmap_for_obstacle_type[6];
@@ -16,6 +14,7 @@ void * bitmap_for_obstacle_type[6];
 #define MAP_VELOCITY 10
 #define DIFFICULTY 6
 /**/
+
 
 typedef struct{
 	Bitmap * bitmap;
@@ -43,7 +42,7 @@ void add_obstacle (Map * map) {
 	}
 	int d1 = alt_timestamp()%6;
 	int d2 = 320;
-	int d3 = alt_timestamp()%40 + 30;
+	int d3 = alt_timestamp()%110 + 30;
 
 	current->next = construct_obstacle(d1, d2, d3);
 }
@@ -65,9 +64,13 @@ void next_map(Map * map){
 				current = map->obstacles;
 			}
 			else {
-				prev->next = current->next;
-				free(current);
-				current = prev->next;
+				if (prev) {
+					prev->next = current->next;
+					free(current);
+					current = prev->next;
+				} else {
+					current = current->next;
+				}
 			}
 		} else {
 			current->old_coordinates_x = current->coordinates_x;
@@ -79,7 +82,7 @@ void next_map(Map * map){
 	}
 
 	// Generate more obstacles if needed
-	if (alt_timestamp() % 10 < DIFFICULTY && number_of_obstacles < 6 && prev->coordinates_x <= 200) {
+	if (alt_timestamp() % 10 < DIFFICULTY && number_of_obstacles < 10) {
 		add_obstacle(map);
 	}
 }
@@ -114,25 +117,30 @@ void update_screen(Map * map) {
 		// Erase old
 		for (i=0; i<bitmap->height; i++) {
 			for (j=0; j<bitmap->width; j++) {
-				pixel_colors[current->old_coordinates_x+j][current->old_coordinates_y+i] = 0;
-			}
-		}
-		for (i=0; i<bitmap->height; i++) {
-			for (j=0; j<bitmap->width; j++) {
-				if (bitmap->data[i*bitmap->width + j]) pixel_colors[current->coordinates_x+j][current->coordinates_y+i] = bitmap->data[i*bitmap->width + j];
+				if (!(current->old_coordinates_x+j > RESOLUTION_X || current->old_coordinates_x+j < 0 ||
+						current->old_coordinates_y+i > RESOLUTION_Y || current->old_coordinates_y+i < 0)){
+					pixel_colors[current->old_coordinates_x+j][current->old_coordinates_y+i] = 0;
+				}
+
+				if (!(current->coordinates_x+j > RESOLUTION_X || current->coordinates_x+j < 0 ||
+						current->coordinates_y+i > RESOLUTION_Y || current->coordinates_y+i < 0)){
+					if (bitmap->data[i*bitmap->width + j])
+						pixel_colors[current->coordinates_x+j][current->coordinates_y+i] = bitmap->data[i*bitmap->width + j];
+				}
+
 			}
 		}
 		current = current->next;
 	}
 }
 
-void text (Map * map, int time) {
+void text (Map * map, int time, char * name) {
 	alt_up_char_buffer_clear(char_buffer);
 
-	char str1[30], str2[30], str3[30];
+	char str1[40], str2[30], str3[30];
 	sprintf(str1, "Time: %d", time);
 	sprintf(str2, "Health: %d", 10);
-	sprintf(str3, "%s", screen_name);
+	sprintf(str3, "%s", name);
 
 	alt_up_char_buffer_string(char_buffer, str1, 1, 3);
 	alt_up_char_buffer_string(char_buffer, str2, 1, 2);
