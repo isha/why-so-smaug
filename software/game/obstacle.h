@@ -67,6 +67,7 @@ Bitmap * get_bitmap(ObstacleType type) {
 
 Obstacle * construct_obstacle(ObstacleType type, int xpos, int ypos) {
 	Obstacle * obstacle = malloc(sizeof(Obstacle));
+	if (obstacle == NULL) printf("\nError mallocing for obstacle");
 	obstacle->type = type;
 	obstacle->coordinates_x = xpos;
 	obstacle->coordinates_y = ypos;

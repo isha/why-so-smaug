@@ -9,16 +9,20 @@
 #include "bitmap.h"
 #include "audio.h"
 #include "screen_name.h"
+#include "nunchuck.h"
 
 void init() {
 	initialize_vga();
 	initialize_sdcard();
 	alt_timestamp_start();
-//	initialize_audio();
-//	start_audio();
+	initialize_audio();
+	start_audio();
 }
 
-int main(void)
+int main(void) {
+}
+
+int old_main(void)
 {
 	init();
 
@@ -32,15 +36,14 @@ int main(void)
 
 	// Main game play
 	initial_screen(map);
-	while (game_on) {
+	while (game_on ) {
 		// User input
-		read_buttons();
+		//read_buttons();
 
 		// Update positions
 		next_map(map);
-		next_player(player1);
+		//next_player(player1);
 
-		// Update screen
 		update_screen(map);
 
 		// All text on screen
@@ -54,6 +57,10 @@ int main(void)
 
 	// Game over
 	game_over();
+
+	free(map->obstacles);
+	free(map);
+	free(player1);
 
 	while(1);
 
