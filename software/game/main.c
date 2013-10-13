@@ -32,7 +32,7 @@ int main(void)
 
 	// Selection
 	player_name = get_screen_name();
-	Player *player1 = construct_player(player_name);
+	Player *player1 = construct_player(player_name, PLAYER1);
 
 	bool game_on = true;
 	Map *map = construct_map();
@@ -46,6 +46,8 @@ int main(void)
 
 		// Update positions
 		next_map(map);
+
+		erase_player(player1);
 
 		// Update screen
 		update_screen(map);

@@ -1,6 +1,7 @@
 #ifndef PLAYER_H_
 #define PLAYER_H_
 #include "vga.h"
+#include "bitmap.h"
 
 #define MAX_HEALTH 10
 #define START_TIME 0
@@ -13,71 +14,74 @@
 #define keys (volatile char *) BUTTONS_BASE
 
 extern bool buttons[4] = {false, false, false, false};
+extern void * bitmap_for_player_type[4];
 
 static long int new_timestamp;
 static long int old_timestamp;
 
-static int old_coordinates_x = START_COORDINATE_X;
-static int old_coordinates_y = START_COORDINATE_Y;
-
 typedef struct{
-	Bitmap * bitmap;
 	char* screen_name;
 	int score;
 	int time;
 	int health;
+	int old_coordinates_x;
+	int old_coordinates_y;
 	int coordinates_x;
 	int coordinates_y;
+	int type;
 } Player;
 
-Player * construct_player(char* screen_name) {
-	printf("\nPlayer created with name %s\n", screen_name);
+typedef enum {
+	PLAYER1,
+	PLAYER2
+} PlayerType;
+
+Player * construct_player(char* screen_name, PlayerType type) {
 	Player * player = malloc(sizeof(Player));
 	player->screen_name = screen_name;
 	player->score = START_SCORE;
 	player->time = START_TIME;
 	player->health = MAX_HEALTH;
-	old_coordinates_x = START_COORDINATE_X;
-	old_coordinates_y = START_COORDINATE_Y;
+	player->old_coordinates_x = START_COORDINATE_X;
+	player->old_coordinates_y = START_COORDINATE_Y;
 	player->coordinates_x = START_COORDINATE_X;
 	player->coordinates_y = START_COORDINATE_Y;
-//	player->bitmap = load_bitmap("star.bmp");
+	player->type = type;
 	return player;
 }
 
 void next_player (Player * player) {
 	new_timestamp = alt_timestamp();
-	erase_previous_player_position(player);
 	if(buttons[0]) {
-		if (abs(player->coordinates_x - old_coordinates_x)<20) {
-			old_coordinates_x = player->coordinates_x;
-			player->coordinates_x+=5;
+		if (abs(player->coordinates_x - player->old_coordinates_x)<20) {
+			player->old_coordinates_x = player->coordinates_x;
+			player->coordinates_x+=10;
 		} else {
-			player->coordinates_x = old_coordinates_x;
+			player->coordinates_x = player->old_coordinates_x;
 		}
 	}
 	if(buttons[1]) {
-		if (abs(player->coordinates_y - old_coordinates_y)<20) {
-			old_coordinates_y = player->coordinates_y;
-			player->coordinates_y+=5;
+		if (abs(player->coordinates_y - player->old_coordinates_y)<20) {
+			player->old_coordinates_y = player->coordinates_y;
+			player->coordinates_y+=10;
 		} else {
-			player->coordinates_y = old_coordinates_y;
+			player->coordinates_y = player->old_coordinates_y;
 		}
 	}
 	if(buttons[2]) {
-		if (abs(player->coordinates_y - old_coordinates_y)<20) {
-			old_coordinates_y = player->coordinates_y;
-			player->coordinates_y-=5;
+		if (abs(player->coordinates_y - player->old_coordinates_y)<20) {
+			player->old_coordinates_y = player->coordinates_y;
+			player->coordinates_y-=10;
 		} else {
-			player->coordinates_y = old_coordinates_y;
+			player->coordinates_y = player->old_coordinates_y;
 		}
 	}
 	if(buttons[3]) {
-		if (abs(player->coordinates_x - old_coordinates_x)<20) {
-			old_coordinates_x = player->coordinates_x;
-			player->coordinates_x-=5;
+		if (abs(player->coordinates_x - player->old_coordinates_x)<20) {
+			player->old_coordinates_x = player->coordinates_x;
+			player->coordinates_x-=10;
 		} else {
-			player->coordinates_x = old_coordinates_x;
+			player->coordinates_x = player->old_coordinates_x;
 		}
 	}
 
@@ -85,32 +89,73 @@ void next_player (Player * player) {
 	draw_player(player);
 }
 
-void erase_previous_player_position(Player* player) {
-	pixel_colors[player->coordinates_x+1][player->coordinates_y] = 0x00;
-	pixel_colors[player->coordinates_x+1][player->coordinates_y-1] = 0x00;
-	pixel_colors[player->coordinates_x+1][player->coordinates_y+1] = 0x00;
-	pixel_colors[player->coordinates_x][player->coordinates_y] = 0x00;
-	pixel_colors[player->coordinates_x][player->coordinates_y-1] = 0x00;
-	pixel_colors[player->coordinates_x][player->coordinates_y+1] = 0x00;
-	pixel_colors[player->coordinates_x-1][player->coordinates_y] = 0x00;
-	pixel_colors[player->coordinates_x-2][player->coordinates_y] = 0x00;
-	pixel_colors[player->coordinates_x-3][player->coordinates_y] = 0x00;
-	pixel_colors[player->coordinates_x-4][player->coordinates_y] = 0x00;
-	pixel_colors[player->coordinates_x-4][player->coordinates_y-1] = 0x00;
+
+
+Bitmap * get_player_bitmap(PlayerType type) {
+	Bitmap * bitmap;
+
+	switch(type) {
+	case PLAYER1:
+		if (bitmap_for_player_type[PLAYER1] == NULL) {
+			bitmap = load_bitmap("p1.bmp");
+			bitmap_for_player_type[PLAYER1] = bitmap;
+		}
+		else
+			bitmap = bitmap_for_player_type[PLAYER1];
+		break;
+	case PLAYER2:
+		if (bitmap_for_player_type[PLAYER2] == NULL) {
+			bitmap = load_bitmap("p2.bmp");
+			bitmap_for_player_type[PLAYER2] = bitmap;
+		}
+		else
+			bitmap = bitmap_for_player_type[PLAYER2];
+		break;
+		printf("\nPlayer2");
+	default:
+		if (bitmap_for_player_type[PLAYER1] == NULL) {
+			bitmap = load_bitmap("p1.bmp");
+			bitmap_for_player_type[PLAYER1] = bitmap;
+		}
+		else {
+			bitmap = bitmap_for_player_type[PLAYER1];
+		}
+		break;
+		printf("\nDefault");
+	}
+
+	return bitmap;
 }
 
 void draw_player(Player* player) {
-	pixel_colors[player->coordinates_x+1][player->coordinates_y] = 0x740;
-	pixel_colors[player->coordinates_x+1][player->coordinates_y-1] = 0x740;
-	pixel_colors[player->coordinates_x+1][player->coordinates_y+1] = 0x740;
-	pixel_colors[player->coordinates_x][player->coordinates_y] = 0x740;
-	pixel_colors[player->coordinates_x][player->coordinates_y-1] = 0x740;
-	pixel_colors[player->coordinates_x][player->coordinates_y+1] = 0x740;
-	pixel_colors[player->coordinates_x-1][player->coordinates_y] = 0x740;
-	pixel_colors[player->coordinates_x-2][player->coordinates_y] = 0x740;
-	pixel_colors[player->coordinates_x-3][player->coordinates_y] = 0x740;
-	pixel_colors[player->coordinates_x-4][player->coordinates_y] = 0x740;
-	pixel_colors[player->coordinates_x-4][player->coordinates_y-1] = 0x740;
+	int i = 0;
+	int j = 0;
+	Bitmap * player_bitmap = get_player_bitmap(player->type);
+	for (i=0; i < player_bitmap->height; i++) {
+		for (j=0; j < player_bitmap->width; j++) {
+			if (!(player->coordinates_x+j > RESOLUTION_X || player->coordinates_x+j < 0 ||
+					player->coordinates_y+i > RESOLUTION_Y || player->coordinates_y+i < 0)){
+				if (player_bitmap->data[i*player_bitmap->width + j])
+					pixel_colors[player->coordinates_x+j][player->coordinates_y+i] = player_bitmap->data[i*player_bitmap->width + j];
+			}
+		}
+	}
+}
+
+void erase_player(Player* player) {
+	int i = 0;
+	int j = 0;
+
+	Bitmap * player_bitmap = get_player_bitmap(player->type);
+
+	for (i=0; i < player_bitmap->height; i++) {
+		for (j=0; j < player_bitmap->width; j++) {
+			if (!(player->coordinates_x+j > RESOLUTION_X || player->coordinates_x+j < 0 ||
+					player->coordinates_y+i > RESOLUTION_Y || player->coordinates_y+i < 0)){
+				pixel_colors[player->coordinates_x+j][player->coordinates_y+i] = 0;
+			}
+		}
+	}
 }
 
 void constrain_player_movement(Player* player) {
@@ -127,6 +172,5 @@ void read_buttons() {
 	buttons[2] = ((new_button_values & 0x04) == 0x04);
 	buttons[3] = ((new_button_values & 0x08) == 0x08);
 }
-
 
 #endif /* PLAYER_H_ */
