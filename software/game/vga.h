@@ -45,10 +45,10 @@ void draw_to_screen() {
 	for (i=0; i<RESOLUTION_X; i++){
 		for (j=0; j<RESOLUTION_Y; j++){
 			if (pixel_colors[i][j] != old_pixel_colors[i][j]) {
-				alt_up_pixel_buffer_dma_draw(pixel_buffer, pixel_colors[i][j], i, j);
+				draw_pixel_fast(pixel_buffer, pixel_colors[i][j], i, j);
 				old_pixel_colors[i][j] = pixel_colors[i][j];
 				alt_up_pixel_buffer_dma_swap_buffers(pixel_buffer);
-				alt_up_pixel_buffer_dma_draw(pixel_buffer, pixel_colors[i][j], i, j);
+				draw_pixel_fast(pixel_buffer, pixel_colors[i][j], i, j);
 			}
 
 		}
@@ -56,6 +56,29 @@ void draw_to_screen() {
 
 }
 
+/* Author : Jeff Goeders
+ *
+ * This funcion draws a pixel to the background buffer, and assumes:
+ * 1. Your pixel buffer DMA is set to CONSECUTIVE
+ * 2. The resolution is 320x240
+ * 3. x and y are within the screen (0,0)->(319, 239)
+ * 4. You are using 16-bit color
+ *
+ * DO NOT USE THIS FUNCTION IF ANY OF THE ABOVE ARE NOT GUARANATEED, OR YOU
+ * MAY WRITE TO INVALID MEMORY LOCATIONS, CRASHING YOUR PROGRAM, OR
+ * CAUSING UNEXPECTED BEHAVIOR.
+ */
+int draw_pixel_fast(alt_up_pixel_buffer_dma_dev *pixel_buffer,
+	unsigned int color, unsigned int x, unsigned int y) {
+	unsigned int addr;
+
+	addr = ((x & pixel_buffer->x_coord_mask) << 1);
+	addr += (((y & pixel_buffer->y_coord_mask) * 320) << 1);
+
+	IOWR_16DIRECT(pixel_buffer->back_buffer_start_address, addr, color);
+
+	return 0;
+}
 
 
 #endif /* VGA_H_ */

@@ -31,7 +31,7 @@ typedef struct{
 } Player;
 
 Player * construct_player(char* screen_name) {
-	printf("\nPlayer created with name %s\n", screen_name);
+	alt_printf("\nPlayer created with name %s\n", screen_name);
 	Player * player = malloc(sizeof(Player));
 	player->screen_name = screen_name;
 	player->score = START_SCORE;
@@ -41,7 +41,6 @@ Player * construct_player(char* screen_name) {
 	old_coordinates_y = START_COORDINATE_Y;
 	player->coordinates_x = START_COORDINATE_X;
 	player->coordinates_y = START_COORDINATE_Y;
-//	player->bitmap = load_bitmap("star.bmp");
 	return player;
 }
 

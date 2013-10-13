@@ -36,14 +36,14 @@ void * load_bitmap(char *file) {
 	short int fp;
 	fp = sdcard_fopen(file, 0);
 	if (fp == -1) {
-		printf("\nError opening bmp file %s", file);
+		alt_printf("\nError opening bmp file %s", file);
 	} else if (fp == -2) {
-		printf("\bmp file %s already open", file);
+		alt_printf("\bmp file %s already open", file);
 	}
 	if (sdcard_read(fp)!='B' || sdcard_read(fp)!='M')
 	{
 		sdcard_fclose(fp);
-		printf("\n%s is not a bitmap file.\n",file);
+		alt_printf("\n%s is not a bitmap file.\n",file);
 	}
 
 	long index;
@@ -64,7 +64,7 @@ void * load_bitmap(char *file) {
 	/* try to allocate memory */
 	if (( bitmap->data = malloc(bitmap->width*bitmap->height*sizeof(int))) == NULL) {
 		sdcard_fclose(fp);
-		printf("\nError allocating memory for bitmap data %s", file);
+		alt_printf("\nError allocating memory for bitmap data %s", file);
 	}
 
 	/* Ignore the palette information for now */

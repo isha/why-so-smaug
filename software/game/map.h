@@ -135,9 +135,6 @@ void text (Map * map, int time, char * name) {
 	alt_up_char_buffer_clear(char_buffer);
 
 	char str1[50], str2[30], str3[30];
-//	str1 = strcat("Time: ", time);
-//	str2 = strcat("Health: ", time);
-//	str3 = name;
 	sprintf(str1, "Time: %d", time);
 	sprintf(str2, "Health: %d", 10);
 	sprintf(str3, "%s", name);
