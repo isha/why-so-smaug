@@ -9,6 +9,7 @@
 int pixel_colors[RESOLUTION_X][RESOLUTION_Y];
 alt_up_char_buffer_dev *char_buffer;
 void * bitmap_for_obstacle_type[6];
+void * bitmap_for_player_type[4];
 
 /* Following info will usually come from a map structure in the sdcard */
 #define MAP_VELOCITY 10
