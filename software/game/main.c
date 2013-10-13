@@ -12,7 +12,7 @@
 #include "io.h"
 
 void check_collision(Player* player, Map* map);
-void on_collide(Player* player, ObstacleType type );
+void on_collide(Player* player, Obstacle* obstacle, Obstacle* prev, Map* map );
 void damage_health(Player* player, int damage);
 void add_health(Player* player, int add_by);
 void add_score(Player* player, int score);
@@ -74,22 +74,50 @@ int main(void)
 void check_collision(Player* player, Map* map) {
   // point at the first obstacle
   Obstacle * current_obstacle = map->obstacles;
+  Bitmap * player_bitmap = get_player_bitmap(player->type);
   Obstacle * prev = NULL;
 
   // check if coordinates of player are same as obstacles on map for all obstacles
   while(current_obstacle != NULL) {
-    Bitmap * bitmap = get_bitmap(current_obstacle->type);
+    Bitmap * obstacle_bitmap = get_bitmap(current_obstacle->type);
 
-    if (player->coordinates_x < current_obstacle->coordinates_x + bitmap->width &&
-    		player->coordinates_x > current_obstacle->coordinates_x &&
-    		player->coordinates_y < current_obstacle->coordinates_y + bitmap->height &&
+    //player->coordinates_x + player_bitmap->width, player->coordinates_y
+    //player->coordinates_x + player_bitmap->width, player->coordinates_y + player_bitmap->height
+    //player->coordinates_x, player->coordinates_y + player_bitmap->height
+    //player->coordinates_x, player->coordinates_y
+
+    //current_obstacle->coordinates_x + obstacle_bitmap->width, current_obstacle->coordinates_y
+    //current_obstacle->coordinates_x + obstacle_bitmap->width, current_obstacle->coordinates_y + obstacle_bitmap->height
+    //current_obstacle->coordinates_x, current_obstacle->coordinates_y + obstacle_bitmap->height
+    //current_obstacle->coordinates_x, current_obstacle->coordinates_y
+
+    if (player->coordinates_x + player_bitmap->width < current_obstacle->coordinates_x + obstacle_bitmap->width &&
+    		player->coordinates_x + player_bitmap->width > current_obstacle->coordinates_x &&
+    		player->coordinates_y < current_obstacle->coordinates_y + obstacle_bitmap->height &&
     		player->coordinates_y > current_obstacle->coordinates_y) {
-      on_collide(player, current_obstacle->type);
-      //Check if it is a positive obstacle
-      if (current_obstacle->type == 3 || current_obstacle->type == 4 || current_obstacle->type == 5){
-    	  remove_obstacle(map, prev, current_obstacle);
-      }
-      return; // if the coordinates of player are same as obstacle, collision occurred
+    	on_collide(player, current_obstacle, prev, map);
+    	return; // if the coordinates of player are same as obstacle, collision occurred
+    }
+    if (player->coordinates_x + player_bitmap->width < current_obstacle->coordinates_x + obstacle_bitmap->width &&
+    		player->coordinates_x + player_bitmap->width > current_obstacle->coordinates_x &&
+    		player->coordinates_y + player_bitmap->height < current_obstacle->coordinates_y + obstacle_bitmap->height &&
+    		player->coordinates_y + player_bitmap->height > current_obstacle->coordinates_y) {
+    	on_collide(player, current_obstacle, prev, map);
+    	return; // if the coordinates of player are same as obstacle, collision occurred
+    }
+    if (player->coordinates_x < current_obstacle->coordinates_x + obstacle_bitmap->width &&
+        	player->coordinates_x > current_obstacle->coordinates_x &&
+        	player->coordinates_y + player_bitmap->height < current_obstacle->coordinates_y + obstacle_bitmap->height &&
+        	player->coordinates_y + player_bitmap->height > current_obstacle->coordinates_y) {
+    	on_collide(player, current_obstacle, prev, map);
+    	return; // if the coordinates of player are same as obstacle, collision occurred
+    }
+    if (player->coordinates_x < current_obstacle->coordinates_x + obstacle_bitmap->width &&
+        		player->coordinates_x > current_obstacle->coordinates_x &&
+        		player->coordinates_y < current_obstacle->coordinates_y + obstacle_bitmap->height &&
+        		player->coordinates_y > current_obstacle->coordinates_y) {
+          on_collide(player, current_obstacle, prev, map);
+          return; // if the coordinates of player are same as obstacle, collision occurred
     }
     prev = current_obstacle;
     current_obstacle = current_obstacle->next; // start looking at the next obstacle
@@ -120,8 +148,8 @@ void remove_obstacle(Map* map, Obstacle * prev, Obstacle * current_obstacle){
 	}
 }
 
-void on_collide(Player* player, ObstacleType type ) {
-	switch(type) {
+void on_collide(Player* player, Obstacle* obstacle, Obstacle* prev, Map* map ) {
+	switch(obstacle->type) {
 	case PYLON:
 		damage_health(player, 1);
 		break;
@@ -130,17 +158,20 @@ void on_collide(Player* player, ObstacleType type ) {
 		break;
 	case CHEST:
 		add_score(player, 100);
+		remove_obstacle(map, prev, obstacle);
 		break;
 	case STAR:
 		add_score(player, 50);
+		remove_obstacle(map, prev, obstacle);
 		break;
 	case BURGER:
 		add_health(player, 1);
+		remove_obstacle(map, prev, obstacle);
 		break;
 	default:
 		// do nothing
 		break;
-  }
+	}
 }
 
 void damage_health(Player* player, int damage) {
