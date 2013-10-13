@@ -137,19 +137,28 @@ void update_screen(Map * map) {
 	}
 }
 
-void text (int time, char * name, int score, int health) {
+void text (int time, Player * player1, Player * player2) {
 	alt_up_char_buffer_clear(char_buffer);
 
-	char str1[30], str2[30], str3[40], str4[30];
-	sprintf(str1, "Time: %d", time);
-	sprintf(str2, "Health: %d", health);
-	sprintf(str3, "%s", name);
-	sprintf(str4, "Score: %d", score);
+	char str1[50], str2[30], str3[30], str4[30];
 
-	alt_up_char_buffer_string(char_buffer, str1, 1, 4);
-	alt_up_char_buffer_string(char_buffer, str2, 1, 3);
-	alt_up_char_buffer_string(char_buffer, str4, 1, 2);
-	alt_up_char_buffer_string(char_buffer, str3, 1, 1);
+	sprintf(str1, "%s VS ", player1->screen_name);
+	sprintf(str2, "Score: %d", player1->score);
+	sprintf(str3, "Health: %d", player1->health);
+	sprintf(str4, "Time: %d", time);
+
+	alt_up_char_buffer_string(char_buffer, str1, 1, 1);
+	alt_up_char_buffer_string(char_buffer, str2, 1, 2);
+	alt_up_char_buffer_string(char_buffer, str3, 1, 3);
+	alt_up_char_buffer_string(char_buffer, str4, 1, 5);
+
+	sprintf(str1, "%s", player2->screen_name);
+	sprintf(str2, "Score: %d", player2->score);
+	sprintf(str3, "Health: %d", player2->health);
+
+	alt_up_char_buffer_string(char_buffer, str1, 50, 1);
+	alt_up_char_buffer_string(char_buffer, str2, 50, 2);
+	alt_up_char_buffer_string(char_buffer, str3, 50, 3);
 }
 
 

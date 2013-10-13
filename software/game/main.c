@@ -6,6 +6,7 @@
 #include "map.h"
 #include "obstacle.h"
 #include "player.h"
+#include "player_controls.h"
 #include "bitmap.h"
 #include "audio.h"
 #include "screen_name.h"
@@ -28,11 +29,14 @@ void init() {
 int main(void)
 {
 	char * player_name;
+	int time = 0;
 	init();
 
 	// Selection
 	player_name = get_screen_name();
 	Player *player1 = construct_player(player_name, PLAYER1);
+	player_name = get_screen_name();
+	Player *player2 = construct_player(player_name, PLAYER2);
 
 	bool game_on = true;
 	Map *map = construct_map();
@@ -40,28 +44,32 @@ int main(void)
 	initial_screen(map);
 
 	// Main game play
-	while (game_on && player1->health > 0) {
+	while (game_on && !(player1->health < 0 && player2->health < 0)) {
 		// User input
 		read_buttons();
+		read_switches();
 
 		// Update positions
 		next_map(map);
 
 		erase_player(player1);
+		erase_player(player2);
 
 		// Update screen
 		update_screen(map);
 		next_player(player1);
+		next_player(player2);
 
 		// Draw EVERYTHING
 		draw_to_screen();
 
 		check_collision(player1, map);
+		check_collision(player2, map);
 
 		// All text on screen
-		text(player1->time, player1->screen_name, player1->score, player1->health);
+		text(time, player1, player2);
 
-		player1->time++;
+		time++;
 	}
 
 	game_over();
