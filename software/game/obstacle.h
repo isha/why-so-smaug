@@ -28,6 +28,7 @@ struct Obstacle{
 	int old_coordinates_x;
 	int old_coordinates_y;
 	Obstacle * next;
+	Obstacle * prev;
 };
 
 extern void * bitmap_for_obstacle_type[6];
@@ -91,4 +92,5 @@ Obstacle * construct_obstacle(ObstacleType type, int xpos, int ypos) {
 	obstacle->next = NULL;
 	return obstacle;
 }
+
 #endif /* OBSTACLE_H_ */

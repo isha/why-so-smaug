@@ -40,9 +40,14 @@ void add_obstacle (Map * map) {
 	while (current->next !=  NULL) {
 		current = current->next;
 	}
-	int d1 = alt_timestamp()%6;
+	int time = alt_timestamp();
+	if (time <= 0){
+		alt_timestamp_start();
+		time = alt_timestamp();
+	}
+	int d1 = time%6;
 	int d2 = 320;
-	int d3 = alt_timestamp()%110 + 30;
+	int d3 = time%110 + 30;
 
 	current->next = construct_obstacle(d1, d2, d3);
 }
@@ -131,19 +136,18 @@ void update_screen(Map * map) {
 	}
 }
 
-void text (Map * map, int time, char * name) {
+void text (int time, char * name, int score, int health) {
 	alt_up_char_buffer_clear(char_buffer);
 
-	char str1[50], str2[30], str3[30];
-//	str1 = strcat("Time: ", time);
-//	str2 = strcat("Health: ", time);
-//	str3 = name;
+	char str1[30], str2[30], str3[40], str4[30];
 	sprintf(str1, "Time: %d", time);
-	sprintf(str2, "Health: %d", 10);
+	sprintf(str2, "Health: %d", health);
 	sprintf(str3, "%s", name);
+	sprintf(str4, "Score: %d", score);
 
-	alt_up_char_buffer_string(char_buffer, str1, 1, 3);
-	alt_up_char_buffer_string(char_buffer, str2, 1, 2);
+	alt_up_char_buffer_string(char_buffer, str1, 1, 4);
+	alt_up_char_buffer_string(char_buffer, str2, 1, 3);
+	alt_up_char_buffer_string(char_buffer, str4, 1, 2);
 	alt_up_char_buffer_string(char_buffer, str3, 1, 1);
 }
 

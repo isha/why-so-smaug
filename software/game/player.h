@@ -51,7 +51,7 @@ void next_player (Player * player) {
 	if(buttons[0]) {
 		if (abs(player->coordinates_x - old_coordinates_x)<20) {
 			old_coordinates_x = player->coordinates_x;
-			player->coordinates_x+=10;
+			player->coordinates_x+=5;
 		} else {
 			player->coordinates_x = old_coordinates_x;
 		}
@@ -59,7 +59,7 @@ void next_player (Player * player) {
 	if(buttons[1]) {
 		if (abs(player->coordinates_y - old_coordinates_y)<20) {
 			old_coordinates_y = player->coordinates_y;
-			player->coordinates_y+=10;
+			player->coordinates_y+=5;
 		} else {
 			player->coordinates_y = old_coordinates_y;
 		}
@@ -67,7 +67,7 @@ void next_player (Player * player) {
 	if(buttons[2]) {
 		if (abs(player->coordinates_y - old_coordinates_y)<20) {
 			old_coordinates_y = player->coordinates_y;
-			player->coordinates_y-=10;
+			player->coordinates_y-=5;
 		} else {
 			player->coordinates_y = old_coordinates_y;
 		}
@@ -75,7 +75,7 @@ void next_player (Player * player) {
 	if(buttons[3]) {
 		if (abs(player->coordinates_x - old_coordinates_x)<20) {
 			old_coordinates_x = player->coordinates_x;
-			player->coordinates_x-=10;
+			player->coordinates_x-=5;
 		} else {
 			player->coordinates_x = old_coordinates_x;
 		}
