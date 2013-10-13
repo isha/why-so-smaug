@@ -46,7 +46,10 @@ ENTITY lights IS
 		AUD_BCLK : IN STD_LOGIC;
 		AUD_DACDAT : OUT STD_LOGIC;
 		AUD_DACLRCK : IN STD_LOGIC;
-		TD_RESET : OUT STD_LOGIC
+		TD_RESET : OUT STD_LOGIC;
+		NUN_I2C_DAT : INOUT STD_LOGIC;
+		NUN_I2C_CLK: OUT STD_LOGIC
+		
 	);
 
    END lights;
@@ -104,7 +107,10 @@ ARCHITECTURE Structure OF lights IS
 		audio_ADCLRCK : IN STD_LOGIC;
 		audio_BCLK : IN STD_LOGIC;
 		audio_DACDAT : OUT STD_LOGIC;
-		audio_DACLRCK : IN STD_LOGIC
+		audio_DACLRCK : IN STD_LOGIC;
+		i2c_sda_pad_io : INOUT STD_LOGIC;
+		i2c_scl_pad_io : OUT STD_LOGIC
+		
 	);
  
    END COMPONENT;
@@ -167,7 +173,9 @@ ARCHITECTURE Structure OF lights IS
 			audio_ADCLRCK => AUD_ADCLRCK,
 			audio_BCLK => AUD_BCLK,
 			audio_DACDAT => AUD_DACDAT,
-			audio_DACLRCK => AUD_DACLRCK
+			audio_DACLRCK => AUD_DACLRCK,
+			i2c_sda_pad_io => NUN_I2C_DAT,
+			i2c_scl_pad_io => NUN_I2C_CLK
 		);
 
    END Structure;

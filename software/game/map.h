@@ -34,38 +34,68 @@ Map * construct_map() {
 	return map;
 }
 
-void add_obstacle (Map * map) {
+void add_obstacle(Map * map) {
 	Obstacle * current = map->obstacles;
-	while (current->next !=  NULL) {
-		current = current->next;
-	}
-	int d1 = alt_timestamp()%6;
-	int d2 = 320;
-	int d3 = alt_timestamp()%55 + 30;
+	if (current == NULL) {
+		int d1 = alt_timestamp()%6;
+		int d2 = 320;
+		int d3 = alt_timestamp()%55 + 30;
 
-	current->next = construct_obstacle(d1, d2, d3);
+		map->obstacles = construct_obstacle(d1, d2, d3);
+	}
+	else {
+		while(current->next != NULL) current = current->next;
+
+		int d1 = alt_timestamp()%6;
+		int d2 = 320;
+		int d3 = alt_timestamp()%55 + 30;
+
+		current->next = construct_obstacle(d1, d2, d3);
+	}
+}
+
+void initial_screen(Map * map) {
+	int i, j;
+	for (i=0; i<map->bitmap->height; i++)
+		for(j=0; j<map->bitmap->width; j++)
+			pixel_colors[j][i+150] = map->bitmap->data[i*(map->bitmap->width)+j];
+
+	Bitmap * bitmap = load_bitmap("sun.bmp");
+	for (i=0; i<bitmap->width; i++)
+		for(j=0; j<bitmap->height; j++)
+			pixel_colors[i+250][j+10] = bitmap->data[i*(bitmap->width)+j];
+
+	draw_to_screen();
 }
 
 void next_map(Map * map){
 	int number_of_obstacles = 0;
+	Bitmap * bitmap;
 
 	// Update existing Obstacle positions
-	Obstacle * prev = NULL;
+	Obstacle * prev = map->obstacles;;
 	Obstacle * current = map->obstacles;
 
 	while(current != NULL) {
-		Bitmap * bitmap = get_bitmap(current->type);
-		if ((current->coordinates_x > (320 + bitmap->width)  || current->coordinates_x < (0 - bitmap->width)) || (current->coordinates_y > 240 || current->coordinates_y < 0)) {
+		bitmap = get_bitmap(current->type);
+
+		if (current->coordinates_x > (320 + bitmap->width)  || current->coordinates_x < (0 - bitmap->width)) {
 			if (current == map->obstacles) {
 				map->obstacles = current->next;
 				prev = NULL;
 				free(current);
 				current = map->obstacles;
 			}
-			else {
-				prev->next = current->next;
+			else if (current->next == NULL){
+				if (prev) prev->next = NULL;
 				free(current);
-				current = prev->next;
+				current = NULL;
+			}
+			else {
+				if (prev) prev->next = current->next;
+				free(current);
+				if (prev) current = prev->next;
+				else current = NULL;
 			}
 		} else {
 			current->old_coordinates_x = current->coordinates_x;
@@ -76,28 +106,12 @@ void next_map(Map * map){
 		number_of_obstacles++;
 	}
 
+	printf("\nNumber of obs %d, obstacles %ld", number_of_obstacles, map->obstacles);
+
 	// Generate more obstacles if needed
-	if (alt_timestamp() % 10 < DIFFICULTY && number_of_obstacles < 6 && prev->coordinates_x <= 200) {
+	if ((alt_timestamp() % 10 < DIFFICULTY && number_of_obstacles < 6) || map->obstacles==NULL) {
 		add_obstacle(map);
 	}
-}
-
-void initial_screen(Map * map) {
-	int i, j;
-	for (i=0; i<map->bitmap->height; i++)
-		for(j=0; j<map->bitmap->width; j++)
-			pixel_colors[j][i+150] = map->bitmap->data[i*(map->bitmap->width)+j];
-
-	free(map->bitmap->data);
-	free(map->bitmap);
-
-	Bitmap * bitmap = load_bitmap("sun.bmp");
-	for (i=0; i<bitmap->width; i++)
-		for(j=0; j<bitmap->height; j++)
-			pixel_colors[i+250][j+10] = bitmap->data[i*(bitmap->width)+j];
-
-	draw_to_screen();
-
 }
 
 void update_screen(Map * map) {
@@ -105,6 +119,7 @@ void update_screen(Map * map) {
 
 	// Obstacles
 	Obstacle * current = map->obstacles;
+
 	while (current != NULL) {
 		Bitmap * bitmap = get_bitmap(current->type);
 		// Erase old
