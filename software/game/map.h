@@ -107,6 +107,7 @@ void initial_screen(Map * map) {
 		for(j=0; j<bitmap->height; j++)
 			pixel_colors[i+250][j+10] = bitmap->data[i*(bitmap->width)+j];
 
+	draw_initial_health_bar();
 	draw_to_screen();
 
 }
@@ -142,7 +143,8 @@ void text (int time, char * name, int score, int health) {
 
 	char str1[30], str2[30], str3[40], str4[30];
 	sprintf(str1, "Time: %d", time);
-	sprintf(str2, "Health: %d", health);
+	// sprintf(str2, "Health:", health);
+	sprintf(str2, "Health");
 	sprintf(str3, "%s", name);
 	sprintf(str4, "Score: %d", score);
 

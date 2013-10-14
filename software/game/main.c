@@ -11,11 +11,18 @@
 #include "screen_name.h"
 #include "io.h"
 
+#define HEALTH_BAR_START_X 28
+#define HEALTH_BAR_START_Y 12
+#define HEALTH_BAR_UNIT_SIZE 2
+#define HEALTH_BAR_HEIGHT 2
+
 void check_collision(Player* player, Map* map);
 void on_collide(Player* player, Obstacle* obstacle, Obstacle* prev, Map* map );
 void damage_health(Player* player, int damage);
 void add_health(Player* player, int add_by);
 void add_score(Player* player, int score);
+void update_health_bar(Player* player);
+void draw_initial_health_bar(void);
 
 void init() {
 	initialize_vga();
@@ -44,6 +51,8 @@ int main(void)
 		// User input
 		read_buttons();
 
+		update_health_bar(player1);
+
 		// Update positions
 		next_map(map);
 
@@ -57,6 +66,8 @@ int main(void)
 		draw_to_screen();
 
 		check_collision(player1, map);
+
+
 
 		// All text on screen
 		text(player1->time, player1->screen_name, player1->score, player1->health);
@@ -116,6 +127,47 @@ void check_collision(Player* player, Map* map) {
         		player->coordinates_x > current_obstacle->coordinates_x &&
         		player->coordinates_y < current_obstacle->coordinates_y + obstacle_bitmap->height &&
         		player->coordinates_y > current_obstacle->coordinates_y) {
+          on_collide(player, current_obstacle, prev, map);
+          return; // if the coordinates of player are same as obstacle, collision occurred
+    }
+
+    // 4 more points of collision
+    if (player->coordinates_x + ((player_bitmap->width)/2) < current_obstacle->coordinates_x + obstacle_bitmap->width &&
+    		player->coordinates_x + ((player_bitmap->width)/2) > current_obstacle->coordinates_x &&
+    		player->coordinates_y < current_obstacle->coordinates_y + obstacle_bitmap->height &&
+    		player->coordinates_y > current_obstacle->coordinates_y) {
+    	    	on_collide(player, current_obstacle, prev, map);
+    	    	return; // if the coordinates of player are same as obstacle, collision occurred
+    		}
+
+    if (player->coordinates_x + ((player_bitmap->width)/2) < current_obstacle->coordinates_x + obstacle_bitmap->width &&
+    		player->coordinates_x + ((player_bitmap->width)/2) > current_obstacle->coordinates_x &&
+    		player->coordinates_y + player_bitmap->height < current_obstacle->coordinates_y + obstacle_bitmap->height &&
+    		player->coordinates_y + player_bitmap->height > current_obstacle->coordinates_y) {
+    	on_collide(player, current_obstacle, prev, map);
+    	return; // if the coordinates of player are same as obstacle, collision occurred
+    }
+
+    if (player->coordinates_x < current_obstacle->coordinates_x + obstacle_bitmap->width &&
+        	player->coordinates_x > current_obstacle->coordinates_x &&
+        	player->coordinates_y + ((player_bitmap->height)/2) < current_obstacle->coordinates_y + obstacle_bitmap->height &&
+        	player->coordinates_y + ((player_bitmap->height)/2) > current_obstacle->coordinates_y) {
+    	on_collide(player, current_obstacle, prev, map);
+    	return; // if the coordinates of player are same as obstacle, collision occurred
+    }
+    if (player->coordinates_x + player_bitmap->width < current_obstacle->coordinates_x + obstacle_bitmap->width &&
+        		player->coordinates_x + player_bitmap->width > current_obstacle->coordinates_x &&
+        		player->coordinates_y + ((player_bitmap->height)/2) < current_obstacle->coordinates_y + obstacle_bitmap->height &&
+        		player->coordinates_y + ((player_bitmap->height)/2) > current_obstacle->coordinates_y) {
+          on_collide(player, current_obstacle, prev, map);
+          return; // if the coordinates of player are same as obstacle, collision occurred
+    }
+
+    // middle point
+    if (player->coordinates_x + ((player_bitmap->width)/2) < current_obstacle->coordinates_x + obstacle_bitmap->width &&
+        		player->coordinates_x + ((player_bitmap->width)/2) > current_obstacle->coordinates_x &&
+        		player->coordinates_y + ((player_bitmap->height)/2) < current_obstacle->coordinates_y + obstacle_bitmap->height &&
+        		player->coordinates_y + ((player_bitmap->height)/2) > current_obstacle->coordinates_y) {
           on_collide(player, current_obstacle, prev, map);
           return; // if the coordinates of player are same as obstacle, collision occurred
     }
@@ -192,4 +244,23 @@ void add_health(Player* player, int add_by) {
 void add_score(Player* player, int score) {
   player->score = player->score + score;
   //printf ("\nYou gained %d points", score);
+}
+
+void draw_initial_health_bar(){
+	alt_up_pixel_buffer_dma_draw_box(pixel_buffer, HEALTH_BAR_START_X, HEALTH_BAR_START_Y,
+			HEALTH_BAR_START_X + HEALTH_BAR_UNIT_SIZE*MAX_HEALTH, HEALTH_BAR_START_Y + HEALTH_BAR_HEIGHT,
+			0x740, 0);
+}
+
+void update_health_bar(Player* player) {
+	if (player->old_health != player->health) {
+		alt_up_pixel_buffer_dma_draw_box(pixel_buffer, HEALTH_BAR_START_X, HEALTH_BAR_START_Y,
+				HEALTH_BAR_START_X + HEALTH_BAR_UNIT_SIZE*MAX_HEALTH, HEALTH_BAR_START_Y + HEALTH_BAR_HEIGHT,
+				0x000, 0);
+		alt_up_pixel_buffer_dma_draw_box(pixel_buffer, HEALTH_BAR_START_X, HEALTH_BAR_START_Y,
+				HEALTH_BAR_START_X + HEALTH_BAR_UNIT_SIZE*(player->health), HEALTH_BAR_START_Y + HEALTH_BAR_HEIGHT,
+				0x740, 0);
+		player->old_health = player->health;
+	}
+
 }

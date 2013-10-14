@@ -23,6 +23,7 @@ typedef struct{
 	char* screen_name;
 	int score;
 	int time;
+	int old_health;
 	int health;
 	int old_coordinates_x;
 	int old_coordinates_y;
@@ -41,6 +42,7 @@ Player * construct_player(char* screen_name, PlayerType type) {
 	player->screen_name = screen_name;
 	player->score = START_SCORE;
 	player->time = START_TIME;
+	player->old_health = MAX_HEALTH;
 	player->health = MAX_HEALTH;
 	player->old_coordinates_x = START_COORDINATE_X;
 	player->old_coordinates_y = START_COORDINATE_Y;
