@@ -7,6 +7,7 @@
 #include "player.h"
 
 int pixel_colors[RESOLUTION_X][RESOLUTION_Y];
+int initial_pixel_colors[RESOLUTION_X][RESOLUTION_Y];
 alt_up_char_buffer_dev *char_buffer;
 void * bitmap_for_obstacle_type[6];
 void * bitmap_for_player_type[4];
@@ -107,6 +108,11 @@ void initial_screen(Map * map) {
 		for(j=0; j<bitmap->height; j++)
 			pixel_colors[i+250][j+10] = bitmap->data[i*(bitmap->width)+j];
 
+	for (i=0; i<RESOLUTION_X; i++) {
+		for(j=0; j<RESOLUTION_Y; j++) {
+			initial_pixel_colors[i][j] = pixel_colors[i][j];
+		}
+	}
 	draw_to_screen();
 
 }
@@ -137,12 +143,12 @@ void update_screen(Map * map) {
 	}
 }
 
-void text (int time, Player * player1, Player * player2) {
+void text (int time, Player * player1, Player * player2, char * message) {
 	alt_up_char_buffer_clear(char_buffer);
 
 	char str1[50], str2[30], str3[30], str4[30];
 
-	sprintf(str1, "%s VS ", player1->screen_name);
+	sprintf(str1, "%s", player1->screen_name);
 	sprintf(str2, "Score: %d", player1->score);
 	sprintf(str3, "Health: %d", player1->health);
 	sprintf(str4, "Time: %d", time);
@@ -152,6 +158,8 @@ void text (int time, Player * player1, Player * player2) {
 	alt_up_char_buffer_string(char_buffer, str3, 1, 3);
 	alt_up_char_buffer_string(char_buffer, str4, 1, 5);
 
+	alt_up_char_buffer_string(char_buffer, " VS ", 45, 1);
+
 	sprintf(str1, "%s", player2->screen_name);
 	sprintf(str2, "Score: %d", player2->score);
 	sprintf(str3, "Health: %d", player2->health);
@@ -159,6 +167,10 @@ void text (int time, Player * player1, Player * player2) {
 	alt_up_char_buffer_string(char_buffer, str1, 50, 1);
 	alt_up_char_buffer_string(char_buffer, str2, 50, 2);
 	alt_up_char_buffer_string(char_buffer, str3, 50, 3);
+
+	if (message) {
+		alt_up_char_buffer_string(char_buffer, message, 30, 60);
+	}
 }
 
 

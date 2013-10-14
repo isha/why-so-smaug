@@ -105,7 +105,7 @@ void erase_player(Player* player) {
 		for (j=0; j < player_bitmap->width; j++) {
 			if (!(player->coordinates_x+j > RESOLUTION_X || player->coordinates_x+j < 0 ||
 					player->coordinates_y+i > RESOLUTION_Y || player->coordinates_y+i < 0)){
-				pixel_colors[player->coordinates_x+j][player->coordinates_y+i] = 0;
+				pixel_colors[player->coordinates_x+j][player->coordinates_y+i] = initial_pixel_colors[player->coordinates_x+j][player->coordinates_y+i];
 			}
 		}
 	}
@@ -118,4 +118,21 @@ void constrain_player_movement(Player* player) {
 	if(player->coordinates_y >= (RESOLUTION_Y - 70)) player->coordinates_y = RESOLUTION_Y - 70;
 }
 
+
+void damage_health(Player* player, int damage) {
+  player->health = player->health - damage;
+}
+
+void add_health(Player* player, int add_by) {
+	if (player->health <= MAX_HEALTH - 1){
+		  player->health = player->health + add_by;
+	}
+	else{
+		  add_score(player, 25);
+	}
+}
+
+void add_score(Player* player, int score) {
+  player->score = player->score + score;
+}
 #endif /* PLAYER_H_ */

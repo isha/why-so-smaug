@@ -17,6 +17,7 @@
 
 extern int pixel_colors[RESOLUTION_X][RESOLUTION_Y];
 int old_pixel_colors[RESOLUTION_X][RESOLUTION_Y];
+extern int initial_pixel_colors[RESOLUTION_X][RESOLUTION_Y];
 
 alt_up_pixel_buffer_dma_dev* pixel_buffer;
 extern alt_up_char_buffer_dev *char_buffer;
@@ -49,11 +50,10 @@ void draw_to_screen() {
 				old_pixel_colors[i][j] = pixel_colors[i][j];
 				alt_up_pixel_buffer_dma_swap_buffers(pixel_buffer);
 				draw_pixel_fast(pixel_buffer, pixel_colors[i][j], i, j);
+				alt_up_pixel_buffer_dma_swap_buffers(pixel_buffer);
 			}
-
 		}
 	}
-
 }
 
 /* Author : Jeff Goeders

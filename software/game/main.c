@@ -29,6 +29,7 @@ void init() {
 int main(void)
 {
 	char * player_name;
+	char * message;
 	int time = 0;
 	init();
 
@@ -66,8 +67,10 @@ int main(void)
 		check_collision(player1, map);
 		check_collision(player2, map);
 
+		message = "Game on!";
+
 		// All text on screen
-		text(time, player1, player2);
+		text(time, player1, player2, message);
 
 		time++;
 	}
@@ -88,16 +91,6 @@ void check_collision(Player* player, Map* map) {
   // check if coordinates of player are same as obstacles on map for all obstacles
   while(current_obstacle != NULL) {
     Bitmap * obstacle_bitmap = get_bitmap(current_obstacle->type);
-
-    //player->coordinates_x + player_bitmap->width, player->coordinates_y
-    //player->coordinates_x + player_bitmap->width, player->coordinates_y + player_bitmap->height
-    //player->coordinates_x, player->coordinates_y + player_bitmap->height
-    //player->coordinates_x, player->coordinates_y
-
-    //current_obstacle->coordinates_x + obstacle_bitmap->width, current_obstacle->coordinates_y
-    //current_obstacle->coordinates_x + obstacle_bitmap->width, current_obstacle->coordinates_y + obstacle_bitmap->height
-    //current_obstacle->coordinates_x, current_obstacle->coordinates_y + obstacle_bitmap->height
-    //current_obstacle->coordinates_x, current_obstacle->coordinates_y
 
     if (player->coordinates_x + player_bitmap->width < current_obstacle->coordinates_x + obstacle_bitmap->width &&
     		player->coordinates_x + player_bitmap->width > current_obstacle->coordinates_x &&
@@ -182,22 +175,3 @@ void on_collide(Player* player, Obstacle* obstacle, Obstacle* prev, Map* map ) {
 	}
 }
 
-void damage_health(Player* player, int damage) {
-  player->health = player->health - damage;
-  //printf ("\nPlayer has been damaged %d health", damage);
-}
-
-void add_health(Player* player, int add_by) {
-	if (player->health <= MAX_HEALTH - 1){
-		  player->health = player->health + add_by;
-	}
-	else{
-		  add_score(player, 25);
-	}
-  //printf ("\nYour health has increased by %d", add_by);
-}
-
-void add_score(Player* player, int score) {
-  player->score = player->score + score;
-  //printf ("\nYou gained %d points", score);
-}
