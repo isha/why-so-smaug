@@ -13,6 +13,7 @@ typedef struct{
 	int score;
 	int time;
 	int health;
+	int old_health;
 	int coordinates_x;
 	int coordinates_y;
 	int type;

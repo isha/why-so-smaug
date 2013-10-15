@@ -11,12 +11,11 @@
 #include "bitmap.h"
 
 typedef enum {
-	PYLON,
-	PLANE,
-	WENCH,
-	CHEST,
-	STAR,
-	BURGER
+	PYLON = 0,
+	PLANE = 1,
+	CHEST = 2,
+	STAR = 3,
+	BURGER = 4
 } ObstacleType;
 
 typedef struct Obstacle Obstacle;
@@ -69,7 +68,8 @@ Bitmap * get_bitmap(ObstacleType type) {
 		else
 			bitmap = bitmap_for_obstacle_type[CHEST];
 		break;
-	default:
+
+	case STAR:
 		if (bitmap_for_obstacle_type[STAR] == NULL) {
 			bitmap = load_bitmap("star.bmp");
 			bitmap_for_obstacle_type[STAR] = bitmap;

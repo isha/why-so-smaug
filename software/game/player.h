@@ -14,11 +14,15 @@
 
 extern void * bitmap_for_player_type[4];
 
+static long int new_timestamp;
+static long int old_timestamp;
+
 Player * construct_player(char* screen_name, PlayerType type) {
 	Player * player = malloc(sizeof(Player));
 	player->screen_name = screen_name;
 	player->score = START_SCORE;
 	player->time = START_TIME;
+	player->old_health = MAX_HEALTH;
 	player->health = MAX_HEALTH;
 	player->coordinates_x = START_COORDINATE_X;
 	player->coordinates_y = type == PLAYER1 ? START_COORDINATE_Y : START_COORDINATE_Y + 50;

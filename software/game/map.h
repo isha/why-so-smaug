@@ -47,7 +47,7 @@ void add_obstacle (Map * map) {
 		alt_timestamp_start();
 		time = alt_timestamp();
 	}
-	int d1 = time%6;
+	int d1 = time%5;
 	int d2 = 320;
 	int d3 = time%110 + 30;
 
@@ -113,6 +113,8 @@ void initial_screen(Map * map) {
 			initial_pixel_colors[i][j] = pixel_colors[i][j];
 		}
 	}
+
+	draw_initial_health_bar();
 	draw_to_screen();
 
 }
@@ -146,27 +148,28 @@ void update_screen(Map * map) {
 void text (int time, Player * player1, Player * player2, char * message) {
 	alt_up_char_buffer_clear(char_buffer);
 
+
 	char str1[50], str2[30], str3[30], str4[30];
 
 	sprintf(str1, "%s", player1->screen_name);
 	sprintf(str2, "Score: %d", player1->score);
-	sprintf(str3, "Health: %d", player1->health);
+	sprintf(str3, "Health:"); // display health bar instead
 	sprintf(str4, "Time: %d", time);
 
 	alt_up_char_buffer_string(char_buffer, str1, 1, 1);
 	alt_up_char_buffer_string(char_buffer, str2, 1, 2);
 	alt_up_char_buffer_string(char_buffer, str3, 1, 3);
-	alt_up_char_buffer_string(char_buffer, str4, 1, 5);
+	alt_up_char_buffer_string(char_buffer, str4, 35, 3);
 
-	alt_up_char_buffer_string(char_buffer, " VS ", 45, 1);
+	alt_up_char_buffer_string(char_buffer, " VS ", 38, 1);
 
 	sprintf(str1, "%s", player2->screen_name);
 	sprintf(str2, "Score: %d", player2->score);
-	sprintf(str3, "Health: %d", player2->health);
+	sprintf(str3, "Health:", player2->health); // display health bar instead
 
-	alt_up_char_buffer_string(char_buffer, str1, 50, 1);
-	alt_up_char_buffer_string(char_buffer, str2, 50, 2);
-	alt_up_char_buffer_string(char_buffer, str3, 50, 3);
+	alt_up_char_buffer_string(char_buffer, str1, 47, 1);
+	alt_up_char_buffer_string(char_buffer, str2, 47, 2);
+	alt_up_char_buffer_string(char_buffer, str3, 47, 3);
 
 	if (message) {
 		alt_up_char_buffer_string(char_buffer, message, 30, 60);
