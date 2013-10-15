@@ -120,7 +120,7 @@ void constrain_player_movement(Player* player) {
 
 
 void damage_health(Player* player, int damage) {
-  player->health = player->health - damage;
+  player->health = (player->health - damage) < 0 ? 0 : player->health - damage;
 }
 
 void add_health(Player* player, int add_by) {
