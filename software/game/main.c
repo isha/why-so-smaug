@@ -11,7 +11,7 @@
 #include "screen_name.h"
 #include "io.h"
 
-#define HEALTH_BAR_START_X 28
+#define HEALTH_BAR_START_X 33
 #define HEALTH_BAR_START_Y 12
 #define HEALTH_BAR_UNIT_SIZE 2
 #define HEALTH_BAR_HEIGHT 2
@@ -254,6 +254,13 @@ void draw_initial_health_bar(){
 
 void update_health_bar(Player* player) {
 	if (player->old_health != player->health) {
+		alt_up_pixel_buffer_dma_draw_box(pixel_buffer, HEALTH_BAR_START_X, HEALTH_BAR_START_Y,
+				HEALTH_BAR_START_X + HEALTH_BAR_UNIT_SIZE*MAX_HEALTH, HEALTH_BAR_START_Y + HEALTH_BAR_HEIGHT,
+				0x000, 0);
+		alt_up_pixel_buffer_dma_draw_box(pixel_buffer, HEALTH_BAR_START_X, HEALTH_BAR_START_Y,
+				HEALTH_BAR_START_X + HEALTH_BAR_UNIT_SIZE*(player->health), HEALTH_BAR_START_Y + HEALTH_BAR_HEIGHT,
+				0x740, 0);
+		alt_up_pixel_buffer_dma_swap_buffers(pixel_buffer);
 		alt_up_pixel_buffer_dma_draw_box(pixel_buffer, HEALTH_BAR_START_X, HEALTH_BAR_START_Y,
 				HEALTH_BAR_START_X + HEALTH_BAR_UNIT_SIZE*MAX_HEALTH, HEALTH_BAR_START_Y + HEALTH_BAR_HEIGHT,
 				0x000, 0);

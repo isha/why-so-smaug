@@ -46,7 +46,7 @@ void add_obstacle (Map * map) {
 		alt_timestamp_start();
 		time = alt_timestamp();
 	}
-	int d1 = time%6;
+	int d1 = time%5;
 	int d2 = 320;
 	int d3 = time%110 + 30;
 
@@ -144,7 +144,7 @@ void text (int time, char * name, int score, int health) {
 	char str1[30], str2[30], str3[40], str4[30];
 	sprintf(str1, "Time: %d", time);
 	// sprintf(str2, "Health:", health);
-	sprintf(str2, "Health");
+	sprintf(str2, "Health:");
 	sprintf(str3, "%s", name);
 	sprintf(str4, "Score: %d", score);
 
