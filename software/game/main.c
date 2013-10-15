@@ -45,7 +45,7 @@ int main(void)
 	initial_screen(map);
 
 	// Main game play
-	while (game_on && !(player1->health < 0 && player2->health < 0)) {
+	while (game_on && !(player1->health <= 0 && player2->health <= 0)) {
 		// User input
 		read_buttons();
 		read_switches();
@@ -91,35 +91,21 @@ void check_collision(Player* player, Map* map) {
   // check if coordinates of player are same as obstacles on map for all obstacles
   while(current_obstacle != NULL) {
     Bitmap * obstacle_bitmap = get_bitmap(current_obstacle->type);
+    // Check if current_obstacle corner 1 in player space [ () ] {where square = player and round = obstacle}
+    if ( (current_obstacle->coordinates_x >= player->coordinates_x && current_obstacle->coordinates_x <= (player->coordinates_x + player_bitmap->width)) &&
+    	 (current_obstacle->coordinates_y >= player->coordinates_y && current_obstacle->coordinates_y <= (player->coordinates_y + player_bitmap->height)) )
+    	on_collide(player, current_obstacle, prev, map);
+    else if ( ((current_obstacle->coordinates_x + obstacle_bitmap->width) >= player->coordinates_x && (current_obstacle->coordinates_x + obstacle_bitmap->width) <= (player->coordinates_x + player_bitmap->width)) &&
+    	 (current_obstacle->coordinates_y >= player->coordinates_y && current_obstacle->coordinates_y <= (player->coordinates_y + player_bitmap->height)) )
+    	on_collide(player, current_obstacle, prev, map);
+    else if ( (current_obstacle->coordinates_x >= player->coordinates_x && current_obstacle->coordinates_x <= (player->coordinates_x + player_bitmap->width)) &&
+    	 ((current_obstacle->coordinates_y + obstacle_bitmap->height) >= player->coordinates_y && (current_obstacle->coordinates_y + obstacle_bitmap->height) <= (player->coordinates_y + player_bitmap->height)) )
+    	on_collide(player, current_obstacle, prev, map);
+    else if ( ((current_obstacle->coordinates_x + obstacle_bitmap->width) >= player->coordinates_x && (current_obstacle->coordinates_x + obstacle_bitmap->width) <= (player->coordinates_x + player_bitmap->width)) &&
+    	 ((current_obstacle->coordinates_y + obstacle_bitmap->height) >= player->coordinates_y && (current_obstacle->coordinates_y + obstacle_bitmap->height) <= (player->coordinates_y + player_bitmap->height)) )
+    	on_collide(player, current_obstacle, prev, map);
 
-    if (player->coordinates_x + player_bitmap->width < current_obstacle->coordinates_x + obstacle_bitmap->width &&
-    		player->coordinates_x + player_bitmap->width > current_obstacle->coordinates_x &&
-    		player->coordinates_y < current_obstacle->coordinates_y + obstacle_bitmap->height &&
-    		player->coordinates_y > current_obstacle->coordinates_y) {
-    	on_collide(player, current_obstacle, prev, map);
-    	return; // if the coordinates of player are same as obstacle, collision occurred
-    }
-    if (player->coordinates_x + player_bitmap->width < current_obstacle->coordinates_x + obstacle_bitmap->width &&
-    		player->coordinates_x + player_bitmap->width > current_obstacle->coordinates_x &&
-    		player->coordinates_y + player_bitmap->height < current_obstacle->coordinates_y + obstacle_bitmap->height &&
-    		player->coordinates_y + player_bitmap->height > current_obstacle->coordinates_y) {
-    	on_collide(player, current_obstacle, prev, map);
-    	return; // if the coordinates of player are same as obstacle, collision occurred
-    }
-    if (player->coordinates_x < current_obstacle->coordinates_x + obstacle_bitmap->width &&
-        	player->coordinates_x > current_obstacle->coordinates_x &&
-        	player->coordinates_y + player_bitmap->height < current_obstacle->coordinates_y + obstacle_bitmap->height &&
-        	player->coordinates_y + player_bitmap->height > current_obstacle->coordinates_y) {
-    	on_collide(player, current_obstacle, prev, map);
-    	return; // if the coordinates of player are same as obstacle, collision occurred
-    }
-    if (player->coordinates_x < current_obstacle->coordinates_x + obstacle_bitmap->width &&
-        		player->coordinates_x > current_obstacle->coordinates_x &&
-        		player->coordinates_y < current_obstacle->coordinates_y + obstacle_bitmap->height &&
-        		player->coordinates_y > current_obstacle->coordinates_y) {
-          on_collide(player, current_obstacle, prev, map);
-          return; // if the coordinates of player are same as obstacle, collision occurred
-    }
+
     prev = current_obstacle;
     current_obstacle = current_obstacle->next; // start looking at the next obstacle
   }
