@@ -20,6 +20,8 @@ void init() {
 }
 
 int main(void) {
+	Nunchuck * nunchuck;
+	initialize_nunchuck(nunchuck);
 }
 
 int old_main(void)
