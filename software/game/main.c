@@ -19,7 +19,7 @@
 #define HEALTH_BAR_HEIGHT 2
 
 void check_collision(Player* player, Map* map);
-void on_collide(Player* player, Obstacle* obstacle, Obstacle* prev, Map* map );
+Obstacle* on_collide(Player* player, Obstacle* obstacle, Obstacle* prev, Map* map );
 void damage_health(Player* player, int damage);
 void add_health(Player* player, int add_by);
 void add_score(Player* player, int score);
@@ -65,6 +65,8 @@ int main(void)
 			erase_player(player1);
 			erase_player(player2);
 
+			Obstacle* current = map->obstacles;
+
 			// Update screen
 			update_screen(map);
 			next_player(player1);
@@ -78,6 +80,7 @@ int main(void)
 
 			update_health_bar(player1,HEALTH_BAR_P1_START_X);
 			update_health_bar(player2,HEALTH_BAR_P2_START_X);
+
 		}
 		else if (player1->health > 0){
 			// User input
@@ -145,23 +148,29 @@ void check_collision(Player* player, Map* map) {
     // Check if current_obstacle corner 1 in player space [ () ] {where square = player and round = obstacle}
     if ( (current_obstacle->coordinates_x >= player->coordinates_x && current_obstacle->coordinates_x <= (player->coordinates_x + player_bitmap->width)) &&
     	 (current_obstacle->coordinates_y >= player->coordinates_y && current_obstacle->coordinates_y <= (player->coordinates_y + player_bitmap->height)) )
-    	on_collide(player, current_obstacle, prev, map);
+    	current_obstacle = on_collide(player, current_obstacle, prev, map);
     else if ( ((current_obstacle->coordinates_x + obstacle_bitmap->width) >= player->coordinates_x && (current_obstacle->coordinates_x + obstacle_bitmap->width) <= (player->coordinates_x + player_bitmap->width)) &&
     	 (current_obstacle->coordinates_y >= player->coordinates_y && current_obstacle->coordinates_y <= (player->coordinates_y + player_bitmap->height)) )
-    	on_collide(player, current_obstacle, prev, map);
+    	current_obstacle = on_collide(player, current_obstacle, prev, map);
     else if ( (current_obstacle->coordinates_x >= player->coordinates_x && current_obstacle->coordinates_x <= (player->coordinates_x + player_bitmap->width)) &&
     	 ((current_obstacle->coordinates_y + obstacle_bitmap->height) >= player->coordinates_y && (current_obstacle->coordinates_y + obstacle_bitmap->height) <= (player->coordinates_y + player_bitmap->height)) )
-    	on_collide(player, current_obstacle, prev, map);
+    	current_obstacle = on_collide(player, current_obstacle, prev, map);
     else if ( ((current_obstacle->coordinates_x + obstacle_bitmap->width) >= player->coordinates_x && (current_obstacle->coordinates_x + obstacle_bitmap->width) <= (player->coordinates_x + player_bitmap->width)) &&
     	 ((current_obstacle->coordinates_y + obstacle_bitmap->height) >= player->coordinates_y && (current_obstacle->coordinates_y + obstacle_bitmap->height) <= (player->coordinates_y + player_bitmap->height)) )
-    	on_collide(player, current_obstacle, prev, map);
-    prev = current_obstacle;
-    current_obstacle = current_obstacle->next; // start looking at the next obstacle
+    	current_obstacle = on_collide(player, current_obstacle, prev, map);
+
+    if (current_obstacle != NULL) {
+    	prev = current_obstacle;
+    	current_obstacle = current_obstacle->next;
+    } else {
+    	current_obstacle = prev->next;
+    }
+     // start looking at the next obstacle
   }
   return;  // no collisions were detected
 }
 
-void remove_obstacle(Map* map, Obstacle * prev, Obstacle * current_obstacle){
+Obstacle* remove_obstacle(Map* map, Obstacle * prev, Obstacle * current_obstacle){
 	int i, j;
 	Bitmap * bitmap = get_bitmap(current_obstacle->type);
 	// Erase old
@@ -182,9 +191,11 @@ void remove_obstacle(Map* map, Obstacle * prev, Obstacle * current_obstacle){
 		prev->next = current_obstacle->next;
 		free(current_obstacle);
 	}
+	current_obstacle = NULL;
+	return current_obstacle;
 }
 
-void on_collide(Player* player, Obstacle* obstacle, Obstacle* prev, Map* map ) {
+Obstacle* on_collide(Player* player, Obstacle* obstacle, Obstacle* prev, Map* map ) {
 	switch(obstacle->type) {
 	case PYLON:
 		damage_health(player, 1);
@@ -194,20 +205,21 @@ void on_collide(Player* player, Obstacle* obstacle, Obstacle* prev, Map* map ) {
 		break;
 	case CHEST:
 		add_score(player, 100);
-		remove_obstacle(map, prev, obstacle);
+		obstacle = remove_obstacle(map, prev, obstacle);
 		break;
 	case STAR:
 		add_score(player, 50);
-		remove_obstacle(map, prev, obstacle);
+		obstacle = remove_obstacle(map, prev, obstacle);
 		break;
 	case BURGER:
 		add_health(player, 1);
-		remove_obstacle(map, prev, obstacle);
+		obstacle = remove_obstacle(map, prev, obstacle);
 		break;
 	default:
 		// do nothing
 		break;
 	}
+	return obstacle;
 }
 
 void draw_initial_health_bar(){
