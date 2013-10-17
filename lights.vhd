@@ -6,7 +6,7 @@ USE ieee.std_logic_unsigned.all;
 ENTITY lights IS
 
    PORT (
-      SW : IN STD_LOGIC_VECTOR(7 DOWNTO 0);
+      SW : IN STD_LOGIC_VECTOR(17 DOWNTO 0);
       KEY : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
       CLOCK_50 : IN STD_LOGIC;
       LEDG : OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
@@ -60,7 +60,7 @@ ARCHITECTURE Structure OF lights IS
       reset_reset_n : IN STD_LOGIC;
       sdram_clk_clk : OUT STD_LOGIC;
       leds_export : OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
-      switches_export : IN STD_LOGIC_VECTOR(7 DOWNTO 0);
+      switches_export : IN STD_LOGIC_VECTOR(17 DOWNTO 0);
       buttons_export : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
       sdram_wire_addr : OUT STD_LOGIC_VECTOR(11 DOWNTO 0);
       sdram_wire_ba : BUFFER STD_LOGIC_VECTOR(1 DOWNTO 0);

@@ -306,6 +306,71 @@
          type = "int";
       }
    }
+   element sdram.s1
+   {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
+      datum baseAddress
+      {
+         value = "16777216";
+         type = "long";
+      }
+   }
+   element hw_only_clk.s1
+   {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
+      datum baseAddress
+      {
+         value = "5120";
+         type = "long";
+      }
+   }
+   element leds.s1
+   {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
+      datum baseAddress
+      {
+         value = "16400";
+         type = "long";
+      }
+   }
+   element onchip_memory.s1
+   {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
+      datum baseAddress
+      {
+         value = "0";
+         type = "long";
+      }
+   }
+   element switches.s1
+   {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
+      datum baseAddress
+      {
+         value = "16384";
+         type = "long";
+      }
+   }
    element timestamp_clk.s1
    {
       datum _lockedAddress
@@ -329,66 +394,6 @@
       datum baseAddress
       {
          value = "5184";
-         type = "long";
-      }
-   }
-   element sdram.s1
-   {
-      datum _lockedAddress
-      {
-         value = "1";
-         type = "boolean";
-      }
-      datum baseAddress
-      {
-         value = "16777216";
-         type = "long";
-      }
-   }
-   element onchip_memory.s1
-   {
-      datum _lockedAddress
-      {
-         value = "1";
-         type = "boolean";
-      }
-   }
-   element switches.s1
-   {
-      datum _lockedAddress
-      {
-         value = "1";
-         type = "boolean";
-      }
-      datum baseAddress
-      {
-         value = "16384";
-         type = "long";
-      }
-   }
-   element leds.s1
-   {
-      datum _lockedAddress
-      {
-         value = "1";
-         type = "boolean";
-      }
-      datum baseAddress
-      {
-         value = "16400";
-         type = "long";
-      }
-   }
-   element hw_only_clk.s1
-   {
-      datum _lockedAddress
-      {
-         value = "1";
-         type = "boolean";
-      }
-      datum baseAddress
-      {
-         value = "5120";
          type = "long";
       }
    }
@@ -435,7 +440,7 @@
       }
       datum sopceditor_expanded
       {
-         value = "0";
+         value = "1";
          type = "boolean";
       }
    }
@@ -486,7 +491,7 @@
  <parameter name="projectName" value="vga_exercise.qpf" />
  <parameter name="sopcBorderPoints" value="false" />
  <parameter name="systemHash" value="1" />
- <parameter name="timeStamp" value="1381689751084" />
+ <parameter name="timeStamp" value="1381867284485" />
  <parameter name="useTestBenchNamingPattern" value="false" />
  <instanceScript></instanceScript>
  <interface name="clk" internal="clk_0.clk_in" type="clock" dir="end" />
@@ -688,7 +693,7 @@
   <parameter name="resetValue" value="0" />
   <parameter name="simDoTestBenchWiring" value="false" />
   <parameter name="simDrivenValue" value="0" />
-  <parameter name="width" value="8" />
+  <parameter name="width" value="18" />
  </module>
  <module kind="altera_avalon_pio" version="12.0" enabled="1" name="leds">
   <parameter name="bitClearingEdgeCapReg" value="false" />

@@ -57,8 +57,8 @@ int main(void)
 	while (game_on && !(player1->health <= 0 && player2->health <= 0)) {
 		if (player1->health > 0 && player2->health > 0){
 			// User input
-			read_buttons();
-			read_switches();
+			read_switches(true);
+			read_switches(false);
 
 			// Update positions
 			next_map(map);
@@ -85,7 +85,7 @@ int main(void)
 		}
 		else if (player1->health > 0){
 			// User input
-			read_buttons();
+			read_switches(true);
 
 			// Update positions
 			next_map(map);
@@ -105,7 +105,7 @@ int main(void)
 		}
 		else if (player2->health > 0){
 			// User input
-			read_switches();
+			read_switches(false);
 
 			// Update positions
 			next_map(map);
