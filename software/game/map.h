@@ -200,6 +200,19 @@ void splash_screen() {
 	draw_to_screen();
 }
 
+void levelup_screen() {
+	alt_up_pixel_buffer_dma_clear_screen(pixel_buffer, 0);
+	alt_up_pixel_buffer_dma_clear_screen(pixel_buffer, 1);
+	alt_up_char_buffer_clear(char_buffer);
+	Bitmap * bmp = load_bitmap("levelup.bmp");
+
+	int i, j;
+	for (i=0; i<bmp->height; i++)
+		for(j=0; j<bmp->width; j++) {
+			pixel_colors[j][i] = bmp->data[i*bmp->width + j];
+		}
+	draw_to_screen();
+}
 void remove_splash_screen() {
 	int i, j;
 	for (i=0; i < 240; i++){
@@ -209,4 +222,16 @@ void remove_splash_screen() {
 	}
 	draw_to_screen();
 }
+
+void back_orig_screen() {
+	int i, j;
+	for (i=0; i < 240; i++){
+		for (j=0; j < 320; j++){
+			pixel_colors[j][i] = initial_pixel_colors[j][i];
+		}
+	}
+	draw_to_screen();
+}
+
+
 #endif /* LCD_H_ */
