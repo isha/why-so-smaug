@@ -53,31 +53,31 @@ Score* construct_score(char* player_name, int player_score) {
 // assumes scoreboard is already sorted
 void update_scoreboard(Player* player) {
 	printf("out\n");
+	printf("Total Entries: %d\n", total_entries);
 	if (total_entries != 0) {
 		printf("in\n");
-		int i = total_entries - 1;
+		int i = 0;
+		int j;
 
-		while (player->score > high_scores[i]->player_score && i>0) {
-			i--;
-			printf("i = %d\n", i);
+		while (player->score < high_scores[i]->player_score && i < total_entries ) {
+			i++;
 		}
-		if (player->score > high_scores[i]->player_score) {
-			int j;
-			for (j = total_entries; j>i; j--) {
-				printf("j = %d\n", j);
-				if (j < MAX_HIGH_SCORES) {
-					high_scores[j] = high_scores[j-1];
-				}
+		printf("i = %d\n", i);
+		for (j = total_entries; j > i; j--) {
+			printf("j = %d\n", j);
+			if (j < MAX_HIGH_SCORES) {
+				high_scores[j] = high_scores[j-1];
 			}
-
-			high_scores[i] = construct_score(player->screen_name, player->score);
-			if (total_entries < 10) {
-				total_entries++;
-			}
-		} else {
-			high_scores[0] = construct_score(player->screen_name, player->score);
 		}
 
+		high_scores[i] = construct_score(player->screen_name, player->score);
+
+		if (total_entries < 10) {
+			total_entries++;
+		}
+
+	} else {
+		high_scores[0] = construct_score(player->screen_name, player->score);
 	}
 }
 
