@@ -121,8 +121,8 @@ void erase_player(Player* player) {
 void constrain_player_movement(Player* player) {
 	if(player->coordinates_x < 10) player->coordinates_x = 10;
 	if(player->coordinates_y < 30) player->coordinates_y = 30;
-	if(player->coordinates_x >= (RESOLUTION_X - 10)) player->coordinates_x = RESOLUTION_X - 10;
-	if(player->coordinates_y >= (RESOLUTION_Y - 70)) player->coordinates_y = RESOLUTION_Y - 70;
+	if(player->coordinates_x >= (RESOLUTION_X - 20)) player->coordinates_x = RESOLUTION_X - 20;
+	if(player->coordinates_y >= (RESOLUTION_Y - 80)) player->coordinates_y = RESOLUTION_Y - 80;
 }
 
 

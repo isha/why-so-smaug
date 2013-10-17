@@ -54,7 +54,7 @@ int main(void)
 
 	// Main game play
 	while (game_on && !(player1->health <= 0 && player2->health <= 0)) {
-		if (time % 100 == 0 && time > 0) {
+		if (time % 100 == 0 && time > 0 && time < 600) {
 			map->velocity += 5;
 			levelup_screen();
 			usleep(1000000);
@@ -65,8 +65,7 @@ int main(void)
 		else{
 			if (player1->health > 0 && player2->health > 0){
 				// User input
-				read_switches(true);
-				read_switches(false);
+				read_switches();
 
 				// Update positions
 				next_map(map);
@@ -80,16 +79,16 @@ int main(void)
 				next_player(player2);
 
 				// Draw EVERYTHING
-			draw_to_screen();
-			check_collision(player1, map);
-			check_collision(player2, map);
-			update_health_bar(player1,HEALTH_BAR_P1_START_X, false);
-			update_health_bar(player2,HEALTH_BAR_P2_START_X, false);
+				draw_to_screen();
+				check_collision(player1, map);
+				check_collision(player2, map);
+				update_health_bar(player1,HEALTH_BAR_P1_START_X, false);
+				update_health_bar(player2,HEALTH_BAR_P2_START_X, false);
 
 			}
 			else if (player1->health > 0){
 				// User input
-				read_switches(true);
+				read_switches();
 
 				// Update positions
 				next_map(map);
@@ -109,7 +108,7 @@ int main(void)
 			}
 			else if (player2->health > 0){
 				// User input
-				read_switches(false);
+				read_switches();
 
 				// Update positions
 				next_map(map);

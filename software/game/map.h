@@ -49,7 +49,7 @@ void add_obstacle (Map * map) {
 	}
 	int d1 = time%3 == 1 ? time%5 + 2 : time%2;
 	int d2 = 320;
-	int d3 = time%110 + 30;
+	int d3 = time%110 + 45;
 
 	current->next = construct_obstacle(d1, d2, d3);
 }
