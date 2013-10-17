@@ -23,7 +23,7 @@ void on_collide(Player* player, Obstacle* obstacle, Obstacle* prev, Map* map );
 void damage_health(Player* player, int damage);
 void add_health(Player* player, int add_by);
 void add_score(Player* player, int score);
-void update_health_bar(Player* player1, Player* player2);
+void update_health_bar(Player* player1, int start_x);
 void draw_initial_health_bar(void);
 
 void init() {
@@ -53,36 +53,75 @@ int main(void)
 	initial_screen(map);
 
 	// Main game play
-	while (game_on && !(player1->health <= 0 || player2->health <= 0)) {
-		// User input
-		read_buttons();
-		read_switches();
+	while (game_on && !(player1->health <= 0 && player2->health <= 0)) {
+		if (player1->health > 0 && player2->health > 0){
+			// User input
+			read_buttons();
+			read_switches();
 
-		update_health_bar(player1,player2);
+			// Update positions
+			next_map(map);
 
-		// Update positions
-		next_map(map);
+			erase_player(player1);
+			erase_player(player2);
 
-		erase_player(player1);
-		erase_player(player2);
+			// Update screen
+			update_screen(map);
+			next_player(player1);
+			next_player(player2);
 
-		// Update screen
-		update_screen(map);
-		next_player(player1);
-		next_player(player2);
+			// Draw EVERYTHING
+			draw_to_screen();
 
-		// Draw EVERYTHING
-		draw_to_screen();
+			check_collision(player1, map);
+			check_collision(player2, map);
 
-		check_collision(player1, map);
-		check_collision(player2, map);
+			update_health_bar(player1,HEALTH_BAR_P1_START_X);
+			update_health_bar(player2,HEALTH_BAR_P2_START_X);
+		}
+		else if (player1->health > 0){
+			// User input
+			read_buttons();
 
-		message = "Game on!";
+			// Update positions
+			next_map(map);
 
+			erase_player(player1);
 
+			// Update screen
+			update_screen(map);
+			next_player(player1);
+
+			// Draw EVERYTHING
+			draw_to_screen();
+
+			check_collision(player1, map);
+
+			update_health_bar(player1,HEALTH_BAR_P1_START_X);
+		}
+		else if (player2->health > 0){
+			// User input
+			read_switches();
+
+			// Update positions
+			next_map(map);
+
+			erase_player(player2);
+
+			// Update screen
+			update_screen(map);
+			next_player(player2);
+
+			// Draw EVERYTHING
+			draw_to_screen();
+
+			check_collision(player2, map);
+
+			update_health_bar(player2,HEALTH_BAR_P2_START_X);
+		}
 
 		// All text on screen
-		text(time, player1, player2, message);
+		text(time, player1, player2, NULL);
 
 		time++;
 	}
@@ -187,37 +226,23 @@ void draw_initial_health_bar(){
 			0x740, 0);
 }
 
-void update_health_bar(Player * player1, Player * player2) {
-	if (player1->old_health != player1->health) {
-		alt_up_pixel_buffer_dma_draw_box(pixel_buffer, HEALTH_BAR_P1_START_X, HEALTH_BAR_START_Y,
-				HEALTH_BAR_P1_START_X + HEALTH_BAR_UNIT_SIZE*MAX_HEALTH, HEALTH_BAR_START_Y + HEALTH_BAR_HEIGHT,
+void update_health_bar(Player * player, int start_x) {
+	if (player->old_health != player->health) {
+		alt_up_pixel_buffer_dma_draw_box(pixel_buffer, start_x, HEALTH_BAR_START_Y,
+				start_x + HEALTH_BAR_UNIT_SIZE*MAX_HEALTH, HEALTH_BAR_START_Y + HEALTH_BAR_HEIGHT,
 				0x000, 0);
-		alt_up_pixel_buffer_dma_draw_box(pixel_buffer, HEALTH_BAR_P1_START_X, HEALTH_BAR_START_Y,
-				HEALTH_BAR_P1_START_X + HEALTH_BAR_UNIT_SIZE*(player1->health), HEALTH_BAR_START_Y + HEALTH_BAR_HEIGHT,
-				0x740, 0);
+		if (player->health > 0)
+			alt_up_pixel_buffer_dma_draw_box(pixel_buffer, start_x, HEALTH_BAR_START_Y,
+					start_x + HEALTH_BAR_UNIT_SIZE*(player->health), HEALTH_BAR_START_Y + HEALTH_BAR_HEIGHT,
+					0x740, 0);
 		alt_up_pixel_buffer_dma_swap_buffers(pixel_buffer);
-		alt_up_pixel_buffer_dma_draw_box(pixel_buffer, HEALTH_BAR_P1_START_X, HEALTH_BAR_START_Y,
-				HEALTH_BAR_P1_START_X + HEALTH_BAR_UNIT_SIZE*MAX_HEALTH, HEALTH_BAR_START_Y + HEALTH_BAR_HEIGHT,
+		alt_up_pixel_buffer_dma_draw_box(pixel_buffer, start_x, HEALTH_BAR_START_Y,
+				start_x + HEALTH_BAR_UNIT_SIZE*MAX_HEALTH, HEALTH_BAR_START_Y + HEALTH_BAR_HEIGHT,
 				0x000, 0);
-		alt_up_pixel_buffer_dma_draw_box(pixel_buffer, HEALTH_BAR_P1_START_X, HEALTH_BAR_START_Y,
-				HEALTH_BAR_P1_START_X + HEALTH_BAR_UNIT_SIZE*(player1->health), HEALTH_BAR_START_Y + HEALTH_BAR_HEIGHT,
-				0x740, 0);
-		player1->old_health = player1->health;
-	}
-	if (player2->old_health != player2->health) {
-		alt_up_pixel_buffer_dma_draw_box(pixel_buffer, HEALTH_BAR_P2_START_X, HEALTH_BAR_START_Y,
-				HEALTH_BAR_P2_START_X + HEALTH_BAR_UNIT_SIZE*MAX_HEALTH, HEALTH_BAR_START_Y + HEALTH_BAR_HEIGHT,
-				0x000, 0);
-		alt_up_pixel_buffer_dma_draw_box(pixel_buffer, HEALTH_BAR_P2_START_X, HEALTH_BAR_START_Y,
-				HEALTH_BAR_P2_START_X + HEALTH_BAR_UNIT_SIZE*(player2->health), HEALTH_BAR_START_Y + HEALTH_BAR_HEIGHT,
-				0x740, 0);
-		alt_up_pixel_buffer_dma_swap_buffers(pixel_buffer);
-		alt_up_pixel_buffer_dma_draw_box(pixel_buffer, HEALTH_BAR_P2_START_X, HEALTH_BAR_START_Y,
-				HEALTH_BAR_P2_START_X + HEALTH_BAR_UNIT_SIZE*MAX_HEALTH, HEALTH_BAR_START_Y + HEALTH_BAR_HEIGHT,
-				0x000, 0);
-		alt_up_pixel_buffer_dma_draw_box(pixel_buffer, HEALTH_BAR_P2_START_X, HEALTH_BAR_START_Y,
-				HEALTH_BAR_P2_START_X + HEALTH_BAR_UNIT_SIZE*(player2->health), HEALTH_BAR_START_Y + HEALTH_BAR_HEIGHT,
-				0x740, 0);
-		player2->old_health = player2->health;
+		if (player->health > 0)
+			alt_up_pixel_buffer_dma_draw_box(pixel_buffer, start_x, HEALTH_BAR_START_Y,
+					start_x + HEALTH_BAR_UNIT_SIZE*(player->health), HEALTH_BAR_START_Y + HEALTH_BAR_HEIGHT,
+					0x740, 0);
+		player->old_health = player->health;
 	}
 }
