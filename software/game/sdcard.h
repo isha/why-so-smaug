@@ -65,6 +65,20 @@ short int sdcard_read(short int sdcard_file) {
 	return alt_up_sd_card_read(sdcard_file);
 }
 
+unsigned int sdcard_audio_read_little_end (short int fp) {
+	unsigned int part_read;
+	unsigned int full_read;
+
+	part_read = sdcard_read(fp);
+	full_read = part_read % 0x100;
+
+	part_read = sdcard_read(fp);
+	part_read = part_read % 0x100;
+	full_read = part_read*16*16 + full_read;
+
+	return full_read;
+}
+
 //Tests SD Card module
 void sdcard_test() {
 	short int wfile_handle;
