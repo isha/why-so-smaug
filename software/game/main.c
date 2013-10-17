@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdbool.h>
+#include <stdlib.h>
 #include "sdcard.h"
 #include "vga.h"
 #include "timer.h"
@@ -11,6 +12,7 @@
 #include "audio.h"
 #include "screen_name.h"
 #include "io.h"
+#include "scoreboard.h"
 
 #define HEALTH_BAR_P1_START_X 33
 #define HEALTH_BAR_P2_START_X 218
@@ -41,6 +43,8 @@ int main(void)
 	char * message;
 	int time = 0;
 	init();
+
+	clear_token(scoreboard_string);
 
 	// Selection
 	player_name = get_screen_name();
@@ -130,7 +134,8 @@ int main(void)
 		time++;
 	}
 
-	game_over();
+
+	game_over(player1, player2);
 
 	while(1);
 

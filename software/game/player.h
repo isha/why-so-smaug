@@ -6,11 +6,11 @@
 #include "player_controls.h"
 #include "player_def.h"
 
-#define MAX_HEALTH 10
+#define MAX_HEALTH 1
 #define START_TIME 0
 #define START_SCORE 0
-#define START_COORDINATE_X 160
-#define START_COORDINATE_Y 100
+#define START_COORDINATE_X 80
+#define START_COORDINATE_Y 70
 
 extern void * bitmap_for_player_type[4];
 

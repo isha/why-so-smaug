@@ -5,6 +5,7 @@
 #include "obstacle.h"
 #include "vga.h"
 #include "player.h"
+#include "scoreboard.h"
 
 int pixel_colors[RESOLUTION_X][RESOLUTION_Y];
 int initial_pixel_colors[RESOLUTION_X][RESOLUTION_Y];
@@ -124,8 +125,10 @@ void update_screen(Map * map) {
 
 	// Obstacles
 	Obstacle * current = map->obstacles;
+//	printf("\n Pointing to the first obstacle");
 	while (current != NULL) {
 		Bitmap * bitmap = get_bitmap(current->type);
+//		printf("\nGot bitmap");
 		// Erase old
 		for (i=0; i<bitmap->height; i++) {
 			for (j=0; j<bitmap->width; j++) {
@@ -177,7 +180,7 @@ void text (int time, Player * player1, Player * player2, char * message) {
 }
 
 
-void game_over() {
+void game_over(Player* player1, Player* player2) {
 	Bitmap * bmp = load_bitmap("game.bmp");
 
 	int i, j;
@@ -186,6 +189,20 @@ void game_over() {
 			pixel_colors[j][i] = bmp->data[i*bmp->width + j];
 		}
 	draw_to_screen();
+
+	read_scores_from_sd_card();
+
+	// display scoreboard
+	update_scoreboard(player1);
+	printf("hey1\n");
+//	update_scoreboard(player2);
+	printf("hey2\n");
+//	convert_scoreboard_to_string();
+	printf("hey3\n");
+//	write_scores_to_sd_card();
+	printf("hey4\n");
+	display_scoreboard();
+	printf("hey5\n");
 }
 
 void splash_screen() {
