@@ -36,6 +36,7 @@ void init() {
 
 int main(void)
 {
+
 	char * player_name;
 	char * message;
 	int time = 0;

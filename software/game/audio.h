@@ -43,6 +43,8 @@ void initialize_audio() {
 }
 
 alt_up_audio_dev * start_audio(){
+	splash_screen();
+
 	// open the Audio port;
 	alt_up_audio_dev * audio_device = alt_up_audio_open_dev("/dev/audio");
 	if ( audio_device == NULL)
@@ -82,6 +84,8 @@ alt_up_audio_dev * start_audio(){
 	data = data2;
 
 	globalMaxInd = read/64;
+
+	remove_splash_screen();
 
 	// Start the interrupt
 	static alt_alarm alarm;

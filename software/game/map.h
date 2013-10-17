@@ -187,4 +187,26 @@ void game_over() {
 		}
 	draw_to_screen();
 }
+
+void splash_screen() {
+	alt_up_char_buffer_clear(char_buffer);
+	Bitmap * bmp = load_bitmap("splash.bmp");
+
+	int i, j;
+	for (i=0; i<bmp->height; i++)
+		for(j=0; j<bmp->width; j++) {
+			pixel_colors[j][i] = bmp->data[i*bmp->width + j];
+		}
+	draw_to_screen();
+}
+
+void remove_splash_screen() {
+	int i, j;
+	for (i=0; i < 240; i++){
+		for (j=0; j < 320; j++){
+			pixel_colors[j][i] = 0;
+		}
+	}
+	draw_to_screen();
+}
 #endif /* LCD_H_ */
