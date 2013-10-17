@@ -93,7 +93,8 @@ void draw_player(Player* player) {
 			if (!(player->coordinates_x+j > RESOLUTION_X || player->coordinates_x+j < 0 ||
 					player->coordinates_y+i > RESOLUTION_Y || player->coordinates_y+i < 0)){
 				if (player_bitmap->data[i*player_bitmap->width + j])
-					pixel_colors[player->coordinates_x+j][player->coordinates_y+i] = player_bitmap->data[i*player_bitmap->width + j];
+					pixel_colors[player->coordinates_x+j][player->coordinates_y+i] =
+							player->hurt ? ~player_bitmap->data[i*player_bitmap->width + j] : player_bitmap->data[i*player_bitmap->width + j];
 			}
 		}
 	}

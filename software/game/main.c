@@ -55,6 +55,9 @@ int main(void)
 
 	// Main game play
 	while (game_on && !(player1->health <= 0 && player2->health <= 0)) {
+		player1->hurt = false;
+		player2->hurt = false;
+
 		if (time % 100 == 0 && time > 0) {
 			map->velocity += 5;
 			levelup_screen();
@@ -81,14 +84,14 @@ int main(void)
 
 			// Update screen
 			update_screen(map);
+			check_collision(player1, map);
+			check_collision(player2, map);
+
 			next_player(player1);
 			next_player(player2);
 
 			// Draw EVERYTHING
 			draw_to_screen();
-
-			check_collision(player1, map);
-			check_collision(player2, map);
 
 			update_health_bar(player1,HEALTH_BAR_P1_START_X, false);
 			update_health_bar(player2,HEALTH_BAR_P2_START_X, false);
@@ -105,12 +108,12 @@ int main(void)
 
 				// Update screen
 				update_screen(map);
+
+				check_collision(player1, map);
 				next_player(player1);
 
 				// Draw EVERYTHING
 				draw_to_screen();
-
-				check_collision(player1, map);
 
 				update_health_bar(player1,HEALTH_BAR_P1_START_X, false);
 			}
@@ -125,12 +128,12 @@ int main(void)
 
 				// Update screen
 				update_screen(map);
+
+				check_collision(player2, map);
 				next_player(player2);
 
 				// Draw EVERYTHING
 				draw_to_screen();
-
-				check_collision(player2, map);
 
 				update_health_bar(player2,HEALTH_BAR_P2_START_X, false);
 			}
@@ -211,9 +214,11 @@ Obstacle* on_collide(Player* player, Obstacle* obstacle, Obstacle* prev, Map* ma
 	switch(obstacle->type) {
 	case PYLON:
 		damage_health(player, 1);
+		player->hurt = true;
 		break;
 	case PLANE:
 		damage_health(player, 1);
+		player->hurt = true;
 		break;
 	case CHEST:
 		add_score(player, 100);
