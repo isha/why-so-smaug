@@ -23,7 +23,7 @@ Obstacle* on_collide(Player* player, Obstacle* obstacle, Obstacle* prev, Map* ma
 void damage_health(Player* player, int damage);
 void add_health(Player* player, int add_by);
 void add_score(Player* player, int score);
-void update_health_bar(Player* player1, int start_x);
+void update_health_bar(Player* player1, int start_x, bool);
 void draw_initial_health_bar(void);
 
 void init() {
@@ -36,7 +36,6 @@ void init() {
 
 int main(void)
 {
-
 	char * player_name;
 	char * message;
 	int time = 0;
@@ -55,75 +54,86 @@ int main(void)
 
 	// Main game play
 	while (game_on && !(player1->health <= 0 && player2->health <= 0)) {
-		if (player1->health > 0 && player2->health > 0){
-			// User input
-			read_switches(true);
-			read_switches(false);
+		player1->hurt = false;
+		player2->hurt = false;
 
-			// Update positions
-			next_map(map);
-
-			erase_player(player1);
-			erase_player(player2);
-
-			Obstacle* current = map->obstacles;
-
-			// Update screen
-			update_screen(map);
-			next_player(player1);
-			next_player(player2);
-
-			// Draw EVERYTHING
-			draw_to_screen();
-
-			check_collision(player1, map);
-			check_collision(player2, map);
-
-			update_health_bar(player1,HEALTH_BAR_P1_START_X);
-			update_health_bar(player2,HEALTH_BAR_P2_START_X);
-
+		if (time % 100 == 0 && time > 0) {
+			map->velocity += 5;
+			levelup_screen();
+			usleep(1000000);
+			back_orig_screen();
+			update_health_bar(player1,HEALTH_BAR_P1_START_X, true);
+			update_health_bar(player2,HEALTH_BAR_P2_START_X, true);
 		}
-		else if (player1->health > 0){
-			// User input
-			read_switches(true);
+		else{
+			if (player1->health > 0 && player2->health > 0){
+				// User input
+				read_switches(true);
+				read_switches(false);
 
-			// Update positions
-			next_map(map);
+				// Update positions
+				next_map(map);
 
-			erase_player(player1);
+				erase_player(player1);
+				erase_player(player2);
 
-			// Update screen
-			update_screen(map);
-			next_player(player1);
+				Obstacle* current = map->obstacles;
 
-			// Draw EVERYTHING
-			draw_to_screen();
+				// Update screen
+				update_screen(map);
+				check_collision(player1, map);
+				check_collision(player2, map);
 
-			check_collision(player1, map);
+				next_player(player1);
+				next_player(player2);
 
-			update_health_bar(player1,HEALTH_BAR_P1_START_X);
+				// Draw EVERYTHING
+				draw_to_screen();
+
+				update_health_bar(player1,HEALTH_BAR_P1_START_X, false);
+				update_health_bar(player2,HEALTH_BAR_P2_START_X, false);
+			}
+			else if (player1->health > 0){
+				// User input
+				read_switches(true);
+
+				// Update positions
+				next_map(map);
+
+				erase_player(player1);
+
+				// Update screen
+				update_screen(map);
+
+				check_collision(player1, map);
+				next_player(player1);
+
+				// Draw EVERYTHING
+				draw_to_screen();
+
+				update_health_bar(player1,HEALTH_BAR_P1_START_X, false);
+			}
+			else if (player2->health > 0){
+				// User input
+				read_switches(false);
+
+				// Update positions
+				next_map(map);
+
+				erase_player(player2);
+
+				// Update screen
+				update_screen(map);
+
+				check_collision(player2, map);
+				next_player(player2);
+
+				// Draw EVERYTHING
+				draw_to_screen();
+
+				update_health_bar(player2,HEALTH_BAR_P2_START_X, false);
+			}
 		}
-		else if (player2->health > 0){
-			// User input
-			read_switches(false);
-
-			// Update positions
-			next_map(map);
-
-			erase_player(player2);
-
-			// Update screen
-			update_screen(map);
-			next_player(player2);
-
-			// Draw EVERYTHING
-			draw_to_screen();
-
-			check_collision(player2, map);
-
-			update_health_bar(player2,HEALTH_BAR_P2_START_X);
-		}
-
 		// All text on screen
 		text(time, player1, player2, NULL);
 
@@ -176,7 +186,7 @@ Obstacle* remove_obstacle(Map* map, Obstacle * prev, Obstacle * current_obstacle
 	Bitmap * bitmap = get_bitmap(current_obstacle->type);
 	// Erase old
 	for (i=0; i<bitmap->height; i++) {
-		for (j= -1*MAP_VELOCITY; j<bitmap->width; j++) {
+		for (j= -1*map->velocity; j<bitmap->width; j++) {
 			if (!(current_obstacle->old_coordinates_x+j > RESOLUTION_X || current_obstacle->old_coordinates_x+j < 0 ||
 					current_obstacle->old_coordinates_y+i > RESOLUTION_Y || current_obstacle->old_coordinates_y+i < 0)){
 				pixel_colors[current_obstacle->old_coordinates_x+j][current_obstacle->old_coordinates_y+i] = 0;
@@ -200,9 +210,11 @@ Obstacle* on_collide(Player* player, Obstacle* obstacle, Obstacle* prev, Map* ma
 	switch(obstacle->type) {
 	case PYLON:
 		damage_health(player, 1);
+		player->hurt = true;
 		break;
 	case PLANE:
 		damage_health(player, 1);
+		player->hurt = true;
 		break;
 	case CHEST:
 		add_score(player, 100);
@@ -239,8 +251,8 @@ void draw_initial_health_bar(){
 			0x740, 0);
 }
 
-void update_health_bar(Player * player, int start_x) {
-	if (player->old_health != player->health) {
+void update_health_bar(Player * player, int start_x, bool force) {
+	if ((player->old_health != player->health) || force && player->health>0) {
 		alt_up_pixel_buffer_dma_draw_box(pixel_buffer, start_x, HEALTH_BAR_START_Y,
 				start_x + HEALTH_BAR_UNIT_SIZE*MAX_HEALTH, HEALTH_BAR_START_Y + HEALTH_BAR_HEIGHT,
 				0x000, 0);

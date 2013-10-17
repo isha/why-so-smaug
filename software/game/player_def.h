@@ -10,6 +10,7 @@
 
 typedef struct{
 	char* screen_name;
+	bool hurt;
 	int score;
 	int time;
 	int health;
