@@ -27,6 +27,7 @@ Player * construct_player(char* screen_name, PlayerType type) {
 	player->coordinates_x = START_COORDINATE_X;
 	player->coordinates_y = type == PLAYER1 ? START_COORDINATE_Y : START_COORDINATE_Y + 50;
 	player->type = type;
+	player->hurt = false;
 	return player;
 }
 
@@ -98,6 +99,7 @@ void draw_player(Player* player) {
 			}
 		}
 	}
+	if (player->hurt) player->hurt = false;
 }
 
 void erase_player(Player* player) {

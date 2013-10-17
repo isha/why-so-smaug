@@ -29,7 +29,7 @@ Map * construct_map() {
 	map->bitmap = load_bitmap("bwin.bmp");
 	map->velocity = MAP_VELOCITY;
 
-	int d1 = alt_timestamp()%6;
+	int d1 = alt_timestamp()%5;
 	int d2 = 320;
 	int d3 = alt_timestamp()%110 + 30;
 
@@ -47,7 +47,7 @@ void add_obstacle (Map * map) {
 		alt_timestamp_start();
 		time = alt_timestamp();
 	}
-	int d1 = time%5;
+	int d1 = time%3 == 1 ? time%5 + 2 : time%2;
 	int d2 = 320;
 	int d3 = time%110 + 30;
 
